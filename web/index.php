@@ -9,4 +9,18 @@ require(__DIR__ . '/../vendor/yiisoft/yii2/Yii.php');
 
 $config = require(__DIR__ . '/../config/web.php');
 
+
+
+/*
+ * The function is test method in global
+ */
+
+function dump( $data )
+{
+	echo "<pre>";
+	var_dump( $data );
+	echo "<br/>";
+}
+
+
 (new yii\web\Application($config))->run();
