@@ -11,6 +11,7 @@ namespace app\controllers;
 use yii\web\Controller;
 use Yii;
 use yii\web\User;
+use yii\web\Session;
 
 use app\models\Manager;
 use app\models\Index;
@@ -21,21 +22,30 @@ class IndexController extends Controller
 {
 
 	/*
+	 * @boolean  true 代表登陆后第一次进入主页,  false 代表只是在主页刷新而已. 
+	 *			在主页中根据此变量, true 展示 "登陆成功" 的提示框, false 反之.
+	 */
+
+	
+	/*
 	 * 作用: 展示管理员登陆的界面 与 接收管理员登陆的信息
 	 */
 	public function actionIndex()
 	{
 
-		if( $identity = Yii::$app->user->identity ){
+		$user    = Yii::$app->user; 
+		$session = Yii::$app->session;
+		$session -> open();
+
+		
+		if( $identity = $user -> identity ){
 			
 			$indexModel = new Index;
-			// @boolean $tip 指代 view层中是否出现 "登陆成功" 的提示框, true/false
-			$indexModel -> prevIsLogin() ? $tip = true : $tip = false;
 
 			return $this->render('index', [
 				
-				'model' => $identity,
-				'tip'   => $tip,	
+				'model'		   => $identity,
+				'session'	   => $session,
 			]);					
 		
 		}
@@ -48,22 +58,24 @@ class IndexController extends Controller
 		
 		if( $post = Yii::$app->request->post() ){
 			
-			$username = $post['Manager']['managerUsername'];
+			$username =      $post['Manager']['managerUsername'];
 			$password = md5( $post['Manager']['managerPassword'] );
 			 
 
 			// 验证用户提交的用户名与密码 是否匹配数据库中的。
 			$identity = Manager::findOne([
 				'managerUsername' => $username,
-				'managerPassword' => $password
+				'managerPassword' => $password,
 		   	]);
 
 			if ( $identity ){
 				
-				$user = Yii::$app->user; // user 组件
+				$user    = Yii::$app->user;    // user 组件
+				$session = Yii::$app->session; // session 组件
 
 				if( $user->login( $identity) ){
 					
+					$session['isFirstLogin'] = true;
 					$this->goHome();
 
 				} else {
