@@ -21,11 +21,6 @@ use app\models\Index;
 class IndexController extends Controller
 {
 
-	/*
-	 * @boolean  true 代表登陆后第一次进入主页,  false 代表只是在主页刷新而已. 
-	 *			在主页中根据此变量, true 展示 "登陆成功" 的提示框, false 反之.
-	 */
-
 	
 	/*
 	 * 作用: 展示管理员登陆的界面 与 接收管理员登陆的信息
@@ -36,26 +31,27 @@ class IndexController extends Controller
 		$user    = Yii::$app->user; 
 		$session = Yii::$app->session;
 		$session -> open();
-
 		
 		if( $identity = $user -> identity ){
 			
-			$indexModel = new Index;
-
 			return $this->render('index', [
 				
-				'model'		   => $identity,
-				'session'	   => $session,
+				'model'	   => $identity,
+				'session'  => $session,
 			]);					
-		
 		}
-		
-		
 	}
 
+
+	/**
+	 * 用户登录模块, 输入正确跳转到路由 index/index, 输入错误就跳转本页并给出提示框.
+	 * @return  goHome() | render('login')
+	 */
 	public function actionLogin()
 	{
 		
+		$managerModel = new Manager;	
+
 		if( $post = Yii::$app->request->post() ){
 			
 			$username =      $post['Manager']['managerUsername'];
@@ -76,35 +72,48 @@ class IndexController extends Controller
 				if( $user->login( $identity) ){
 					
 					$session['isFirstLogin'] = true;
-					$this->goHome();
+					return $this->goHome();
 
 				} else {
-					echo "用户名或密码正确，但登陆失败";	
+					$tipText = '登陆失败';	
 				}	
 
 			} else {
-				echo "用户名或密码错误！";	
+				$tipText = '用户名或密码错误,请重新输入';	
 			}
 
 
-
-			
-		
+			return $this->render( 'login', [
+				'model'   => $managerModel, 
+				'tipText' => $tipText,			
+			]);
 
 		} else {
 
-			$managerModel = new Manager;	
 			return $this->render('login', ['model' => $managerModel ]);	
 		}
-	
 	}
 
+
+	/**
+	 * 用户登出 
+	 * @return 返回路由 index/login (登录页)
+	 */
+	public function actionLogout()
+	{
+		$user =	Yii::$app->user;	
+		if ( $user -> identity) {
+			$user -> logout();	
+			return $this -> redirect(['index/login']);
+		}
+	}
+	
 
 
 	public function actionTest()
 	{
-
 	}
+
 
 
 
