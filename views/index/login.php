@@ -6,7 +6,13 @@ use yii\helpers\Html;
 
 LoginAsset::register( $this );
 
+if ( isset( $tipText )){
+	echo "<script>
+				window.onload = function(){ layer.msg(' $tipText ', {offset: '100px'}); }
+		</script>";	
+}
 ?>
+
 <div class="login" >
 <?php $form = ActiveForm::begin() ?>
 
