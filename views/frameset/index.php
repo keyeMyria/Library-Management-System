@@ -9,7 +9,9 @@
 
 	<frameset cols="18%,82%" >
 		<frame src="index.php?r=frameset/left" scrolling="no"> 
-		<frame src="right.html" name="right" >
+
+
+		<frame src="index.php?r=index/index" name="right" >
 	</frameset>
 
 </frameset>

@@ -12,7 +12,7 @@ FramesetLeftAsset::register( $this );
         <div id="sidebar">
             <ul>
                 <li>
-                    <a href="index.html">
+                    <a href="index.php?r=index/index"  target="right" >
                         <img src="images/frameset/left/home.png" alt="" />
                        主页 
                     </a>
