@@ -31,6 +31,7 @@ class IndexController extends Controller
 		$user    = Yii::$app->user; 
 		$session = Yii::$app->session;
 		$session -> open();
+		echo "fucl";
 		
 		if( $identity = $user -> identity ){
 			
@@ -39,7 +40,9 @@ class IndexController extends Controller
 				'model'	   => $identity,
 				'session'  => $session,
 			]);					
-		}
+		} 
+				
+	
 	}
 
 
@@ -72,7 +75,7 @@ class IndexController extends Controller
 				if( $user->login( $identity) ){
 					
 					$session['isFirstLogin'] = true;
-					return $this->goHome();
+					return $this->redirect(['frameset/index']);
 
 				} else {
 					$tipText = '登陆失败';	
@@ -104,7 +107,15 @@ class IndexController extends Controller
 		$user =	Yii::$app->user;	
 		if ( $user -> identity) {
 			$user -> logout();	
-			return $this -> redirect(['index/login']);
+
+			/**
+			 * 用 js 的 top.location.href 去跳转, 而不是用 $this->redirect()，这样做
+			 * 的原因是：这个有 "登出" 按钮的页面, 是 frameset 框架中的 right 部分, 
+			 * 如果用了后者, 那么这个跳转还是在 right 部分内, 也就是说 你在　right 部分按了 "登出" 按钮
+			 * 但 frameset 内的　top \ left 部分还是在的。
+			 * 但如果你用的是前者, 他就是跳回一个完整的用户登陆页面.
+			 */
+			echo "<script>  top.location.href = 'index.php?r=index/login'; </script>";
 		}
 	}	
 
