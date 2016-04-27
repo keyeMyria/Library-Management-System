@@ -22,6 +22,10 @@ class LoginAsset extends AssetBundle
 		'js/layer/layer.js',
     ];
 
+	public $images = [
+		'img/test.png',	
+	];
+
     public $depends = [
         'yii\web\YiiAsset',
         'yii\bootstrap\BootstrapAsset',
