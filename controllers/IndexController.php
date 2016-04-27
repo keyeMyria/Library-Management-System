@@ -96,7 +96,7 @@ class IndexController extends Controller
 
 
 	/**
-	 * 用户登出 
+	 * 用户登出 (注销)
 	 * @return 返回路由 index/login (登录页)
 	 */
 	public function actionLogout()
@@ -106,16 +106,27 @@ class IndexController extends Controller
 			$user -> logout();	
 			return $this -> redirect(['index/login']);
 		}
-	}
-	
+	}	
 
 
-	public function actionTest()
+
+	public function actionFrameset()
 	{
+		return $this->renderPartial('frameset');
 	}
 
 
 
 
 
+	public function actionTop()
+	{
+		return $this->render('top');
+	}
+
+
+	public function actionLeft()
+	{
+		return $this->render('left');	
+	}
 }
