@@ -15,6 +15,7 @@ use yii\web\Session;
 
 use app\models\Manager;
 use app\models\Index;
+use app\models\ParseUserAgent;
 
 
 
@@ -28,17 +29,22 @@ class IndexController extends Controller
 	public function actionIndex()
 	{
 
+		$userAgentParse = new ParseUserAgent;
+		$userAgentData = $userAgentParse -> parse_user_agent();
+
+	#	dump( $userAgentData );
 		$user    = Yii::$app->user; 
 		$session = Yii::$app->session;
 		$session -> open();
-		echo "fucl";
 		
 		if( $identity = $user -> identity ){
 			
 			return $this->render('index', [
 				
-				'model'	   => $identity,
-				'session'  => $session,
+				'model'	    => $identity,
+				'session'   => $session,
+				'userAgent' => $userAgentData,
+
 			]);					
 		} 
 				

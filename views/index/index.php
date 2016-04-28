@@ -15,5 +15,26 @@ if ( $session['isFirstLogin'] ) {
 $session['isFirstLogin'] = false;
 ?>
 
-<h3>index</h1>
-<a href="http://localhost/Library-Management-System/web/index.php?r=index/logout">登出</a>
+
+<div class="all" >
+
+	<div class="upper">
+		<div class="top">
+			<!-- <h2>欢迎进入Git图书馆管理系统</h2>	-->
+			<h2>Git</h2>
+			<span>
+				公告:丢掉多余的空白符。如果给定这个值，换行字符（回车）会转换为空格，一行中多个空格的序列也会转换为一个空格。
+			</span>
+		</div>
+	</div>
+
+	<div class="lower">
+		<div class="left">
+		<span>运行系统 :   <?php echo $userAgent['platform'];  ?></span><br/>
+		<span>浏览器 :  <?php echo $userAgent['browser']; ?> </span><br/>
+		<span>版本 :  <?php echo $userAgent['version']; ?> </span><br/>
+		</div>
+		<div class="right"></div>
+	</div>
+
+</div>
