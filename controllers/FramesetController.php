@@ -32,6 +32,9 @@ class FramesetController extends Controller
 	}
 
 
+	/** 
+	 *	展示 top 栏，用于 frameset 页面上的 top 部分（展示已登陆的用户名，和显示 "登出" 按钮 )
+	 */
 	public function actionTop()
 	{
 		$model = Yii::$app->user->identity;	
@@ -40,6 +43,9 @@ class FramesetController extends Controller
 	}
 
 
+	/**
+	 * 展示 左侧导航栏，用于 frameset 页面上的 左侧导航栏
+	 */
 	public function actionLeft()
 	{
 		return $this->render('left');	
