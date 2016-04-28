@@ -48,7 +48,7 @@ $config = [
         */
     ],
     'params' => $params,
-	'defaultRoute' => 'index'
+	'defaultRoute' => 'frameset'
 ];
 
 if (YII_ENV_DEV) {
