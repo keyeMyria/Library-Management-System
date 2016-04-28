@@ -7,7 +7,7 @@
 	-->
 	<frame src="index.php?r=frameset/top">
 
-	<frameset cols="18%,82%" >
+	<frameset cols="17.8%,82.2%" >
 		<frame src="index.php?r=frameset/left" scrolling="no"> 
 
 
