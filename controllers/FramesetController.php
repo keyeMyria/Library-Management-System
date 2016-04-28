@@ -19,17 +19,24 @@ class FramesetController extends Controller
 
 
 	/**
-	 * 展示主页
+	 * 展示主页 ( 有登陆的身份标示才显示 Index, 没有身份标示说明未登陆,
+	 * 则跳回 index/login )
 	 */
 	public function actionIndex()
 	{
-		return $this->renderPartial('index');	
+		if( Yii::$app->user->identity ) {
+			return $this->renderPartial('index');	
+		} else {
+			return $this->redirect(['index/login']);	
+		}
 	}
 
 
 	public function actionTop()
 	{
-		return $this->render('top');	
+		$model = Yii::$app->user->identity;	
+		return $this->render('top', [ 'model' => $model ]);	
+		
 	}
 
 
@@ -38,10 +45,6 @@ class FramesetController extends Controller
 		return $this->render('left');	
 	}
 
-	public function actionRight()
-	{
-		return $this->render('right');	
-	}
 }
 
 
