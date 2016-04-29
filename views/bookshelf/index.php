@@ -13,7 +13,7 @@ BookshelfAsset::register( $this );
 <div class="all">
 	<div class="bread-nav">
 		<span>参数设置</span>  >
-		<span>书架设置</span>
+		<span>书架管理</span>
 	</div>
 
 
