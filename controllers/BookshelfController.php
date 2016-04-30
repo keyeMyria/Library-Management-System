@@ -10,6 +10,7 @@ use yii\web\Controller;
 use Yii;
 use yii\db\Query;
 use yii\data\Pagination;
+use yii\web\Session;
 
 use app\models\Bookshelf;
 
@@ -21,6 +22,7 @@ class BookshelfController extends Controller
 	 * 定义一页能显示多少条数据
 	 */
 	public $defaultPageSize = 10;
+
 
 
 
@@ -38,14 +40,15 @@ class BookshelfController extends Controller
 
 		} else {
 
+			$session = new Session;
+
 			$model = new Bookshelf;
 
-			$query = (new \yii\db\Query) 
+			$query = (new Query) 
 				-> select(['PK_bookshelfID', 'bookshelfName']) 
 				-> orderBy('PK_bookshelfID DESC') 
 				-> from('lib_bookshelf');
 			$cloneQuery = clone $query;
-
 		
 			$pages = new Pagination(['totalCount' => $cloneQuery->count() ]);
 			$pages -> defaultPageSize =  $this -> defaultPageSize;
@@ -54,9 +57,11 @@ class BookshelfController extends Controller
 					       -> all();
 
 			return $this->render('index', [
-				'model' => $model,
-				'data'  => $data,
-				'pages' => $pages,
+				'model'		=> $model,
+				'data'		=> $data,
+				'pages'		=> $pages,
+				'session'   => $session,
+
 			]);		
 		}
 	}	
@@ -72,9 +77,13 @@ class BookshelfController extends Controller
 		$bookshelfModel -> bookshelfName = $post['Bookshelf']['bookshelfName'];
 
 		if( $bookshelfModel -> save() ){
+			$session = new Session;
+			$session['isShowTip'] = true;
+
 			return $this->redirect(['index']);
 		}
 	}
+
 
 
 }
