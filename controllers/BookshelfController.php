@@ -25,7 +25,9 @@ class BookshelfController extends Controller
 
 
 	/**
-	 * 展现 参数设置 > 书架管理 的 Index 页面
+	 * 展现 参数设置 > 书架管理 的 Index 页面, 
+	 * 因为该 Index 页面中有集成了 添加书架的功能，因此在此方法内是需要判断有无 POST 
+	 * 数据提交，若有 那就是 添加书架，若没有POST提交 那就是展示书架的数据
 	 */
 	public function actionIndex()
 	{
@@ -42,9 +44,6 @@ class BookshelfController extends Controller
 				-> select(['PK_bookshelfID', 'bookshelfName']) 
 				-> orderBy('PK_bookshelfID DESC') 
 				-> from('lib_bookshelf');
-			#$data = $query->all();	
-			#dump( $data );exit;
-			#$query = Bookshelf::find();
 			$cloneQuery = clone $query;
 
 		
@@ -53,7 +52,6 @@ class BookshelfController extends Controller
 			$data = $query -> offset( $pages->offset ) 
 						   -> limit( $pages->limit ) 
 					       -> all();
-
 
 			return $this->render('index', [
 				'model' => $model,
@@ -77,5 +75,6 @@ class BookshelfController extends Controller
 			return $this->redirect(['index']);
 		}
 	}
+
 
 }
