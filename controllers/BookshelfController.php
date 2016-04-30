@@ -104,4 +104,41 @@ class BookshelfController extends Controller
 		}
 	}
 
+
+
+	/**
+	 * 书架名称修改 , 当 get 数据中有id的话，就表明是从 bookshelf的 index 页过来的，如果 是post提交，就表明已经做出了修改，把修改保存回数据库，并跳转回 bookshelf 的 index.
+	 *
+	 */
+	public function actionUpdateBookshelf()
+	{
+		$session = Yii::$app->session;
+		$request = Yii::$app->request;
+
+		if ( $post = $request->post() ) {
+
+			$bookshelf = Bookshelf::findOne( $post['id'] ); 
+			$bookshelf -> bookshelfName = $post['Bookshelf']['bookshelfName'];
+
+			if( $bookshelf -> save() ){
+				$session['isShowTip'] = true;			 	
+				return $this->redirect(['bookshelf/index']);
+			}
+
+		} elseif ( $id = $request->get('id') ){
+
+			$bookshelfModel = new Bookshelf;
+			$bookshelf      = Bookshelf::findOne( $id );		
+
+			return $this->render( 'update', [
+				'model' => $bookshelfModel,	
+				'data'  => $bookshelf,
+			]);
+		} 
+		
+
+
+	}
+
+
 }
