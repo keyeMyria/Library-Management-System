@@ -38,17 +38,19 @@ $config = [
             ],
         ],
         'db' => require(__DIR__ . '/db.php'),
-        /*
+
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
+				'<controller:\w+>/<action:\w+>.html'=>'<controller>/<action>',
             ],
         ],
-        */
+
     ],
     'params' => $params,
-	'defaultRoute' => 'frameset'
+	'defaultRoute' => 'frameset',
 ];
 
 if (YII_ENV_DEV) {
