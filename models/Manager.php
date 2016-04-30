@@ -35,8 +35,15 @@ class Manager extends ActiveRecord implements IdentityInterface
 	public function rules()
 	{
 		return [
-			[['managerUsername', 'managerPassword'], 'required' ],	
-			[['managerUsername', 'managerPassword'], 'string', 'length' => [6,30], 'max' => 30 ],
+			[['managerUsername', 'managerPassword'], 'required', 'message' => '不能为空，请输入'  ],	
+			[
+				['managerUsername', 'managerPassword'],
+				'string',
+			   	'length' => [6,30],
+				'max' => 30,
+				'tooShort' => '至少6位字符', 
+				'tooLong'  => '至多30位字符',
+			],
 		];	
 	}
 
