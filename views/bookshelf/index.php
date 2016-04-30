@@ -68,7 +68,7 @@ if ( $session['isShowTip'] ){
 				<?php foreach( $data as $key => $value ) {  ?>
 					<tr>
 					<td><?php echo $data[ $key ]['bookshelfName']; ?></td>
-						<td><a>编辑</a></td>
+						<td><a href="<?= Url::toRoute(['bookshelf/update-bookshelf', 'id'=>$data[$key]['PK_bookshelfID'] ])?>" >编辑</a></td>
 						<td><a href="<?= Url::toRoute(['bookshelf/del-bookshelf', 'id'=>$data[$key]['PK_bookshelfID'] ])?>">删除</a></td> 
 				<?php } ?>
 
