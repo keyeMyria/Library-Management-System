@@ -25,9 +25,6 @@ if ( $session['isShowTip'] ){
 ?>
 
 
-
-
-
 <div class="all">
 	<div class="bread-nav">
 		<span>参数设置</span>  >
@@ -35,6 +32,11 @@ if ( $session['isShowTip'] ){
 	</div>
 
 
+<?php
+/**----------------------------------------------------
+ * 书架添加 
+ */
+?>
 	<div class="input-box">
 		<?php $form = ActiveForm::begin();  ?> 
 			<?= $form->field( $model, 'bookshelfName') ->textinput(['placeholder' => '请输入书架名称']) -> label( false ) ?>
@@ -48,6 +50,11 @@ if ( $session['isShowTip'] ){
 	</div>
 
 
+<?php
+/** -----------------------------------------------------
+ * 书架列表
+ */
+?>
 	<div class="table-box">
 		<table class="table table-hover table-bordered text-center">
 			<thead>
@@ -62,14 +69,18 @@ if ( $session['isShowTip'] ){
 					<tr>
 					<td><?php echo $data[ $key ]['bookshelfName']; ?></td>
 						<td><a>编辑</a></td>
-						<td><a>删除</a></td>
-					</tr>
+						<td><a href="<?= Url::toRoute(['bookshelf/del-bookshelf', 'id'=>$data[$key]['PK_bookshelfID'] ])?>">删除</a></td> 
 				<?php } ?>
 
 			</tbody>
 		</table>
 	</div>
 	
+<?php
+/** ------------------------------------------------------------
+ * 页码
+ */
+?>
 	<div class="pages-box">	
 		<?php
 			echo LinkPager::widget([
