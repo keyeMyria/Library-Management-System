@@ -12,6 +12,7 @@ use yii\web\Controller;
 use Yii;
 use yii\web\User;
 use yii\web\Session;
+use yii\helpers\Url;
 
 use app\models\Manager;
 use app\models\Index;
@@ -121,7 +122,8 @@ class IndexController extends Controller
 			 * 但 frameset 内的　top \ left 部分还是在的。
 			 * 但如果你用的是前者, 他就是跳回一个完整的用户登陆页面.
 			 */
-			echo "<script>  top.location.href = 'index.php?r=index/login'; </script>";
+			$url = Url::toRoute(['index/login']);
+			echo "<script>  top.location.href =	'$url'; </script>";
 		}
 	}	
 
