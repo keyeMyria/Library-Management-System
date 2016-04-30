@@ -86,4 +86,22 @@ class BookshelfController extends Controller
 
 
 
+
+	/**
+	 * 书架名称删除
+	 */
+	public function actionDelBookshelf()
+	{
+		if ( $id = Yii::$app->request->get('id')	){
+			if ( $bookshelf = Bookshelf::findOne( $id ) ){
+
+				$session = new Session;	
+				$session['isShowTip'] = true;
+
+				$bookshelf -> delete();	
+				return $this->redirect(['index']);
+			}
+		}
+	}
+
 }
