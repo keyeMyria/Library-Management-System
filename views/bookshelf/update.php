@@ -10,6 +10,9 @@ BookshelfAsset::register( $this );
 
 <div class="all">
 
+	<button class="btn btn-primary update-goback-btn" onclick='history.go(-1);'>返回</button>
+
+
 	<div class="bread-nav">
 		<span>参数设置</span> >
 		<span>书架管理</span> >
