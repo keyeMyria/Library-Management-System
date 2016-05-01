@@ -13,7 +13,7 @@ use yii\helpers\Url;
 	-->
 	<frame src="<?= Url::to(['frameset/top']) ?>">
 
-	<frameset cols="17.8%,82.2%" >
+	<frameset cols="16%,83%" >
 	<frame src="<?= Url::to(['frameset/left']) ?>" scrolling="no"> 
 
 
