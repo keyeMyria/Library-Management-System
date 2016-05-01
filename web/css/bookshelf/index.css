@@ -1,6 +1,6 @@
 .all{
 	/*width:900px;height:520px;*/
-	width:92%;height:520px;
+	width:92%;height:580px;
 	background:#FFFFF0; 
 	margin:auto;
 	position:relative;
@@ -41,4 +41,9 @@
 	position:absolute;
 	bottom:-1%;left:43%;
 
+}
+
+.update-goback-btn{
+	position:absolute;
+	top:3%;left:30%;
 }
