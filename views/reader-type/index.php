@@ -1,7 +1,7 @@
 <?php
 
-#use app\assets\BookshelfAsset;
-#use app\assets\LayerGlobalAsset;
+use app\assets\ReaderTypeAsset;
+use app\assets\LayerGlobalAsset;
 
 use yii\widgets\ActiveForm;
 use yii\widgets\LinkPager;
@@ -9,8 +9,8 @@ use yii\widgets\LinkPager;
 use yii\Helpers\Url;
 use yii\Helpers\Html;
 
-#BookshelfAsset::register( $this );
-#LayerGlobalAsset::register( $this );
+ReaderTypeAsset::register( $this );
+LayerGlobalAsset::register( $this );
 
 
 /** -------------------------------------------------------
