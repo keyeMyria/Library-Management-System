@@ -22,7 +22,7 @@ FramesetLeftAsset::register( $this );
                 <li><a href="#"><img src="../images/frameset/left/settings.png" alt="" /> 参数设置</a>
                     <ul>
 						 <li><a href="<?=  Url::to(['bookshelf/index', 'page' => 1])?>" target="right" >书架管理</a></li>
-						 <li><a href="">读者类型管理</a></li>
+						 <li><a href="<?=  Url::to(['reader-type/index', 'page' => 1]) ?>" target="right">读者类型管理</a></li>
 						 <li><a href="">出版社管理</a></li>
 						 <li><a href="">图书类型管理</a></li>
 					</ul>
