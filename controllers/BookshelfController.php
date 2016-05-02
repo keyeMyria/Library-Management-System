@@ -41,13 +41,12 @@ class BookshelfController extends Controller
 		} else {
 
 			$session = new Session;
-
-			$model = new Bookshelf;
-
-			$query = (new Query) 
+			$model   = new Bookshelf;
+			$query   = (new Query) 
 				-> select(['PK_bookshelfID', 'bookshelfName']) 
 				-> orderBy('PK_bookshelfID DESC') 
-				-> from('lib_bookshelf');
+				-> from( $model -> tableName() );
+			 
 			$cloneQuery = clone $query;
 		
 			$pages = new Pagination(['totalCount' => $cloneQuery->count() ]);
