@@ -1,6 +1,6 @@
 <?php
 
-use app\assets\BookshelfAsset;
+use app\assets\ParamSetGlobalAsset;
 use app\assets\LayerGlobalAsset;
 
 use yii\widgets\ActiveForm;
@@ -9,7 +9,7 @@ use yii\widgets\LinkPager;
 use yii\Helpers\Url;
 use yii\Helpers\Html;
 
-BookshelfAsset::register( $this );
+ParamSetGlobalAsset::register( $this );
 LayerGlobalAsset::register( $this );
 
 
