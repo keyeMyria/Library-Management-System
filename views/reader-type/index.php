@@ -1,6 +1,6 @@
 <?php
 
-use app\assets\ReaderTypeAsset;
+use app\assets\ParamSetGlobalAsset;
 use app\assets\LayerGlobalAsset;
 
 use yii\widgets\ActiveForm;
@@ -9,7 +9,7 @@ use yii\widgets\LinkPager;
 use yii\Helpers\Url;
 use yii\Helpers\Html;
 
-ReaderTypeAsset::register( $this );
+ParamSetGlobalAsset::register( $this );
 LayerGlobalAsset::register( $this );
 
 
@@ -37,10 +37,11 @@ LayerGlobalAsset::register( $this );
  * 书架添加 
  */
 ?>
-	<div class="input-box">
+	<div class="input-box reader-type-input-box" >
 		<?php $form = ActiveForm::begin();  ?> 
-			<?= $form->field( $model, 'readerTypeName') ->textinput(['placeholder' => '请输入书架名称']) -> label( false ) ?>
-			<?= $form->field( $model, 'readerTypeBorrowNumber') ->textinput(['placeholder' => '请输入书架名称']) -> label( false ) ?>
+			<?= $form->field( $model, 'readerTypeName') ->textinput(['placeholder' => '读者类型名称', 'class' => 'form-control reader-type-name']) -> label( false ) ?>
+			<?= $form->field( $model, 'readerTypeBorrowNumber') ->textinput(['placeholder' => '可借数量', 'class' => 'borrow-number form-control']) -> label( false ) ?>
+
 			<?= Html::submitButton('新增', ['class' => 'btn btn-primary add-bookshelf-btn'])	?>		
 		<?php ActiveForm::end()  ?>
 	</div>
