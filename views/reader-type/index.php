@@ -68,7 +68,13 @@ LayerGlobalAsset::register( $this );
 				</tr>
 			</thead>
 			<tbody>
-
+				<?php foreach( $data as $key => $value ) {  ?>
+					<tr>
+					<td><?php echo $data[ $key ]['readerTypeName']; ?></td>
+					<td><?php echo $data[ $key ]['readerTypeBorrowNumber']; ?></td>
+						<td><a href="<?= Url::toRoute(['bookshelf/update-reader-type', 'id'=>$data[$key]['PK_readerTypeID'] ])?>" >编辑</a></td>
+						<td><a href="<?= Url::toRoute(['bookshelf/del-reader-type', 'id'=>$data[$key]['PK_readerTypeID'] ])?>">删除</a></td> 
+				<?php } ?>
 			</tbody>
 		</table>
 	</div>
