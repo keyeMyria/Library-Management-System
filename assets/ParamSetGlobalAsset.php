@@ -9,15 +9,14 @@ use yii\web\AssetBundle;
  * @author Zhiqiao Xu  <xuzhiqiao97@gmail.com> 
  */
 
-class BookshelfAsset extends AssetBundle
+class ParamSetGlobalAsset extends AssetBundle
 {
     public $basePath = '@webroot';
     public $baseUrl = '@web';
 
     public $css = [
-		'css/bookshelf/index.css',
+		'css/paramSetGlobal/index.css',
 		'css/background.css',
-		'css/bookshelf/addBookshelf.css',
     ];
 
     public $js = [
