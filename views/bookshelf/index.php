@@ -40,7 +40,7 @@ if ( $session['isShowTip'] ){
 	<div class="input-box">
 		<?php $form = ActiveForm::begin();  ?> 
 			<?= $form->field( $model, 'bookshelfName') ->textinput(['placeholder' => '请输入书架名称']) -> label( false ) ?>
-			<?= Html::submitButton('新增', ['class' => 'btn btn-primary add-bookshelf-btn'])	?>		
+			<?= Html::submitButton('新增', ['class' => 'btn btn-primary add-btn'])	?>		
 		<?php ActiveForm::end()  ?>
 	</div>
 

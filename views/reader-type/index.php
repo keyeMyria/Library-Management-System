@@ -42,7 +42,7 @@ LayerGlobalAsset::register( $this );
 			<?= $form->field( $model, 'readerTypeName') ->textinput(['placeholder' => '读者类型名称', 'class' => 'form-control reader-type-name']) -> label( false ) ?>
 			<?= $form->field( $model, 'readerTypeBorrowNumber') ->textinput(['placeholder' => '可借数量', 'class' => 'borrow-number form-control']) -> label( false ) ?>
 
-			<?= Html::submitButton('新增', ['class' => 'btn btn-primary add-bookshelf-btn'])	?>		
+			<?= Html::submitButton('新增', ['class' => 'btn btn-primary add-btn'])	?>		
 		<?php ActiveForm::end()  ?>
 	</div>
 
