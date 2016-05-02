@@ -1,0 +1,77 @@
+/*
+ * 此 index.css 文件是一个让 参数设置 下 的所有模块所共用的。
+ * 负责他们的 index 首页的 bread-nav(面包屑导航) 、table (显示数据的表格) 、 input-box （新增条目的 input AND button )
+ * 因为 参数设置 下 的所有模块的 显示数据、新增条目的方式都是差不多的，所以我把这些共通的 css 样式都公共化了 ）
+ */
+
+
+
+.all{
+	/*width:900px;height:520px;*/
+	width:92%;height:580px;
+	background:#FFFFF0; 
+	margin:auto;
+	position:relative;
+	border-radius:10px;
+	margin-top:2%;
+	box-shadow:5px 5px 7px #848484;
+	
+	
+}
+
+.all .bread-nav{
+	color:#000;
+	font-size:14px;
+	position:absolute;
+	top:4%;left:5%;
+}
+
+
+.btn-box{
+
+	width:100%;height:100%;
+	position:absolute;
+	top:8%;left:5%;
+}
+
+
+.table-box{
+	width:90%;
+	margin:auto;
+	position:absolute;
+	top:13%;left:5%;
+	border-radius:10px;
+	border:1px solid #fff;
+
+}
+
+.pages-box{
+	position:absolute;
+	bottom:-1%;left:43%;
+
+}
+
+
+.input-box{
+	width:207px;height:33px;
+	position:absolute;
+	top:5%;left:74.5%;
+
+}
+
+.form-group{
+
+	width:150px;height:30px;
+	float:left;
+}
+
+.add-bookshelf-btn{
+	float:right;
+}
+
+
+.update-goback-btn{
+	position:absolute;
+	top:3%;left:30%;
+}
+
