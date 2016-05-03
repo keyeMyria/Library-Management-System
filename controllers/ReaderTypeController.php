@@ -15,8 +15,26 @@ use app\models\ReaderType;
 class ReaderTypeController extends Controller
 {
 
+	#定义一页面内显示多少条数据条目
 	public $defaultPageSize = 10;
+
 	
+	# 新增条目失败时，提示的内容
+	public $addFailTipContent = '新增条目与现有的条目重叠，新增失败';
+
+	   
+	# 新增条目成功时, 提示的内容
+	public $addTipContent = '添加成功';
+
+
+	# 删除条目成功时, 提示的内容
+	public $delTipContent = '删除成功';
+
+
+	# 更新条目成功时, 提示的内容
+	public $updateTipContent = '更新成功';
+	
+
 	public function actionIndex()
 	{
 		$request = Yii::$app->request;
@@ -55,23 +73,28 @@ class ReaderTypeController extends Controller
 
 	public function actionAddReaderType( $post )
 	{
+		$session         = new Session;
 		$ReaderTypeModel = new ReaderType;
-		#$ReaderTypeModel -> bookshelfName = $post['Bookshelf']['bookshelfName'];
-		$ReaderTypeModel -> readerTypeName = $post['ReaderType']['readerTypeName'];		
-		$ReaderTypeModel -> readerTypeBorrowNumber = $post['ReaderType']['readerTypeBorrowNumber'];		
+
 	
-		$res = ReaderType::find()->where( ['readerTypeName' => $post['ReaderType']['readerTypeName'] ] ) -> one();
-		if( !empty($res) ){
-			// 输入的 读者类型名称 已存在
+		$data = ReaderType::find()->where( ['readerTypeName' => $post['ReaderType']['readerTypeName'] ] ) -> one();
+
+		if( !empty( $data ) ){
+
+			// 输入的 读者类型名称 已存在, 那就不允许保存进数据库了。
 			// 那就给个 tip 说明，并返回 index
-			dump( $res );exit;
+			$session['tipContent'] = $this->addFailTipContent;	
+			$session['isShowTip']  = true;
+			return $this->redirect('index');	
 		}
 
 	
-		xit;
+		$ReaderTypeModel -> readerTypeName         = $post['ReaderType']['readerTypeName'];		
+		$ReaderTypeModel -> readerTypeBorrowNumber = $post['ReaderType']['readerTypeBorrowNumber'];		
+
 		if( $ReaderTypeModel -> save() ){
-			$session = new Session;
-			$session['isShowTip'] = true;
+			$session['isShowTip']  = true;
+			$session['tipContent'] = $this->addTipContent;
 
 			return $this->redirect(['index']);
 		}
@@ -81,6 +104,26 @@ class ReaderTypeController extends Controller
 
 
 
+	public function actionDelReaderType()
+	{
+
+		if(	$id  = Yii::$app->request->get('id') ){
+			if( $readerType = ReaderType::findOne( $id) ){
+				
+				$session = new Session;	
+				$session['isShowTip']  = true;
+				$session['tipContent'] = $this->delTipContent;
+				
+				$readerType -> delete();
+				return $this->redirect(['index']);
+			} else {
+
+				// 当在数据库中找不到要删除条目的 ID
+				return $this->redirect(['index']);
+			}	
+		}
+		
+	}
 
 
 
