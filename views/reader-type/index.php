@@ -17,10 +17,10 @@ LayerGlobalAsset::register( $this );
  * 判断是否出现 " 操作成功 " 的 tip 层
  * @var $session['isShowTip'] boolean  为 true 则出现 tip 层，false反之
  */
-#if ( $session['isShowTip'] ){
-#	echo " <script> window.onload = function(){ layer.msg('操作成功', { icon: 1, offset:'100px'}) } </script>";
-#	$session['isShowTip'] = false;
-#}
+if ( $session['isShowTip'] ){
+	echo " <script> window.onload = function(){ layer.msg('{$session['tipContent']}', { icon: 1, offset:'100px'}) } </script>";
+	$session['isShowTip'] = false;
+}
 
 ?>
 
@@ -60,7 +60,7 @@ LayerGlobalAsset::register( $this );
 	<div class="table-box">
 		<table class="table table-hover table-bordered text-center">
 			<thead>
-				<tr class="active"o>
+				<tr class="active" >
 					<td><b>读者类型名称</b></td>
 					<td><b>可借图书数量</b></td>
 					<td><b>编辑</b></td>
@@ -72,8 +72,8 @@ LayerGlobalAsset::register( $this );
 					<tr>
 					<td><?php echo $data[ $key ]['readerTypeName']; ?></td>
 					<td><?php echo $data[ $key ]['readerTypeBorrowNumber']; ?></td>
-						<td><a href="<?= Url::toRoute(['bookshelf/update-reader-type', 'id'=>$data[$key]['PK_readerTypeID'] ])?>" >编辑</a></td>
-						<td><a href="<?= Url::toRoute(['bookshelf/del-reader-type', 'id'=>$data[$key]['PK_readerTypeID'] ])?>">删除</a></td> 
+						<td><a href="<?= Url::toRoute(['reader-type/update-reader-type', 'id'=>$data[$key]['PK_readerTypeID'] ])?>" >编辑</a></td>
+						<td><a href="<?= Url::toRoute(['reader-type/del-reader-type', 'id'=>$data[$key]['PK_readerTypeID'] ])?>">删除</a></td> 
 				<?php } ?>
 			</tbody>
 		</table>
@@ -86,9 +86,9 @@ LayerGlobalAsset::register( $this );
 ?>
 	<div class="pages-box">	
 		<?php
-			#echo LinkPager::widget([
-			#		'pagination' => $pages,
-			#	]);
+			echo LinkPager::widget([
+					'pagination' => $pages,
+				]);
 
 		?>
 	</div>
