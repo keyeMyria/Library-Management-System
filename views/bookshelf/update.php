@@ -23,7 +23,7 @@ ParamSetGlobalAsset::register( $this );
 		<?php $form = ActiveForm::begin();  ?> 
 			<?= $form->field( $model, 'bookshelfName') ->textinput(['value' => $data->bookshelfName ]) -> label( false ) ?>
 			<?= Html::hiddenInput('id', $data->PK_bookshelfID) ?>
-			<?= Html::submitButton('修改', ['class' => 'btn btn-primary add-bookshelf-btn'])	?>		
+			<?= Html::submitButton('修改', ['class' => 'btn btn-primary add-btn'])	?>		
 		<?php ActiveForm::end()  ?>
 	</div>
 

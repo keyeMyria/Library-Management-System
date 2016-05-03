@@ -2,6 +2,8 @@
 
 /**
  * Parses a user agent string into its important parts
+ * 在收到响应时，分析 http 中的 user-agent 
+ * PaaseUserAgent　模型不关联任何的数据表
  *
  * @author Jesse G. Donat <donatj@gmail.com>
  * @link https://github.com/donatj/PhpUserAgent

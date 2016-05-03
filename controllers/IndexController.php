@@ -1,7 +1,7 @@
 <?php
 
 /*
- * IndexController: 管理员登陆验证、 图书馆管理系统的主页展示
+ * IndexController: 管理员登陆验证、用户注销、 图书馆管理系统的主页展示
  */
 
 
@@ -31,9 +31,8 @@ class IndexController extends Controller
 	{
 
 		$userAgentParse = new ParseUserAgent;
-		$userAgentData = $userAgentParse -> parse_user_agent();
+		$userAgentData  = $userAgentParse -> parse_user_agent();
 
-	#	dump( $userAgentData );
 		$user    = Yii::$app->user; 
 		$session = Yii::$app->session;
 		$session -> open();
@@ -45,7 +44,6 @@ class IndexController extends Controller
 				'model'	    => $identity,
 				'session'   => $session,
 				'userAgent' => $userAgentData,
-
 			]);					
 		} 
 				
@@ -127,25 +125,4 @@ class IndexController extends Controller
 		}
 	}	
 
-
-
-	public function actionFrameset()
-	{
-		return $this->renderPartial('frameset');
-	}
-
-
-
-
-
-	public function actionTop()
-	{
-		return $this->render('top');
-	}
-
-
-	public function actionLeft()
-	{
-		return $this->render('left');	
-	}
 }

@@ -111,7 +111,7 @@ class ReaderTypeController extends Controller
 			if( $readerType = ReaderType::findOne( $id) ){
 				
 				$session = new Session;	
-				$session['isShowTip']  = true;
+				$session['isShowTip' ] = true;
 				$session['tipContent'] = $this->delTipContent;
 				
 				$readerType -> delete();

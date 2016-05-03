@@ -1,10 +1,10 @@
 <?php
 
 /*
- * manager 模块
- * 负责对 lib_manager 数据库表的 CURD
+ * Manager 模块关联 lib_manager 数据表
+ * 对 ManagerController 提供数据服务
  *
- * 此模块是 manager 认证类
+ * 此模块是 manager 认证类, 实现了 IdentityInterface 接口
  */
 
 

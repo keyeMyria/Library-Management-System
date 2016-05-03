@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * ReaderType 模型类关联 lib_readerType 数据表
+ * 对 ReaderTypeController 提供数据服务
+ */
+
 namespace app\models;
 
 use yii\db\ActiveRecord;
@@ -15,10 +20,10 @@ class ReaderType extends ActiveRecord
 		return 'lib_readerType';	
 	}
 
+
 	public function rules()
 	{
 		return [
-			
 			[['readerTypeName', 'readerTypeBorrowNumber'], 'required', 'message' => '必填'],
 			[
 				'readerTypeName',
