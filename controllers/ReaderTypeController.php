@@ -93,8 +93,8 @@ class ReaderTypeController extends Controller
 		$ReaderTypeModel -> readerTypeBorrowNumber = $post['ReaderType']['readerTypeBorrowNumber'];		
 
 		if( $ReaderTypeModel -> save() ){
-			$session['isShowTip']  = true;
 			$session['tipContent'] = $this->addTipContent;
+			$session['isShowTip']  = true;
 
 			return $this->redirect(['index']);
 		}
@@ -122,131 +122,49 @@ class ReaderTypeController extends Controller
 				return $this->redirect(['index']);
 			}	
 		}
-		
 	}
 
 
 
+	/**
+	 * 读者类型管理的更新方法
+	 */
+	public function actionUpdateReaderType()
+	{
+		$session = Yii::$app->session;
+		$request = Yii::$app->request;
 
+		if ( $post = $request->post() ) {
 
+			$readerType = ReaderType::findOne( $post['id'] ); 
+			$readerType -> readerTypeName         = $post['ReaderType']['readerTypeName'];
+			$readerType -> readerTypeBorrowNumber = $post['ReaderType']['readerTypeBorrowNumber'];
 
+			if( $readerType -> save() ){
 
+				$session['tipContent'] = $this -> updateTipContent;
+				$session['isShowTip' ]  = true;			 	
+				return $this->redirect(['reader-type/index']);
+			}
 
+		} elseif ( $id = $request->get('id') ){
 
+			$readerTypeModel = new ReaderType;
+			$readerType      = ReaderType::findOne( $id );		
 
+			return $this->render( 'update', [
+				'model' => $readerTypeModel,	
+				'data'  => $readerType,
+			]);
+		} 
+		
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	}
 
 
 
 }
-
-
-
-
-
-
-
-
-
 
 
 
