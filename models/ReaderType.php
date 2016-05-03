@@ -15,4 +15,29 @@ class ReaderType extends ActiveRecord
 		return 'lib_readerType';	
 	}
 
+	public function rules()
+	{
+		return [
+			
+			[['readerTypeName', 'readerTypeBorrowNumber'], 'required', 'message' => '必填'],
+			[
+				'readerTypeName',
+				'string',
+				'length'=>[1,16],
+				'max' => 16,
+				'tooShort' => '至少一位字符',
+				'tooLong' => '至多16位字符' ,
+			],
+			[
+				'readerTypeBorrowNumber',
+				'integer',	
+				'max' => 60000,
+				'tooSmall' => '范围 1~60000',
+				'tooBig' => '范围 1~60000',
+				'message' => '请输入数字',
+			],
+
+		
+		];	
+	}
 }
