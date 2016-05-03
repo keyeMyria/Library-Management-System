@@ -1,10 +1,10 @@
 <?php
 
-use app\assets\BookshelfAsset;
+use app\assets\ParamSetGlobalAsset;
 use yii\widgets\ActiveForm;
 use yii\helpers\Html;
 
-BookshelfAsset::register( $this );
+ParamSetGlobalAsset::register( $this );
 
 ?>
 
