@@ -23,7 +23,7 @@ FramesetLeftAsset::register( $this );
                     <ul>
 						 <li><a href="<?=  Url::to(['bookshelf/index', 'page' => 1])?>" target="right" >书架管理</a></li>
 						 <li><a href="<?=  Url::to(['reader-type/index', 'page' => 1]) ?>" target="right">读者类型管理</a></li>
-						 <li><a href="">出版社管理</a></li>
+						 <li><a href="<?=  Url::to(['publisher/index', 'page' => 1]) ?>"  target="right">出版社管理</a></li>
 						 <li><a href="">图书类型管理</a></li>
 					</ul>
                 </li>
