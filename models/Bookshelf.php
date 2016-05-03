@@ -18,8 +18,8 @@ class Bookshelf extends ActiveRecord
 	public function rules()
 	{
 		return [
-			['bookshelfName', 'required'],
-			['bookshelfName', 'string', 'length' => [1,16]],		
+			['bookshelfName', 'required', 'message' => '必填'],
+			['bookshelfName', 'string', 'length' => [1,16], 'tooLong' => '不得超过16位字符'],		
 			['bookshelfName', 'trim'],
 		];	
 	}
