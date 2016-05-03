@@ -39,7 +39,7 @@
 	width:90%;
 	margin:auto;
 	position:absolute;
-	top:13%;left:5%;
+	top:16%;left:5%;
 	border-radius:10px;
 	border:1px solid #fff;
 
@@ -77,26 +77,32 @@
 
 
 /*
- * 参数管理　> 读者类型管理　首页的 新增功能块的css
+ * 参数设置　> 读者类型管理　首页的 新增功能块的css * 
+ *                           更新页面的
+ *
  */
 
-.reader-type-input-box{
+.reader-type-input-box,
+.reader-type-update-input-box{
 	width:280px;height:35px;
 	position:absolute;
 	top:5%;left:68.5%;
 }
 
-.reader-type-input-box .form-group{
+.reader-type-input-box .form-group,
+.reader-type-update-input-box .form-group{
 	width:100px;
 
 }
 
-.reader-type-input-box .reader-type-name{
+.reader-type-input-box .reader-type-name,
+.reader-type-update-input-box .reader-type-name{
 	float:left;	
 	width:130px;
 }
 
-.reader-type-input-box .borrow-number{
+.reader-type-input-box .borrow-number,
+.reader-type-update-input-box .borrow-number{
 	float:left;
 	width:80px; margin-left:40px;
 }
