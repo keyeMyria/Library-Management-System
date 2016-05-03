@@ -18,7 +18,7 @@ LayerGlobalAsset::register( $this );
  * @var $session['isShowTip'] boolean  为 true 则出现 tip 层，false反之
  */
 if ( $session['isShowTip'] ){
-	echo " <script> window.onload = function(){ layer.msg('操作成功', { icon: 1, offset:'100px'}) } </script>";
+	echo " <script> window.onload = function(){ layer.msg('{$session['tipContent']}', { icon: 1, offset:'100px'}) } </script>";
 	$session['isShowTip'] = false;
 }
 

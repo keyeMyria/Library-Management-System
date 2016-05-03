@@ -24,7 +24,16 @@ class BookshelfController extends Controller
 	public $defaultPageSize = 10;
 
 
+	# 新增条目成功时, 提示的内容
+	public $addTipContent = '添加成功';
 
+
+	# 删除条目成功时, 提示的内容
+	public $delTipContent = '删除成功';
+
+
+	# 更新条目成功时, 提示的内容
+	public $updateTipContent = '更新成功';
 
 	/**
 	 * 展现 参数设置 > 书架管理 的 Index 页面, 
@@ -77,7 +86,8 @@ class BookshelfController extends Controller
 
 		if( $bookshelfModel -> save() ){
 			$session = new Session;
-			$session['isShowTip'] = true;
+			$session['tipContent'] = $this -> addTipContent;
+			$session['isShowTip' ] = true;
 
 			return $this->redirect(['index']);
 		}
@@ -95,7 +105,8 @@ class BookshelfController extends Controller
 			if ( $bookshelf = Bookshelf::findOne( $id ) ){
 
 				$session = new Session;	
-				$session['isShowTip'] = true;
+				$session['tipContent'] = $this -> delTipContent;
+				$session['isShowTip' ] = true;
 
 				$bookshelf -> delete();	
 				return $this->redirect(['index']);
@@ -120,7 +131,8 @@ class BookshelfController extends Controller
 			$bookshelf -> bookshelfName = $post['Bookshelf']['bookshelfName'];
 
 			if( $bookshelf -> save() ){
-				$session['isShowTip'] = true;			 	
+				$session['tipContent'] = $this -> updateTipContent;
+				$session['isShowTip' ] = true;			 	
 				return $this->redirect(['bookshelf/index']);
 			}
 
