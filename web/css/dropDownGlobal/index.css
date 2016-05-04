@@ -1,0 +1,26 @@
+ *{padding: 0;margin: 0;}
+          body { background: #7A8498; }
+  
+              div#main { font-size: 16px; line-height: 26px; color: #fff; }
+              div#main div.fancy-select { margin-left: 40%; width: 200px; }
+  
+              div#main p { margin-bottom: 24px; }
+              div#main a { text-decoration: none; color: #BAC9E7; font-weight: 600; }
+  
+              div#main code { font-size: 16px; padding: 2px 3px; background: #5A606F; color: #fff; border-radius: 4px;     font-family: "Inconsolata", monospace; }
+  
+              div#main pre { padding: 27px 27px 30px; background: #5A606F; color: #fff; border-radius: 4px; white-spac    e: pre-wrap; max-width: 540px; line-height: 28px; margin-bottom: 30px; }
+              div#main pre code { padding: 0; background: transparent; border-radius: 0; margin-bottom: 18px; }
+  
+              div#main section { width: 940px; margin: 90px auto; }
+              div#main section h2, div#main section h3 { font-size: 22px; margin-bottom: 18px; font-weight: 600; }
+  
+              /*one column*/
+              @media only screen and (max-width: 639px) {
+                  div#main section { width: 300px; }
+              }
+  
+              /*two columns*/
+              @media only screen and (min-width: 640px) and (max-width: 959px) {
+                  div#main section { width: 620px;	}
+				}
