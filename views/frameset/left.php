@@ -30,7 +30,7 @@ FramesetLeftAsset::register( $this );
 
                 <li><a href="#"><img src="../images/frameset/left/books.png" alt="" /> 图书档案</a>
 					<ul>
-                        <li><a href="#">图书添加</a></li>
+                        <li><a href="<?=  Url::to(['book-add/book-add'])?>" target='right'>图书添加</a></li>
                         <li><a href="#">图书搜索</a></li>
                         <li><a href="#">图书信息统计</a></li>
                     </ul>
