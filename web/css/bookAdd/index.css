@@ -1,0 +1,32 @@
+.input-box{
+	position:absolute;
+	top:10%;left:40%;
+}
+
+
+.help-block{
+	margin-top:5px;
+	margin-bottom:10px;
+}
+
+
+.input-box .form-group{
+	margin: 0 auto;
+	width:250px;
+
+}
+
+.book-type-box,
+.publisher-box,
+.bookshelf-box{
+	margin-left:40%;
+
+}
+
+
+.book-add-btn{
+	position:absolute;
+	top:0%;left:130%;
+
+}
+
