@@ -46,12 +46,13 @@ if ( $session['isShowTip'] ){
 			<?= $form->field( $model, 'bookInfoBookName') ->textinput(['placeholder' => '图书名称']) -> label( false ) ?>
 
 			<div id="main">
-				<?= Html::dropDownList('bookType', null, $bookTypeData, ['class' => 'basic-usage-demo' ] ); ?>
+				<?= Html::dropDownList('bookType', null, $bookTypeData, ['class' => 'basic-usage-demo', ] ); ?>
 			</div>
 			<div class="help-block"></div>	
 			
 			<?= $form->field( $model, 'bookInfoBookAuthor') ->textinput(['placeholder' => '作者']) -> label( false ) ?>
 			<?= $form->field( $model, 'bookInfoBookTranslator') ->textinput(['placeholder' => '译者 (选填)']) -> label( false ) ?>
+
 
 			<div id="main">
 				<?= Html::dropDownList('publisher', null, $publisherData, ['class' => 'basic-usage-demo' ] ); ?>
@@ -75,6 +76,7 @@ if ( $session['isShowTip'] ){
 		window.onload = function()
 		{
 			dropDown();
+			isSelectedOptions();
 			tip();
 		}
 
@@ -85,6 +87,22 @@ if ( $session['isShowTip'] ){
 			});
 		}
 
+		// 判断下拉框是否已经选择完毕
+		function isSelectedOptions()
+		{
+			$('.book-add-btn').click(function(){
+				elmLength = $('.selected').length;
+				for( var i=0; i < elmLength; i++){
+					
+					if ( $('.selected')[i].innerHTML === '请选择'){
+						// 如果获取到的元素内的文本是 '请选择' 的话, 说明了还有下拉框未选择
+						alert('请选择下拉框完毕后再提交');
+						return false;
+					}	
+				}
+			
+			});
+		}
 		
 	</script>
 
