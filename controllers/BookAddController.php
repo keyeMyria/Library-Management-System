@@ -24,6 +24,10 @@ class BookAddController extends Controller
 	# 新增条目成功时，提示的内容
 	public $addTipContent = '添加成功';
 
+
+	/**
+	 * 图书添加模块的 显示输入框 和 处理数据 的方法
+	 */
 	public function actionBookAdd()
 	{
 		
@@ -60,6 +64,10 @@ class BookAddController extends Controller
 	}
 
 
+	/**
+	 * 保存 $post 数据进 lib_bookInfo 数据表
+	 * @return $primaryKey 新插入条目所返回的主键
+	 */
 	public function bookInfoSave( $post )
 	{
 		$BookInfoModel = new BookInfo;	
