@@ -20,7 +20,8 @@ DropDownGlobalAsset::register( $this );
  * @var $session['isShowTip'] boolean  为 true 则出现 tip 层，false反之
  */
 if ( $session['isShowTip'] ){
-	echo " <script> window.onload = function(){ layer.msg('{$session['tipContent']}', { icon: 1, offset:'100px'}) } </script>";
+
+	echo " <script>function tip(){ layer.msg('{$session['tipContent']}', { icon: 1, offset:'100px'}) }  </script>";
 	$session['isShowTip'] = false;
 }
 
@@ -45,7 +46,7 @@ if ( $session['isShowTip'] ){
 			<?= $form->field( $model, 'bookInfoBookName') ->textinput(['placeholder' => '图书名称']) -> label( false ) ?>
 
 			<div id="main">
-				<?= Html::dropDownList('book-type', null, $bookTypeData, ['class' => 'basic-usage-demo' ] ); ?>
+				<?= Html::dropDownList('bookType', null, $bookTypeData, ['class' => 'basic-usage-demo' ] ); ?>
 			</div>
 			<div class="help-block"></div>	
 			
@@ -53,7 +54,7 @@ if ( $session['isShowTip'] ){
 			<?= $form->field( $model, 'bookInfoBookTranslator') ->textinput(['placeholder' => '译者 (选填)']) -> label( false ) ?>
 
 			<div id="main">
-				<?= Html::dropDownList('book-type', null, $publisherData, ['class' => 'basic-usage-demo' ] ); ?>
+				<?= Html::dropDownList('publisher', null, $publisherData, ['class' => 'basic-usage-demo' ] ); ?>
 			</div>
 			<div class="help-block"></div>	
 
@@ -61,7 +62,7 @@ if ( $session['isShowTip'] ){
 			<?= $form->field( $model, 'bookInfoBookPage') ->textinput(['placeholder' => '图书页码']) -> label( false ) ?>
 
 			<div id="main">
-				<?= Html::dropDownList('book-type', null, $publisherData, ['class' => 'basic-usage-demo' ] ); ?>
+				<?= Html::dropDownList('bookshelf', null, $bookshelfData, ['class' => 'basic-usage-demo' ] ); ?>
 			</div>
 			<div class="help-block"></div>	
 
@@ -70,24 +71,22 @@ if ( $session['isShowTip'] ){
 	</div>
 
 
+	<script>
+		window.onload = function()
+		{
+			dropDown();
+			tip();
+		}
 
+		function dropDown()
+		{
+			$(document).ready(function(){
+				$('.basic-usage-demo').fancySelect();	
+			});
+		}
 
-	
-
-<!-- 
-	此 js 功能块属于 dropDownGlobal
--->
-<script>
-	window.onload = function(){
-		 $(document).ready(function(){
-             $('.basic-usage-demo').fancySelect();
-         });
-	}
-</script>
-
-
-</script>
-
+		
+	</script>
 
 
 
