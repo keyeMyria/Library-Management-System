@@ -15,61 +15,82 @@ use app\models\BookType;
 use app\models\Publisher;
 use app\models\Bookshelf;
 use app\models\BookAdd;
+use app\models\BookInfo;
+use app\models\BookRelationship;
 
 class BookAddController extends Controller
 {
 
+	# 新增条目成功时，提示的内容
+	public $addTipContent = '添加成功';
+
 	public function actionBookAdd()
 	{
+		
+		$session = new Session;
+
 		if ( $post = Yii::$app->request->post() ){
 		
-		
+			// 存入把数据存入 lib_bookInfo 表，返回 id
+	
+			$bookInfoID = $this -> bookInfoSave( $post );
+			$result     = $this -> bookRelationship( $post, $bookInfoID);
+			
+			if( $result ){
+
+				$session['tipContent'] = $this -> addTipContent;		
+				$session['isShowTip']  = true;
+				return $this->redirect('book-add');
+			}
+
 		} else {
 
-			$data = $this -> combineDropDownListData();	
-
-
-
 			$model = new BookAdd;
-			$session = new Session;	
-			$session['isShowTip'] = false;
+			$data = $model -> combineDropDownListData();	
+
 			return $this->render('index', [
-				'session' => $session,
-				'bookTypeData' => $data[0],
+
+				'bookTypeData'  => $data[0],
 				'publisherData' => $data[1],
 				'bookshelfData' => $data[2],
-				'model' => $model,	
-
+				'model'         => $model,	
+				'session'       => $session,
 			]);	
-		
 		}
 	}
 
 
-
-	public function combineDropDownListData()
+	public function bookInfoSave( $post )
 	{
+		$BookInfoModel = new BookInfo;	
+		$BookInfoModel -> bookInfoBookName       = $post['BookAdd']['bookInfoBookName'];
+		$BookInfoModel -> bookInfoBookISBN       = $post['BookAdd']['bookInfoBookISBN'];
+		$BookInfoModel -> bookInfoBookAuthor     = $post['BookAdd']['bookInfoBookAuthor'];
+		$BookInfoModel -> bookInfoBookTranslator = $post['BookAdd']['bookInfoBookTranslator'] ? $post['BookAdd']['bookInfoBookTranslator'] : null;
+		$BookInfoModel -> bookInfoBookPrice      = $post['BookAdd']['bookInfoBookPrice'];
+		$BookInfoModel -> bookInfoBookPage       = $post['BookAdd']['bookInfoBookPage'];
 	
-		$bookType  =  BookType::find()-> asArray() ->all();
-		$publisher = Publisher::find()-> asArray() ->all();
-		$bookshelf = Bookshelf::find()-> asArray() ->all();
-	
-		foreach ( $bookType as $key => $value ){
-			$bookTypeData[ $bookType[$key]['PK_bookTypeID'] ] = $bookType[$key]['bookTypeName'];
-		}
-	
-		foreach ( $publisher as $key => $value ){
-			$publisherData[ $publisher[$key]['PK_publisherID'] ] = $publisher[$key]['publisherName'];
-		}
-
-		foreach ( $bookshelf as $key => $value ){
-			$bookshelfData[ $bookshelf[$key]['PK_bookshelfID'] ] = $bookshelf[$key]['bookshelfName'];
-		}
-
-		$data[] = $bookTypeData;
-		$data[] = $publisherData;
-		$data[] = $bookshelfData;
-		return   $data;
+		$BookInfoModel -> save();
+		return $BookInfoModel -> getPrimaryKey();
 	}
+
+
+	public function bookRelationship( $post, $bookInfoID )
+	{
+		$BookRelationshipModel = new BookRelationship;	
+		$BookRelationshipModel -> FK_bookInfoID  = $bookInfoID;
+		$BookRelationshipModel -> FK_publisherID = $post['publisher'];
+		$BookRelationshipModel -> FK_bookTypeID  = $post['bookType'];
+		$BookRelationshipModel -> FK_bookshelfID = $post['bookshelf'];
+		$BookRelationshipModel -> FK_managerID   = Yii::$app->user->id;
+		$BookRelationshipModel -> bookRelationshipStorageTime = date('Y-m-d'); 
+
+		return $BookRelationshipModel -> save();
+	}
+
+
+
+
 
 }
+
