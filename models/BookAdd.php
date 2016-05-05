@@ -55,6 +55,9 @@ class BookAdd extends ActiveRecord
 		$publisher = Publisher::find()-> asArray() ->all();
 		$bookshelf = Bookshelf::find()-> asArray() ->all();
 	
+		$bookTypeData['default']  = '请选择';
+		$publisherData['default'] = '请选择';
+		$bookshelfData['default'] = '请选择';
 
 		// 把数组抽出来一层，让 id => name, (例如：原本：[0] => [id,name]  处理成 >  [id] => [name] )
 		foreach ( $bookType as $key => $value ){
@@ -68,6 +71,7 @@ class BookAdd extends ActiveRecord
 		foreach ( $bookshelf as $key => $value ){
 			$bookshelfData[ $bookshelf[$key]['PK_bookshelfID'] ] = $bookshelf[$key]['bookshelfName'];
 		}
+
 
 		$data[] = $bookTypeData;
 		$data[] = $publisherData;
