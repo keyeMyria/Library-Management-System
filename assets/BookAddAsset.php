@@ -21,7 +21,6 @@ class BookAddAsset extends AssetBundle
     ];
 
     public $js = [
-		'http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js',
 		'http://apps.bdimg.com/libs/bootstrap/3.3.4/js/bootstrap.min.js',
 		'js/layer/layer.js',
     ];
