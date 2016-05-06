@@ -20,7 +20,6 @@ class IndexAsset extends AssetBundle
     ];
 
     public $js = [
-		'js/jquery/jquery-1.12.3.min.js',
 		'js/layer/layer.js',
     ];
 
