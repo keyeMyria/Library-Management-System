@@ -1,0 +1,27 @@
+
+.input-box{
+	width:500px;height:40px;
+	position:absolute;
+	top:10%;left:30%;
+}
+
+.form-sreach{
+	width:300px;height:40px;
+	float:left;margin-left:5px;
+}
+
+.fancy-select{
+	float:left;
+
+}
+
+.sreach-btn{
+	padding:9px 29px;
+	margin-left:5px;
+}
+
+.sreach-result-table{
+	position:absolute;
+	top:20%;left:10%;
+	width:80%;height:60%;
+}
