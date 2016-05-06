@@ -11,8 +11,8 @@ use yii\widgets\LinkPager;
 use yii\helpers\Html;
 
 
-BookSreachAsset::register( $this );
 DropDownGlobalAsset::register( $this );
+BookSreachAsset::register( $this );
 
 ?>
 
