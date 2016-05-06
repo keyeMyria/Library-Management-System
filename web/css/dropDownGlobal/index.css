@@ -1,8 +1,7 @@
  *{padding: 0;margin: 0;}
-          body { background: #7A8498; }
   
               div#main { font-size: 16px; line-height: 26px; color: #fff; }
-              div#main div.fancy-select { margin-left: 40%; width: 200px; }
+              div#main div.fancy-select {  width: 200px; }
   
               div#main p { margin-bottom: 24px; }
               div#main a { text-decoration: none; color: #BAC9E7; font-weight: 600; }
