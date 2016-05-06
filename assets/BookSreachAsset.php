@@ -17,12 +17,11 @@ class BookSreachAsset extends AssetBundle
 	public $css = [
 		'css/indexGlobal.css',
 		'css/bookSreach/index.css',
+		'css/bookSreach/dropDown.css',
 		'css/background.css',
     ];
 
     public $js = [
-		'http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js',
-		'http://apps.bdimg.com/libs/bootstrap/3.3.4/js/bootstrap.min.js',
 		'js/layer/layer.js',
     ];
 
