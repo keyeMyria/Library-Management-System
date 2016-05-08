@@ -24,6 +24,9 @@ BookSreachAsset::register( $this );
 	
 	</div>
 
+
+	<!-- 左上方搜索框层  -->
+
 	<div class="input-box">
 		<?= Html::beginForm() ?> 
 			<?= Html::dropDownList('sreachType', null, $sreachType ,['class' => 'basic-usage-demo']) ?>
@@ -31,6 +34,21 @@ BookSreachAsset::register( $this );
 			<?= Html::SubmitButton('搜索', ['class' => 'btn btn-primary sreach-btn']) ?>
 		<?= Html::endForm() ?>
 	</div>
+
+	
+	<!-- 页面右上角文字层  -->
+	<?php if( isset( $sreachResult )){ ?>
+	<div class="sreach-info">
+		<span class="sreach-tip">按书名 <span class="sreach-type">linux</span> 进行搜索</span>		
+		<br/>
+		<span class="sreach-result">
+		搜索结果<span class="sreach-result-number"> 5 </span>条数据, 在 <span class="sreach-spend-time">1.3</span> 秒内完成查询。
+		</span>
+	</div>
+	<?php } ?>
+
+
+	<!-- 显示查询结果的表格层   -->
 
 	<table class='table table-bordered  table-hover sreach-result-table text-center'>
 		<thead >
@@ -44,30 +62,20 @@ BookSreachAsset::register( $this );
 			</tr>
 		</thead>
 		<tbody>
-			<tr>
-				<td>88787419189</td>
-				<td>《时间简史》</td>
-				<td>史蒂夫.霍金</td>
-				<td>编辑</td>
-				<td>删除</td>
-				<td>查看更多</td>
-			</tr>
-			<tr>
-				<td>88999989</td>
-				<td>《事件连续》</td>
-				<td>霍金</td>
-				<td>编辑</td>
-				<td>删除</td>
-				<td>查看更多</td>
-			</tr>
-			<tr>
-				<td>292929999</td>
-				<td>《围城》</td>
-				<td>史蒂夫</td>
-				<td>编辑</td>
-				<td>删除</td>
-				<td>查看更多</td>
-			</tr>
+			<?php
+		if( isset( $sreachResult) ){
+			foreach( $sreachResult as $key => $value ){ ?>
+				<tr>
+					<td><?php echo $sreachResult[$key]['bookInfoBookISBN']; ?></td>
+					<td><?php echo $sreachResult[$key]['bookInfoBookName']; ?></td>
+					<td><?php echo $sreachResult[$key]['bookInfoBookAuthor']; ?></td>
+					<td>编辑</td>
+					<td>删除</td>
+					<td>查看更多</td>
+				</tr>
+			<?php	}
+				}
+			?>
 
 		</tbody>
 
