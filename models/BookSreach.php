@@ -46,7 +46,7 @@ class BookSreach extends Model
 				break;
 
 			case 'bookshelf':
-
+				return $this -> sreachBookshelf( $sreachText );
 				break;
 				
 		}	
@@ -108,5 +108,37 @@ class BookSreach extends Model
 		return $result;
 	}
 	
+
+	
+
+	public function sreachBookshelf( $sreachText )
+	{
+	
+		$db = Yii::$app->db;
+		$bookshelfTableName        = Bookshelf::tableName();
+		$bookInfoTableName         = BookInfo::tableName(); 
+		$bookRelationshipTableName = BookInfo::bookRelationshipTableName();
+		
+		$sql = "SELECT `FK_bookInfoID` FROM $bookshelfTableName AS b JOIN $bookRelationshipTableName  AS r   ON b.PK_bookshelfID = r.FK_bookshelfID WHERE b.bookshelfName = '$sreachText'";
+
+		$bookInfoID  = $db -> createCommand( $sql ) -> queryAll();
+
+		foreach( $bookInfoID as $key => $value)
+		{
+			$id = $bookInfoID[$key]['FK_bookInfoID'];
+			$bookInfoSql = "SELECT * FROM $bookInfoTableName WHERE PK_bookInfoID = $id";	
+			$bookInfoResult[] = $db -> createCommand( $bookInfoSql ) -> queryAll();
+		}
+
+
+		foreach( $bookInfoResult as $key => $value )
+		{
+			$result[] = $bookInfoResult[$key][0];	
+		}
+
+		return $result;
+	
+	}
+
 
 }
