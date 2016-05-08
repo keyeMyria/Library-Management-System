@@ -14,13 +14,18 @@ use Yii;
 class BookSreach extends Model
 {
 	
+	/*
+	 * 图书搜索功能 的总模块， 负责 根据 sreachType 去决定使用哪个方法去处理 sreachText
+	 */
 	public function bookSreach( $post )
 	{
 		$db = Yii::$app->db;
 		$sreachType = $post['sreachType'];
 		$sreachText = $post['sreach'];
 
-		#dump( $post );
+		if( empty($sreachText) ){
+			return 'empty';	
+		}
 
 		switch ( $sreachType )
 		{
@@ -42,7 +47,6 @@ class BookSreach extends Model
 			case 'author':
 				$sreachType = 'bookInfoBookAuthor';
 				return $this -> sreachBookInfoPublic( $sreachType, $sreachText );	
-
 				break;
 
 			case 'bookshelf':
@@ -51,30 +55,28 @@ class BookSreach extends Model
 				
 		}	
 
-
-#		$sql = "SELECT * FROM lib_bookInfo WHERE bookInfoBookName LIKE '%$sreachText%'";
-		#$query = $db -> createCommand( $sql ) -> queryAll();
-
-
-		
 	
 	}
 
 
+	/**
+	 * 搜索 书名、作者名、ISBN 时共用的公共方法，因为他们都在同一个数据表内，方便嘛。
+	 */ 
 	public function sreachBookInfoPublic( $sreachType, $sreachText )
 	{
 		$db = Yii::$app->db;
 		$bookInfoTableName = BookInfo::tableName(); 
 
-
 		$sql = "SELECT `PK_bookInfoID`, `bookInfoBookISBN`, `bookInfoBookName`, `bookInfoBookAuthor`  FROM $bookInfoTableName  WHERE $sreachType LIKE  '%$sreachText%'";
 		$result = $db -> createCommand( $sql ) -> queryAll();
 		
 		return $result;
-		
 	}
 
 
+	/**
+	 * 搜索 出版社 方法
+	 */
 	public function sreachPublisher( $sreachText )
 	{
 		$db = Yii::$app->db;
@@ -111,6 +113,9 @@ class BookSreach extends Model
 
 	
 
+	/**
+	 * 搜索 书架 的方法
+	 */
 	public function sreachBookshelf( $sreachText )
 	{
 	
