@@ -41,7 +41,7 @@ if ( $session['isShowTip'] ){
 	<div class="input-box">
 		<?= Html::beginForm() ?> 
 			<?= Html::dropDownList('sreachType', null, $sreachType ,['class' => 'basic-usage-demo']) ?>
-			<?= Html::input('text', 'sreachText', null,  ['class' => 'form-control form-sreach'] ) ?>
+			<?= Html::input('text', 'sreachText',  isset( $sreachText ) ? $sreachText : null  ,  ['class' => 'form-control form-sreach' ] ) ?>
 			<?= Html::SubmitButton('搜索', ['class' => 'btn btn-primary sreach-btn']) ?>
 		<?= Html::endForm() ?>
 	</div>
