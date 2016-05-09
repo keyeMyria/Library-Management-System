@@ -104,14 +104,17 @@ if ( $session['isShowTip'] ){
 
 
 
-
-
-
 <script>
 
 	window.onload = function()
 	{
 		dropDown();
+		recordSreachType();      //  -> js/bookSreach/dropDownSreachType.js
+		selectOptionBySession(); //  -> js/bookSreach/dropDownSreachType.js
+
+	
+
+
 		tip();
 	}
 
@@ -122,6 +125,7 @@ if ( $session['isShowTip'] ){
 		});
 	}
  
+
 </script>
 
 
