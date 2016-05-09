@@ -31,6 +31,7 @@ class BookSreachController extends Controller
 		if ( $post = Yii::$app->request->post()){
 			
 
+			$sreachText = $post['sreachText'];
 			$bookSreachModel = new BookSreach;
 
 			if( empty( $post['sreachText'])){
@@ -46,8 +47,10 @@ class BookSreachController extends Controller
 				$session['isShowTip'] = false;
 
 
+
 				$sreachResult      = $bookSreachModel -> bookSreach( $post );
 				$sreachResultInfo  = $bookSreachModel -> getSreachResultInfo();
+
 				
 
 			}
@@ -55,6 +58,7 @@ class BookSreachController extends Controller
 			return $this -> render('index', [
 				'session'          => $session,
 				'sreachType'       => $sreachTypeArr,	
+				'sreachText'       => $sreachText,
 				'sreachResult'     => $sreachResult,	
 				'sreachResultInfo' => $sreachResultInfo,
 			]);
