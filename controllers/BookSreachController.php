@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use yii\web\Controller;
+use yii\web\Session;
 use Yii;
 
 
@@ -12,8 +13,13 @@ class BookSreachController extends Controller
 {
 	
 	
+	public $defaultAction = 'sreach';
+	/**
+	 * 图书搜索
+	 */
 	public function actionSreach()
 	{
+		$session = new Session;
 		$sreachTypeArr = [
 			'bookName'  => '按书名',	
 			'bookISBN'  => '按ISBN',	
@@ -23,17 +29,43 @@ class BookSreachController extends Controller
 		];
 
 		if ( $post = Yii::$app->request->post()){
-								
+			
+
 			$bookSreachModel = new BookSreach;
-			$sreachResult = $bookSreachModel -> bookSreach( $post );
+
+			if( empty( $post['sreachText'])){
+				
+				$session['isShowTip']  = true;					
+				$session['tipContent'] = '请输入要搜索的内容';
+
+				$sreachResult     = null;
+				$sreachResultInfo = null;
+
+			} else {
+
+				$session['isShowTip'] = false;
+
+
+				$sreachResult      = $bookSreachModel -> bookSreach( $post );
+				$sreachResultInfo  = $bookSreachModel -> getSreachResultInfo();
+				
+
+			}
 
 			return $this -> render('index', [
-				'sreachType' => $sreachTypeArr,	
-				'sreachResult' => $sreachResult,	
+				'session'          => $session,
+				'sreachType'       => $sreachTypeArr,	
+				'sreachResult'     => $sreachResult,	
+				'sreachResultInfo' => $sreachResultInfo,
 			]);
+
 		} else {
-		
+			
+			// 第一次进入 图书搜索页面		
+			$session['isShowTip'] = false;
+			
 			return $this -> render('index', [
+				'session'    => $session,
 				'sreachType' => $sreachTypeArr,	
 			
 			]);	
