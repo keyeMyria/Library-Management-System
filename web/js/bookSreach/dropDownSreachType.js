@@ -17,9 +17,18 @@
 function recordSreachType()
 {
 	options = $('.options li');
+	//sessionStorage.sreachType = null; // 默认
 	options.click(function(){
 		sessionStorage.sreachType = $(this).text();	
 	}); 
+
+	// 在初进入到 图书搜索页面时, 将默认选择的搜索类型放入到 session，以防止使用搜索功能后，因为 session 的值
+	// 还是上一次的，而导致搜索前 和 搜索后 的搜索类型下拉框的值不匹配的问题 ( 要是不懂，可以把下面的小段注释掉)
+	options.each(function(){
+		if ( $(this).attr('class') = 'selected' ){
+			sessionStorage.sreachType = $(this).text();	
+		}
+	});
 }
 
 
