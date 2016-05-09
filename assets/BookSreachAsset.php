@@ -23,6 +23,7 @@ class BookSreachAsset extends AssetBundle
 
     public $js = [
 		'js/layer/layer.js',
+		'js/bookSreach/dropDownSreachType.js',
     ];
 
 
