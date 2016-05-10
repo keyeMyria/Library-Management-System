@@ -94,40 +94,18 @@ class BookSreach extends ActiveRecord
 
 
 
-		#$db = Yii::$app->db;
-		$bookInfoTableName = BookInfo::tableName(); 
-
-#		$sql = "SELECT `PK_bookInfoID`, `bookInfoBookISBN`, `bookInfoBookName`, `bookInfoBookAuthor`  FROM $bookInfoTableName  WHERE $sreachType LIKE  '%$sreachText%'";
-		
-#		$result = BookSreach::findBySql( $sql ) -> all();
-
-		//　
-
 		$query = new Query;
-		$query -> from( $bookInfoTableName )
+		$query -> from( BookInfo::tableName() )
 			   -> where(['like', $sreachType, $sreachText]);
-
 
 		return $query;
 
-		#dump( $result );exit;
 
 
-		$beginTime = microtime( true );
+		#$beginTime = microtime( true );
 		#$result    = $db -> createCommand( $sql ) -> queryAll();
-		$endTime   = microtime( true );
+		#$endTime   = microtime( true );
 
-		$count = count( $result );
-		$provider = new SqlDataProvider([
-			'sql' => $sql,
-			'totalCount' => $count,	
-			'pagination' => [
-				'pageSize' => 5,	
-			],
-		]);
-		#dump( $provider -> getModels() );exit;
-
-		#return $provider;
 
 		#$this -> sreachResultCount = count( $result );
 		#$this -> sreachResultTime  = $this -> calcQuerySpendTime( $beginTime, $endTime );
@@ -146,6 +124,17 @@ class BookSreach extends ActiveRecord
 		$publisherTableName        = Publisher::tableName();
 		$bookInfoTableName         = BookInfo::tableName(); 
 		$bookRelationshipTableName = BookInfo::bookRelationshipTableName();
+
+		$query = new Query;
+		$query -> select('b.FK_bookInfoID, p.PK_publisherID, a.PK_bookInfoID, a.bookInfoBookName, a.bookInfoBookISBN, a.bookInfoBookAuthor')
+			   -> from( 'lib_publisher AS p' )
+			   -> where(['publisherName' => '机械工业出版社' ])
+			   -> join('INNER JOIN'	,  'lib_bookRelationship AS b' , 'b.FK_publisherID = p.PK_publisherID')
+			   -> join('INNER JOIN'	,  'lib_bookInfo AS a' , 'b.FK_bookInfoID = a.PK_bookInfoID');
+
+		
+		return $query;
+
 		
 		// 下面sql语句是 利用 publisher 表查询出的 id , 再去 join  bookRelationship表。
 		$sql = "SELECT `FK_bookInfoID` FROM $publisherTableName AS p JOIN $bookRelationshipTableName  AS r   ON p.PK_publisherID = r.FK_publisherID WHERE p.publisherName = '$sreachText'";
@@ -254,7 +243,6 @@ class BookSreach extends ActiveRecord
 		return $sreachResultInfo;
 	
 	}
-
 
 
 
