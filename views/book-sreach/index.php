@@ -46,23 +46,25 @@ if ( $session['isShowTip'] ){
 		<?= Html::endForm() ?>
 	</div>
 
-	
+
 	<!-- 页面右上角文字层  -->
-	<?php if( isset( $sreachResult )){ ?>
-	<div class="sreach-info">
-		<span class="sreach-tip"><?php echo $sreachResultInfo['sreachType'];  ?>
-			<span class="sreach-type"> <?php echo $sreachResultInfo['sreachResultText']; ?> </span> 
-			进行搜索
-		</span>		
-		<br/>
-		<span class="sreach-result">
-			搜索结果
-					<span class="sreach-result-number"> <?php echo $sreachResultInfo['sreachResultCount'];  ?> </span>
-			条数据, 在 
-					<span class="sreach-spend-time"> <?php echo $sreachResultInfo['sreachResultTime'];  ?></span> 秒内完成查询。
-		</span>
-	</div>
-	<?php } ?>
+     <?php if( isset( $sreachResult )){ ?>
+     <div class="sreach-info">
+         <span class="sreach-tip"><?php #echo $sreachResultInfo['sreachType'];  ?>
+             <span class="sreach-type"> <?php #echo $sreachResultInfo['sreachResultText']; ?> </span>
+             进行搜索
+         </span>
+         <br/>
+         <span class="sreach-result">
+             搜索结果
+                     <span class="sreach-result-number"> <?php #echo #$sreachResultInfo['sreachResultCount'];  ?> </span>
+             条数据, 在
+                     <span class="sreach-spend-time"> <?php #echo $sreachResultInfo['sreachResultTime'];  ?></span> 秒内完成查询。
+         </span>
+     </div>
+     <?php } ?>
+
+	
 
 
 	<!-- 显示查询结果的表格层   -->
@@ -80,13 +82,12 @@ if ( $session['isShowTip'] ){
 		</thead>
 		<tbody>
 			<?php
-		if( isset( $sreachResult) ){
-			foreach( $sreachResult as $key => $value ){ ?>
-
+		if( isset( $models) ){
+			foreach( $models as $key => $value ){ ?>
 				<tr>
-					<td><?php echo $sreachResult[$key]['bookInfoBookISBN']; ?></td>
-					<td><?php echo $sreachResult[$key]['bookInfoBookName']; ?></td>
-					<td><?php echo $sreachResult[$key]['bookInfoBookAuthor']; ?></td>
+					<td> <?php echo $models[$key]['bookInfoBookISBN'];  ?> </td>
+					<td> <?php echo $models[$key]['bookInfoBookName'];  ?> </td>
+					<td> <?php echo $models[$key]['bookInfoBookAuthor'];  ?> </td>
 					<td>编辑</td>
 					<td>删除</td>
 					<td>查看更多</td>
@@ -111,9 +112,7 @@ if ( $session['isShowTip'] ){
 		dropDown();
 		recordSreachType();      //  -> js/bookSreach/dropDownSreachType.js
 		selectOptionBySession(); //  -> js/bookSreach/dropDownSreachType.js
-
-	
-
+		recordSreachTypeByClickSreachBtn(); //  -> js/bookSreach/dropDownSreachType.js
 
 		tip();
 	}
@@ -131,7 +130,11 @@ if ( $session['isShowTip'] ){
 
 
 
-
+<?php 
+if( isset( $pages))
+echo LinkPager::widget([
+	'pagination' => $pages,
+]);
 
 
 
