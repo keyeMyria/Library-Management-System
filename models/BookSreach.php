@@ -7,11 +7,14 @@
 
 namespace app\models;
 
-use yii\base\Model;
+use yii\db\ActiveRecord;
+use yii\db\Query;
+use yii\data\SqlDataProvider;
 use Yii;
 
 
-class BookSreach extends Model
+
+class BookSreach extends ActiveRecord 
 {
 
 	public $sreachType;
@@ -29,6 +32,12 @@ class BookSreach extends Model
          'bookshelf' => '按书架',
 	];
 
+	
+
+	public static function tableName()
+	{
+		return 'lib_bookInfo';	
+	}
 
 	/*
 	 * 图书搜索功能 的总模块， 负责 根据 sreachType 去决定使用哪个方法去处理 sreachText
@@ -82,21 +91,49 @@ class BookSreach extends Model
 	 */ 
 	public function sreachBookInfoPublic( $sreachType, $sreachText )
 	{
-		$db = Yii::$app->db;
+
+
+
+		#$db = Yii::$app->db;
 		$bookInfoTableName = BookInfo::tableName(); 
 
-		$sql = "SELECT `PK_bookInfoID`, `bookInfoBookISBN`, `bookInfoBookName`, `bookInfoBookAuthor`  FROM $bookInfoTableName  WHERE $sreachType LIKE  '%$sreachText%'";
+#		$sql = "SELECT `PK_bookInfoID`, `bookInfoBookISBN`, `bookInfoBookName`, `bookInfoBookAuthor`  FROM $bookInfoTableName  WHERE $sreachType LIKE  '%$sreachText%'";
+		
+#		$result = BookSreach::findBySql( $sql ) -> all();
+
+		//　
+
+		$query = new Query;
+		$query -> from( $bookInfoTableName )
+			   -> where(['like', $sreachType, $sreachText]);
+
+
+		return $query;
+
+		#dump( $result );exit;
+
 
 		$beginTime = microtime( true );
-		$result    = $db -> createCommand( $sql ) -> queryAll();
+		#$result    = $db -> createCommand( $sql ) -> queryAll();
 		$endTime   = microtime( true );
 
+		$count = count( $result );
+		$provider = new SqlDataProvider([
+			'sql' => $sql,
+			'totalCount' => $count,	
+			'pagination' => [
+				'pageSize' => 5,	
+			],
+		]);
+		#dump( $provider -> getModels() );exit;
 
-		$this -> sreachResultCount = count( $result );
-		$this -> sreachResultTime  = $this -> calcQuerySpendTime( $beginTime, $endTime );
-		$this -> sreachResultText  = $sreachText;
+		#return $provider;
 
-		return $result;
+		#$this -> sreachResultCount = count( $result );
+		#$this -> sreachResultTime  = $this -> calcQuerySpendTime( $beginTime, $endTime );
+		#$this -> sreachResultText  = $sreachText;
+
+		#return $result;
 	}
 
 
