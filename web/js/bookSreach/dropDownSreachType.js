@@ -22,15 +22,30 @@ function recordSreachType()
 		sessionStorage.sreachType = $(this).text();	
 	}); 
 
-	// 在初进入到 图书搜索页面时, 将默认选择的搜索类型放入到 session，以防止使用搜索功能后，因为 session 的值
-	// 还是上一次的，而导致搜索前 和 搜索后 的搜索类型下拉框的值不匹配的问题 ( 要是不懂，可以把下面的小段注释掉)
-	options.each(function(){
-		if ( $(this).attr('class') = 'selected' ){
-			sessionStorage.sreachType = $(this).text();	
-		}
-	});
 }
 
+
+/**
+ * 在点击 图书搜索 页面的搜索按钮时，把当时 " 搜索类型下拉框 " 的值放入 session
+ */
+function recordSreachTypeByClickSreachBtn()
+{
+	options   = $('.options li');
+	sreachBtn = $('.sreach-btn');	
+
+	sreachBtn.click(function(){
+		options.each(function(){
+
+			if ( $(this).attr('class') == 'selected' ){
+				sessionStorage.sreachType = $(this).text();	
+				//alert( sessionStorage.sreachType );
+				//return false;
+			}
+		});
+	});
+
+
+}
 
 /*
  * 根据 session 中的 sreachType 在 " 搜索类型下拉框 " 中选择相应的类型。
@@ -42,12 +57,6 @@ function recordSreachType()
  */
 function selectOptionBySession()
 {
-
-	// 当图书搜索 是已经进行了一次搜索后跳转到的页面才需要记住 “ 搜索类型下拉框 ” 的类型, 由其他
-	// 页面的第一次进入则不用提前选择，只要默认的就好啦。
-	if ( document.referrer != 'http://localhost/Library-Management-System/web/book-sreach/sreach'){
-		return;
-	}
 
 
 	var sreachType = sessionStorage.sreachType;
