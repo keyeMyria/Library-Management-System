@@ -39,7 +39,7 @@ if ( $session['isShowTip'] ){
 	<!-- 左上方搜索框层  -->
 
 	<div class="input-box">
-		<?= Html::beginForm() ?> 
+		<?= Html::beginForm('', 'get') ?> 
 			<?= Html::dropDownList('sreachType', null, $sreachType ,['class' => 'basic-usage-demo']) ?>
 			<?= Html::input('text', 'sreachText',  isset( $sreachText ) ? $sreachText : null  ,  ['class' => 'form-control form-sreach' ] ) ?>
 			<?= Html::SubmitButton('搜索', ['class' => 'btn btn-primary sreach-btn']) ?>

@@ -31,13 +31,13 @@ class BookSreachController extends Controller
 			'bookshelf' => '按书架',
 		];
 
-		if ( $post = Yii::$app->request->post()){
+		if ( $get = Yii::$app->request->get()){
 			
 
-			$sreachText = $post['sreachText'];
+			$sreachText = $get['sreachText'];
 			$bookSreachModel = new BookSreach;
 
-			if( empty( $post['sreachText'])){
+			if( empty( $get['sreachText'])){
 				
 				$session['isShowTip']  = true;					
 				$session['tipContent'] = '请输入要搜索的内容';
@@ -49,9 +49,9 @@ class BookSreachController extends Controller
 
 				$session['isShowTip'] = false;
 
-				$sreachResult       = $bookSreachModel -> bookSreach( $post );
+				$sreachResult       = $bookSreachModel -> bookSreach( $get );
 				#$sreachResultInfo  = $bookSreachModel -> getSreachResultInfo();
-				
+
 					
 				$cloneQuery = clone $sreachResult;
 
