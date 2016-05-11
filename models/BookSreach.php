@@ -3,27 +3,36 @@
 /**
  * BookSreach 模型不关联任何表
  * 负责 BookSreachController 的数据处理
+ * 主要任务是负责 接受 BookSreachController 传过来的 用户提交数据 $get ，对此进行处理
  */
 
 namespace app\models;
 
-use yii\db\ActiveRecord;
+use yii\base\Model;
 use yii\db\Query;
 use yii\data\SqlDataProvider;
 use Yii;
 
 
 
-class BookSreach extends ActiveRecord 
+class BookSreach extends Model
 {
-
+	# 搜索类型 ( 存放 get() 过来的参数 )
 	public $sreachType;
+
+	# 搜索文本 ( 存放 get() 过来的参数 )
 	public $sreachText;
 	
+	# 搜索结果条目数量统计
 	public $sreachResultCount;
+
+	# 搜索结果所用耗时
 	public $sreachResultTime;
+
+	# 搜索文本 ( 和 上面的 $this->sreachText 是一样的)
 	public $sreachResultText;
 
+	# 搜索类型
 	public $sreachTypeArr = [
 		 'bookName'  => '按书名',
          'bookISBN'  => '按ISBN',
@@ -34,25 +43,21 @@ class BookSreach extends ActiveRecord
 
 	
 
-	public static function tableName()
-	{
-		return 'lib_bookInfo';	
-	}
 
 	/*
 	 * 图书搜索功能 的总模块， 负责 根据 sreachType 去决定使用哪个方法去处理 sreachText
 	 */
-	public function bookSreach( $post )
+	public function bookSreach( $get )
 	{
-		$db = Yii::$app->db;
-		$sreachType = $post['sreachType'];
-		$sreachText = $post['sreachText'];
+		$sreachType = $get['sreachType'];
+		$sreachText = $get['sreachText'];
 
-		$this -> sreachType = $post['sreachType'];	
+		$this -> sreachType = $sreachType;	
 
 		if( empty($sreachText) ){
 			return 'empty';	
 		}
+
 
 		switch ( $sreachType )
 		{
@@ -81,7 +86,6 @@ class BookSreach extends ActiveRecord
 				$sreachType = 'bookshelfName';
 				return $this -> sreachPublisherOrBookshelf( $sreachType, $sreachText );
 				break;
-				
 		}	
 
 	
@@ -94,13 +98,12 @@ class BookSreach extends ActiveRecord
 	public function sreachBookInfoPublic( $sreachType, $sreachText )
 	{
 		$beginTime = microtime( true );
+
 		$query = new Query;
 		$query -> from( BookInfo::tableName() )
 			   -> where(['like', $sreachType, $sreachText]);
-		usleep(10000);
+
 		$endTime   = microtime( true );
-
-
 
 		$this -> sreachResultCount = $query->count();
 		$this -> sreachResultTime  = $this -> calcQuerySpendTime( $beginTime, $endTime );
@@ -143,59 +146,16 @@ class BookSreach extends ActiveRecord
 			   -> join('INNER JOIN'	, $bookInfoTableName . ' AS a' , 'b.FK_bookInfoID = a.PK_bookInfoID');
 
 		$endTime = microtime( true );
-		
-		
 
 		$this -> sreachResultCount = $query -> count();
 		$this -> sreachResultTime  = $this -> calcQuerySpendTime( $beginTime, $endTime );
 		$this -> sreachResultText  = $sreachText;
 
 		return $query;
-
 	}
 	
 
 	
-
-	/**
-	 * 搜索 书架 的方法
-	 */
-	public function sreachBookshelf( $sreachText )
-	{
-	
-		$db = Yii::$app->db;
-		$bookshelfTableName        = Bookshelf::tableName();
-		$bookInfoTableName         = BookInfo::tableName(); 
-		$bookRelationshipTableName = BookInfo::bookRelationshipTableName();
-		
-		$sql = "SELECT `FK_bookInfoID` FROM $bookshelfTableName AS b JOIN $bookRelationshipTableName  AS r   ON b.PK_bookshelfID = r.FK_bookshelfID WHERE b.bookshelfName = '$sreachText'";
-
-		$beginTime = microtime( true );
-
-		$bookInfoID  = $db -> createCommand( $sql ) -> queryAll();
-
-		foreach( $bookInfoID as $key => $value)
-		{
-			$id = $bookInfoID[$key]['FK_bookInfoID'];
-			$bookInfoSql = "SELECT * FROM $bookInfoTableName WHERE PK_bookInfoID = $id";	
-			$bookInfoResult[] = $db -> createCommand( $bookInfoSql ) -> queryAll();
-		}
-
-		$endTime = microtime( true );
-
-
-		foreach( $bookInfoResult as $key => $value )
-		{
-			$result[] = $bookInfoResult[$key][0];	
-		}
-
-		$this -> sreachResultCount = count( $result );
-		$this -> sreachResultTime  = $this -> calcQuerySpendTime( $beginTime, $endTime );
-		$this -> sreachResultText  = $sreachText;
-
-		return $result;
-	
-	}
 
 
 	/**
@@ -223,7 +183,6 @@ class BookSreach extends ActiveRecord
 		$sreachResultInfo['sreachType']        = $this -> sreachTypeArr[ $this->sreachType ];
 
 		return $sreachResultInfo;
-	
 	}
 
 
