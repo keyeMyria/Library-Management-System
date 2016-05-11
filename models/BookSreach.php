@@ -141,7 +141,7 @@ class BookSreach extends Model
 		$query = new Query;
 		$query -> select('b.FK_bookInfoID, a.PK_bookInfoID, a.bookInfoBookName, a.bookInfoBookISBN, a.bookInfoBookAuthor')
 			   -> from( $tableName . ' AS p' )
-			   -> where([ $sreachType => $sreachText ])
+			   -> where(['like', $sreachType , $sreachText ])
 			   -> join('INNER JOIN',  $bookRelationshipTableName.' AS b', 'b.'. $FK_tableID .' = p.' . $PK_tableID)
 			   -> join('INNER JOIN'	, $bookInfoTableName . ' AS a' , 'b.FK_bookInfoID = a.PK_bookInfoID');
 
