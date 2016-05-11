@@ -69,7 +69,7 @@ class BookSreach extends ActiveRecord
 
 			case 'publisher':
 				$sreachType = 'publisherName';
-				return $this -> sreachPublisher( $sreachType ,$sreachText );	
+				return $this -> sreachPublisherOrBookshelf( $sreachType ,$sreachText );	
 				break;
 
 			case 'author':
@@ -79,8 +79,7 @@ class BookSreach extends ActiveRecord
 
 			case 'bookshelf':
 				$sreachType = 'bookshelfName';
-				return $this -> sreachPublisher( $sreachType, $sreachText );
-				#return $this -> sreachBookshelf( $sreachType, $sreachText );
+				return $this -> sreachPublisherOrBookshelf( $sreachType, $sreachText );
 				break;
 				
 		}	
@@ -94,27 +93,20 @@ class BookSreach extends ActiveRecord
 	 */ 
 	public function sreachBookInfoPublic( $sreachType, $sreachText )
 	{
-
-
-
+		$beginTime = microtime( true );
 		$query = new Query;
 		$query -> from( BookInfo::tableName() )
 			   -> where(['like', $sreachType, $sreachText]);
+		usleep(10000);
+		$endTime   = microtime( true );
+
+
+
+		$this -> sreachResultCount = $query->count();
+		$this -> sreachResultTime  = $this -> calcQuerySpendTime( $beginTime, $endTime );
+		$this -> sreachResultText  = $sreachText;
 
 		return $query;
-
-
-
-		#$beginTime = microtime( true );
-		#$result    = $db -> createCommand( $sql ) -> queryAll();
-		#$endTime   = microtime( true );
-
-
-		#$this -> sreachResultCount = count( $result );
-		#$this -> sreachResultTime  = $this -> calcQuerySpendTime( $beginTime, $endTime );
-		#$this -> sreachResultText  = $sreachText;
-
-		#return $result;
 	}
 
 
@@ -127,11 +119,10 @@ class BookSreach extends ActiveRecord
 		$bookRelationshipTableName = BookInfo::bookRelationshipTableName();
 
 		if( $sreachType == 'publisherName' ){
-			# 	
+			  	
 			$tableName  = Publisher::tableName();		
 			$PK_tableID = 'PK_publisherID';	
 			$FK_tableID = 'FK_publisherID';
-
 		}
  
 		if( $sreachType == 'bookshelfName' ){
@@ -142,6 +133,8 @@ class BookSreach extends ActiveRecord
 		}
 
 
+		$beginTime = microtime( true );
+
 		$query = new Query;
 		$query -> select('b.FK_bookInfoID, a.PK_bookInfoID, a.bookInfoBookName, a.bookInfoBookISBN, a.bookInfoBookAuthor')
 			   -> from( $tableName . ' AS p' )
@@ -149,14 +142,15 @@ class BookSreach extends ActiveRecord
 			   -> join('INNER JOIN',  $bookRelationshipTableName.' AS b', 'b.'. $FK_tableID .' = p.' . $PK_tableID)
 			   -> join('INNER JOIN'	, $bookInfoTableName . ' AS a' , 'b.FK_bookInfoID = a.PK_bookInfoID');
 
+		$endTime = microtime( true );
 		
-		return $query;
 		
 
-		$this -> sreachResultCount = count( $result );
+		$this -> sreachResultCount = $query -> count();
 		$this -> sreachResultTime  = $this -> calcQuerySpendTime( $beginTime, $endTime );
 		$this -> sreachResultText  = $sreachText;
 
+		return $query;
 
 	}
 	

@@ -50,16 +50,16 @@ if ( $session['isShowTip'] ){
 	<!-- 页面右上角文字层  -->
      <?php if( isset( $sreachResult )){ ?>
      <div class="sreach-info">
-         <span class="sreach-tip"><?php #echo $sreachResultInfo['sreachType'];  ?>
-             <span class="sreach-type"> <?php #echo $sreachResultInfo['sreachResultText']; ?> </span>
+         <span class="sreach-tip"><?php echo $sreachResultInfo['sreachType'];  ?>
+             <span class="sreach-type"> <?php echo $sreachResultInfo['sreachResultText']; ?> </span>
              进行搜索
          </span>
          <br/>
          <span class="sreach-result">
              搜索结果
-                     <span class="sreach-result-number"> <?php #echo #$sreachResultInfo['sreachResultCount'];  ?> </span>
+                     <span class="sreach-result-number"> <?php echo $sreachResultInfo['sreachResultCount'];  ?> </span>
              条数据, 在
-                     <span class="sreach-spend-time"> <?php #echo $sreachResultInfo['sreachResultTime'];  ?></span> 秒内完成查询。
+                     <span class="sreach-spend-time"> <?php echo $sreachResultInfo['sreachResultTime'];  ?></span> 秒内完成查询。
          </span>
      </div>
      <?php } ?>

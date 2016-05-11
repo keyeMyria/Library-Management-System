@@ -55,10 +55,11 @@ class BookSreachController extends Controller
 				$session['isShowTip'] = false;
 
 				$sreachResult       = $bookSreachModel -> bookSreach( $get );
-				#$sreachResultInfo  = $bookSreachModel -> getSreachResultInfo();
+				$sreachResultInfo  = $bookSreachModel -> getSreachResultInfo();
 
 				$cloneQuery = clone $sreachResult;
 
+				// 分页
 				$pages = new Pagination(['totalCount' => $cloneQuery->count() ] );
 				$pages -> defaultPageSize = $this -> defaultPageSize;
 
@@ -74,7 +75,7 @@ class BookSreachController extends Controller
 				'sreachType'       => $sreachTypeArr,	
 				'sreachText'       => $sreachText,
 				'sreachResult'     => $sreachResult,	
-				#'sreachResultInfo' => $sreachResultInfo,
+				'sreachResultInfo' => $sreachResultInfo,
 			]);
 
 		} else {
