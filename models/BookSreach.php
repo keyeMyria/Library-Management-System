@@ -68,7 +68,8 @@ class BookSreach extends ActiveRecord
 				break;
 
 			case 'publisher':
-				return $this -> sreachPublisher( $sreachText );	
+				$sreachType = 'publisherName';
+				return $this -> sreachPublisher( $sreachType ,$sreachText );	
 				break;
 
 			case 'author':
@@ -77,7 +78,9 @@ class BookSreach extends ActiveRecord
 				break;
 
 			case 'bookshelf':
-				return $this -> sreachBookshelf( $sreachText );
+				$sreachType = 'bookshelfName';
+				return $this -> sreachPublisher( $sreachType, $sreachText );
+				#return $this -> sreachBookshelf( $sreachType, $sreachText );
 				break;
 				
 		}	
@@ -116,60 +119,45 @@ class BookSreach extends ActiveRecord
 
 
 	/**
-	 * 搜索 出版社 方法
+	 * 搜索 出版社 或 书架 方法( 根据传入的 $sreachType 参数 决定 )
 	 */
-	public function sreachPublisher( $sreachText )
+	public function sreachPublisherOrBookshelf( $sreachType, $sreachText )
 	{
-		$db = Yii::$app->db;
-		$publisherTableName        = Publisher::tableName();
 		$bookInfoTableName         = BookInfo::tableName(); 
 		$bookRelationshipTableName = BookInfo::bookRelationshipTableName();
 
+		if( $sreachType == 'publisherName' ){
+			# 	
+			$tableName  = Publisher::tableName();		
+			$PK_tableID = 'PK_publisherID';	
+			$FK_tableID = 'FK_publisherID';
+
+		}
+ 
+		if( $sreachType == 'bookshelfName' ){
+
+			$tableName  = Bookshelf::tableName();		
+			$PK_tableID = 'PK_bookshelfID';	
+			$FK_tableID = 'FK_bookshelfID';	
+		}
+
+
 		$query = new Query;
-		$query -> select('b.FK_bookInfoID, p.PK_publisherID, a.PK_bookInfoID, a.bookInfoBookName, a.bookInfoBookISBN, a.bookInfoBookAuthor')
-			   -> from( 'lib_publisher AS p' )
-			   -> where(['publisherName' => '机械工业出版社' ])
-			   -> join('INNER JOIN'	,  'lib_bookRelationship AS b' , 'b.FK_publisherID = p.PK_publisherID')
-			   -> join('INNER JOIN'	,  'lib_bookInfo AS a' , 'b.FK_bookInfoID = a.PK_bookInfoID');
+		$query -> select('b.FK_bookInfoID, a.PK_bookInfoID, a.bookInfoBookName, a.bookInfoBookISBN, a.bookInfoBookAuthor')
+			   -> from( $tableName . ' AS p' )
+			   -> where([ $sreachType => $sreachText ])
+			   -> join('INNER JOIN',  $bookRelationshipTableName.' AS b', 'b.'. $FK_tableID .' = p.' . $PK_tableID)
+			   -> join('INNER JOIN'	, $bookInfoTableName . ' AS a' , 'b.FK_bookInfoID = a.PK_bookInfoID');
 
 		
 		return $query;
-
 		
-		// 下面sql语句是 利用 publisher 表查询出的 id , 再去 join  bookRelationship表。
-		$sql = "SELECT `FK_bookInfoID` FROM $publisherTableName AS p JOIN $bookRelationshipTableName  AS r   ON p.PK_publisherID = r.FK_publisherID WHERE p.publisherName = '$sreachText'";
-
-		$beginTime = microtime( true );
-
-		// 执行 sql 语句后, 查询到是该 $sreachText 出版社的图书的 ID, 
-		$bookInfoID  = $db -> createCommand( $sql ) -> queryAll();
-
-
-		// 有了图书ID 后就好办了, 直接查询后得到结果放入 $bookInfoResult 数组中。
-		foreach( $bookInfoID as $key => $value)
-		{
-			$id = $bookInfoID[$key]['FK_bookInfoID'];
-			$bookInfoSql = "SELECT * FROM $bookInfoTableName WHERE PK_bookInfoID = $id";	
-			$bookInfoResult[] = $db -> createCommand( $bookInfoSql ) -> queryAll();
-		}
-
-		$endTime = microtime( true );
-
-		// 由于上面 $bookInfoResult[] 数组插入时多了一层(没办法), 这个数组结构变成了 $arr[0][0][val];
-		// 但是，在 view 的输出的格式是要通用的 $arr[0][val];  所以就有了下面的代码, 把数组的结构去掉一层.
-
-		foreach( $bookInfoResult as $key => $value )
-		{
-			$result[] = $bookInfoResult[$key][0];	
-		}
-
 
 		$this -> sreachResultCount = count( $result );
 		$this -> sreachResultTime  = $this -> calcQuerySpendTime( $beginTime, $endTime );
 		$this -> sreachResultText  = $sreachText;
 
 
-		return $result;
 	}
 	
 
