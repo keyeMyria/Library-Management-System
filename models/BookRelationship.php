@@ -10,7 +10,7 @@ class BookRelationship extends ActiveRecord
 
 	public static function tableName()
 	{
-		return 'lib_bookRelationship';	
+		return 'lib_bookRelationship';
 	}
 
 
