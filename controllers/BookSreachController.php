@@ -10,6 +10,9 @@ use Yii;
 
 
 use app\models\BookSreach;
+use app\models\BookInfo;
+use app\models\BookRelationship;
+
 
 class BookSreachController extends Controller
 {
@@ -17,10 +20,9 @@ class BookSreachController extends Controller
 	public $defaultPageSize = 6;
 
 	// 定义搜索结果的 图书名 的长度
-	public $viewBookNameLength = 30;
+	public $viewBookNameLength = 36;
 	
 
-	
 	public $defaultAction = 'sreach';
 	/**
 	 * 图书搜索
@@ -43,12 +45,16 @@ class BookSreachController extends Controller
 			$bookSreachModel = new BookSreach;
 
 			if( empty( $get['sreachText']) ){
-				
+
+				// 有 get 提交，但搜索框却啥都没填		
 				$session['isShowTip']  = true;					
 				$session['tipContent'] = '请输入要搜索的内容';
 
+				$pages  = null;
+				$models = null;
 				$sreachResult     = null;
 				$sreachResultInfo = null;
+
 
 			} else {
 
@@ -96,6 +102,43 @@ class BookSreachController extends Controller
 
 
 	/*
+	 * 图书搜索结果中的删除方法
+	 *
+	 */  
+	public function actionDel()
+	{
+		if ( $get = Yii::$app->request->get() ){
+
+			$bookInfo  = BookInfo::findOne( $get['id'] );
+
+			if ( $bookInfo ){
+
+				$bookRelsp  = BookRelationship::findOne( $bookInfo -> PK_bookInfoID );
+				$deleteBook = $bookRelsp -> delete();
+				
+				if( $delete ){
+					$bookInfo -> delete();	
+					return $this->redirect('sreach');
+				}
+			}
+
+
+
+
+			dump( $bookRelsp );
+			
+		}
+	
+	}
+
+
+
+
+
+
+
+
+	/*
 	 * 此方法被 $this -> actionSreach() 所调用。
 	 * 负责对超长的 图书名称 进行 cut， 好让 view 层输出的更优美.
 	 *
@@ -106,8 +149,8 @@ class BookSreachController extends Controller
 		{
 			$bookName =  $data[$key]['bookInfoBookName'] ;
 			
-			if ( strlen( $bookName ) > $this -> viewBookNameLength ){
-				$data[$key]['bookInfoBookName'] = substr( $bookName , 0 , $this->viewBookNameLength) . "....";
+			if ( mb_strlen( $bookName ) > $this -> viewBookNameLength ){
+				$data[$key]['bookInfoBookName'] = mb_substr( $bookName , 0 , $this->viewBookNameLength) . "....";
 			}
 		}
 		return $data;
