@@ -9,6 +9,7 @@ use yii\widgets\ActiveForm;
 use yii\widgets\LinkPager;
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 
 DropDownGlobalAsset::register( $this );
@@ -85,11 +86,11 @@ if ( $session['isShowTip'] ){
 		if( isset( $models) ){
 			foreach( $models as $key => $value ){ ?>
 				<tr>
-					<td> <?php echo $models[$key]['bookInfoBookISBN'];  ?> </td>
-					<td> <?php echo $models[$key]['bookInfoBookName'];  ?> </td>
+					<td> <?php echo $models[$key]['bookInfoBookISBN'];    ?> </td>
+					<td> <?php echo $models[$key]['bookInfoBookName'];    ?> </td>
 					<td> <?php echo $models[$key]['bookInfoBookAuthor'];  ?> </td>
 					<td>编辑</td>
-					<td>删除</td>
+					<td><a id='del-book-btn' href="<?= Url::to(['book-sreach/del', 'id' => $models[$key]['PK_bookInfoID'] ]) ?>">删除</a></td>
 					<td>查看更多</td>
 				</tr>
 			<?php	}
@@ -113,10 +114,12 @@ if ( $session['isShowTip'] ){
 		recordSreachType();      //  -> js/bookSreach/dropDownSreachType.js
 		selectOptionBySession(); //  -> js/bookSreach/dropDownSreachType.js
 		recordSreachTypeByClickSreachBtn(); //  -> js/bookSreach/dropDownSreachType.js
+		recordUrl();	
 
 		tip();
 	}
 
+	// 为触发下拉框
 	function dropDown()
 	{
 		$(document).ready(function(){
