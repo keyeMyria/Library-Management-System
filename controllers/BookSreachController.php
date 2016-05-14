@@ -24,11 +24,14 @@ class BookSreachController extends Controller
 	
 
 	public $defaultAction = 'sreach';
+
+
 	/**
 	 * 图书搜索
 	 */
 	public function actionSreach()
 	{
+
 		$session = new Session;
 		$sreachTypeArr = [
 			'bookName'  => '按书名',	
@@ -55,7 +58,6 @@ class BookSreachController extends Controller
 				$sreachResult     = null;
 				$sreachResultInfo = null;
 
-
 			} else {
 
 				$session['isShowTip'] = false;
@@ -72,6 +74,13 @@ class BookSreachController extends Controller
 				$models = $sreachResult -> offset( $pages->offset ) -> limit( $pages->limit ) -> all();
 				$models = $this -> cutBookName( $models ); # 此方法检查要输出到 view 的书名是否过长, 如果过长则 cut 短点.
 
+			}
+			
+			// 判断是否出现 tip 层
+			if( $session['checkIsShowTipNum'] ){
+				$session['isShowTip']  = true;	
+				$session['tipContent'] = '操作成功'; 
+				$session['checkIsShowTipNum'] = 0;  // 归位，以防止刷新时重新出现 tip 
 			}
 
 			return $this -> render('index', [
@@ -107,25 +116,30 @@ class BookSreachController extends Controller
 	 */  
 	public function actionDel()
 	{
+		$session = new Session;
+
 		if ( $get = Yii::$app->request->get() ){
 
 			$bookInfo  = BookInfo::findOne( $get['id'] );
 
 			if ( $bookInfo ){
 
-				$bookRelsp  = BookRelationship::findOne( $bookInfo -> PK_bookInfoID );
-				$deleteBook = $bookRelsp -> delete();
+				$bookRelspData  = BookRelationship::find()-> where([ 'FK_bookInfoID' => $bookInfo->PK_bookInfoID ]) -> one();
+				$bookRelsp      = BookRelationship::findOne( $bookRelspData ->PK_bookRelationshipID );
 				
-				if( $delete ){
+				if( $bookRelsp -> delete() ){
 					$bookInfo -> delete();	
-					return $this->redirect('sreach');
+
+					$session['checkIsShowTipNum'] = 1;
+
+					$url = $_SERVER['HTTP_REFERER'];
+					echo "<script> location.href = '{$url}' </script>";
 				}
 			}
 
 
 
 
-			dump( $bookRelsp );
 			
 		}
 	
@@ -149,8 +163,7 @@ class BookSreachController extends Controller
 		{
 			$bookName =  $data[$key]['bookInfoBookName'] ;
 			
-			if ( mb_strlen( $bookName ) > $this -> viewBookNameLength ){
-				$data[$key]['bookInfoBookName'] = mb_substr( $bookName , 0 , $this->viewBookNameLength) . "....";
+			if ( mb_strlen( $bookName ) > $this -> viewBookNameLength ){ $data[$key]['bookInfoBookName'] = mb_substr( $bookName , 0 , $this->viewBookNameLength) . "....";
 			}
 		}
 		return $data;
