@@ -202,6 +202,40 @@ class BookSreachController extends Controller
 
 
 
+
+	/**
+	 * 图书搜索结果 中的 “ 查看更多 ”
+	 */
+	public function actionViewMore()
+	{
+
+		$connect = Yii::$app->db;
+		
+		if( $get = Yii::$app->request->get() ){
+			$id  = $get['id'];
+			$sql = "SELECT `bookInfoBookISBN`, `bookInfoBookName`, `bookInfoBookAuthor`, `bookInfoBookTranslator`, `bookInfoBookPrice`, `bookInfoBookPage`, `FK_managerID`, `bookRelationshipStorageTime`, `bookTypeName`, `bookshelfName`, `publisherName`
+			   	FROM lib_bookInfo  AS b JOIN lib_bookRelationship AS r JOIN lib_publisher AS p JOIN lib_bookType AS t JOIN lib_bookshelf AS f
+				ON b.PK_bookInfoID = r.FK_bookInfoID AND r.FK_publisherID = p.PK_publisherID AND r.FK_bookTypeID = t.PK_bookTypeID AND r.FK_bookshelfID = f.PK_bookshelfID
+				WHERE PK_bookInfoID = $id";
+			$data = $connect -> createCommand( $sql ) -> queryAll();
+			return $this->render('viewMore', [
+				'data' => $data,	
+			]);
+		}		
+	
+	}
+	
+
+
+
+
+
+
+
+
+
+
+
 	/*
 	 * 取出 $this->actionEdit() 方法中所需的数据
 	 * @return $array 返回数组，键名为表名，键值为一个数组，里面为 'id' => 'name' 的形式
