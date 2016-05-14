@@ -12,6 +12,9 @@ use Yii;
 use app\models\BookSreach;
 use app\models\BookInfo;
 use app\models\BookRelationship;
+use app\models\BookType;
+use app\models\Bookshelf;
+use app\models\Publisher;
 
 
 class BookSreachController extends Controller
@@ -136,15 +139,100 @@ class BookSreachController extends Controller
 					echo "<script> location.href = '{$url}' </script>";
 				}
 			}
-
-
-
-
-			
 		}
-	
 	}
 
+
+	/*
+	 * 图书搜索结果 中的编辑 方法
+	 */
+	public function actionEdit()
+	{
+		$session = new Session;
+
+		if( $post = Yii::$app->request->post() ){
+			// 从编辑页面提交
+
+			$bookInfo = BookInfo::findOne( $post['bookInfoID'] );	
+			$bookRels = BookRelationship::findOne( $post['bookInfoID'] );
+
+			$bookInfo -> bookInfoBookISBN	    = $post['BookInfo']['bookInfoBookISBN'];
+			$bookInfo -> bookInfoBookName	    = $post['BookInfo']['bookInfoBookName'];
+			$bookInfo -> bookInfoBookAuthor     = $post['BookInfo']['bookInfoBookAuthor'];
+			$bookInfo -> bookInfoBookTranslator = $post['BookInfo']['bookInfoBookTranslator'];
+			$bookInfo -> bookInfoBookPrice      = $post['BookInfo']['bookInfoBookPrice'];
+			$bookInfo -> bookInfoBookPage       = $post['BookInfo']['bookInfoBookPage'];
+			$bookInfo -> save();
+
+			$bookRels -> FK_bookTypeID  = $post['bookType'];
+			$bookRels -> FK_bookshelfID = $post['bookshelf'];
+			$bookRels -> FK_publisherID = $post['publisher'];
+			$bookRels -> save();
+
+			 $session['checkIsShowTipNum'] = 1;
+			$url = $session['recordSreachUrl']; 
+			echo "<script> location.href = '{$url}' </script>";
+		}
+
+		
+		if ( $get = Yii::$app->request->get() )	{
+			// 从图书搜索结果页面点击 “编辑” 过来的
+
+
+			// 把原来的 图书搜索结果页面的 url 保存下来，等下编辑完成后可以跳转回去
+			$session['recordSreachUrl'] = $_SERVER['HTTP_REFERER'];
+			$session['isShowTip'] = false;
+			
+			$bookInfoModel = new BookInfo;
+			$data = $this -> getEditNeedData( $get['id'] );
+
+			return $this->render('edit', [
+			
+				'model' => $bookInfoModel,
+				'session' => $session,
+				'bookInfoData'  => $data['bookInfoData'],
+				'bookRelsData'  => $data['bookRelsData'],
+				'bookTypeData'  => $data['bookTypeData'],
+				'bookshelfData' => $data['bookshelfData'],
+				'publisherData' => $data['publisherData'],
+			]);
+		}
+	}
+
+
+
+
+	/*
+	 * 取出 $this->actionEdit() 方法中所需的数据
+	 * @return $array 返回数组，键名为表名，键值为一个数组，里面为 'id' => 'name' 的形式
+	 */ 
+	public function getEditNeedData( $id )
+	{
+		$data['bookInfoData']  = BookInfo::find()->where([ 'PK_bookInfoID' => $id ]) -> one();		
+		$data['bookRelsData']  = BookRelationship::find()->where([ 'FK_bookInfoID' => $id ]) -> one();
+
+		$bookType  =  BookType::find()->asArray()->all();
+		$bookshelf = Bookshelf::find()->asArray()->all();
+		$publisher = Publisher::find()->asArray()->all();
+
+		foreach ( $bookType as $key => $value ) {
+			$bookTypeData[ $bookType[$key]['PK_bookTypeID']] = $bookType[$key]['bookTypeName'];
+		}
+
+		foreach ( $bookshelf as $key => $value ) {
+			$bookshelfData[ $bookshelf[$key]['PK_bookshelfID'] ] = $bookshelf[$key]['bookshelfName'];
+		}
+
+		foreach ( $publisher as $key => $value ) {
+			$publisherData[ $publisher[$key]['PK_publisherID'] ]  = $publisher[$key]['publisherName'];
+		}
+		
+		$data['bookTypeData']  = $bookTypeData;
+		$data['bookshelfData'] = $bookshelfData;
+		$data['publisherData'] = $publisherData;
+  
+		return $data;
+	}
 
 
 
