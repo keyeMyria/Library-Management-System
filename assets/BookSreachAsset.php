@@ -19,6 +19,7 @@ class BookSreachAsset extends AssetBundle
 		'css/bookSreach/index.css',
 		'css/bookSreach/dropDown.css',
 		'css/background.css',
+		'css/bookSreach/viewMore.css', // 只应用于 图书搜索结果 的 “查看更多”
     ];
 
     public $js = [
