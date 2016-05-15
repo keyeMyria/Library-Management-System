@@ -84,10 +84,9 @@ if ( $session['isShowTip'] ){
 		{
 			dropDown();
 
-			selectOption('bookType');
+			selectOption('bookType'); // 进入编辑页面，自动选择下拉框 对应的值
 			selectOption('bookshelf');
 			selectOption('publisher');
-
 
 			tip();
 		}

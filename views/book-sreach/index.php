@@ -22,6 +22,7 @@ BookSreachAsset::register( $this );
 if ( $session['isShowTip'] ){
 	echo " <script> function tip(){ layer.msg('{$session['tipContent']}', { icon: 1, offset:'100px'}) } </script>";
 	$session['isShowTip'] = false;
+	
 }
 
 
@@ -89,9 +90,9 @@ if ( $session['isShowTip'] ){
 					<td> <?php echo $models[$key]['bookInfoBookISBN'];    ?> </td>
 					<td> <?php echo $models[$key]['bookInfoBookName'];    ?> </td>
 					<td> <?php echo $models[$key]['bookInfoBookAuthor'];  ?> </td>
-					<td>编辑</td>
+					<td><a id='del-book-btn' href="<?= Url::to(['book-sreach/edit', 'id' => $models[$key]['PK_bookInfoID'] ]) ?>">编辑</a></td>
 					<td><a id='del-book-btn' href="<?= Url::to(['book-sreach/del', 'id' => $models[$key]['PK_bookInfoID'] ]) ?>">删除</a></td>
-					<td>查看更多</td>
+					<td><a id='del-book-btn' href="<?= Url::to(['book-sreach/view-more', 'id' => $models[$key]['PK_bookInfoID'] ]) ?>">查看更多</a></td>
 				</tr>
 			<?php	}
 				}
@@ -114,7 +115,7 @@ if ( $session['isShowTip'] ){
 		recordSreachType();      //  -> js/bookSreach/dropDownSreachType.js
 		selectOptionBySession(); //  -> js/bookSreach/dropDownSreachType.js
 		recordSreachTypeByClickSreachBtn(); //  -> js/bookSreach/dropDownSreachType.js
-		recordUrl();	
+		changePageVal();
 
 		tip();
 	}
