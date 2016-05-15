@@ -11,6 +11,9 @@ namespace app\models;
 use yii\base\Model;
 use yii\db\Query;
 use yii\data\SqlDataProvider;
+use yii\helpers\Url;
+
+
 use Yii;
 
 
@@ -119,7 +122,7 @@ class BookSreach extends Model
 	public function sreachPublisherOrBookshelf( $sreachType, $sreachText )
 	{
 		$bookInfoTableName         = BookInfo::tableName(); 
-		$bookRelationshipTableName = BookInfo::bookRelationshipTableName();
+		$bookRelationshipTableName = BookRelationship::tableName();
 
 		if( $sreachType == 'publisherName' ){
 			  	
@@ -184,9 +187,6 @@ class BookSreach extends Model
 
 		return $sreachResultInfo;
 	}
-
-
-
 
 
 
