@@ -210,14 +210,15 @@ class BookSreachController extends Controller
 	{
 
 		$connect = Yii::$app->db;
-		
+	
 		if( $get = Yii::$app->request->get() ){
 			$id  = $get['id'];
-			$sql = "SELECT `bookInfoBookISBN`, `bookInfoBookName`, `bookInfoBookAuthor`, `bookInfoBookTranslator`, `bookInfoBookPrice`, `bookInfoBookPage`, `FK_managerID`, `bookRelationshipStorageTime`, `bookTypeName`, `bookshelfName`, `publisherName`
-			   	FROM lib_bookInfo  AS b JOIN lib_bookRelationship AS r JOIN lib_publisher AS p JOIN lib_bookType AS t JOIN lib_bookshelf AS f
-				ON b.PK_bookInfoID = r.FK_bookInfoID AND r.FK_publisherID = p.PK_publisherID AND r.FK_bookTypeID = t.PK_bookTypeID AND r.FK_bookshelfID = f.PK_bookshelfID
+			$sql = "SELECT `bookInfoBookISBN`, `bookInfoBookName`, `bookInfoBookAuthor`, `bookInfoBookTranslator`, `bookInfoBookPrice`, `bookInfoBookPage`, `managerUsername`, `bookRelationshipStorageTime`, `bookTypeName`, `bookshelfName`, `publisherName`
+			   	FROM lib_bookInfo  AS b JOIN lib_bookRelationship AS r JOIN lib_publisher AS p JOIN lib_bookType AS t JOIN lib_bookshelf AS f JOIN lib_manager AS m
+				ON b.PK_bookInfoID = r.FK_bookInfoID AND r.FK_publisherID = p.PK_publisherID AND r.FK_bookTypeID = t.PK_bookTypeID AND r.FK_bookshelfID = f.PK_bookshelfID AND r.FK_managerID = m.PK_managerID
 				WHERE PK_bookInfoID = $id";
-			$data = $connect -> createCommand( $sql ) -> queryAll();
+			$data = $connect -> createCommand( $sql ) -> queryOne();
+
 			return $this->render('viewMore', [
 				'data' => $data,	
 			]);
