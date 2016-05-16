@@ -11,18 +11,22 @@ use yii\web\Controller;
 use yii\web\Session;
 use Yii;
 
-use app\models\BookType;
-use app\models\Publisher;
-use app\models\Bookshelf;
-use app\models\BookAdd;
-use app\models\BookInfo;
+use app\models\Reader;
 use app\models\BookRelationship;
+use app\models\ReaderType;
 
 class ReaderAddController extends Controller
 {
 
 	# 新增条目成功时，提示的内容
 	public $addTipContent = '添加成功';
+
+	# 读者的证件类型	
+	public $readerCertificateArr = [
+		'学生证' => '学生证',
+		'身份证' => '身份证',
+	];
+
 
 
 	/**
@@ -34,10 +38,13 @@ class ReaderAddController extends Controller
 		$session = new Session;
 
 		if ( $post = Yii::$app->request->post() ){
+
+
+			#dump( $post );exit;
 		
 			// 存入把数据存入 lib_reader 表，返回 id
-/*	
-			$bookInfoID = $this -> bookInfoSave( $post );
+	
+			$readerID = $this -> readerSave( $post );exit;
 			$result     = $this -> bookRelationship( $post, $bookInfoID );
 			
 			if( $result ){
@@ -46,19 +53,27 @@ class ReaderAddController extends Controller
 				$session['isShowTip']  = true;
 				return $this->redirect('book-add');
 			}
- */
+ 
 		} else {
 
-			$model = new BookAdd;
+			$model = new Reader;
 
+			$session['isShowTip'] = false;
+
+			$readerType = ReaderType::find()->asArray()->all();
+
+			foreach ( $readerType as $key => $value ){
+				$readerTypeData[ $readerType[ $key ]['PK_readerTypeID'] ] = $readerType[ $key ]['readerTypeName']; 	
+			}
 
 			return $this->render('index', [
 
-				'bookTypeData'  => $data[0],
-				'publisherData' => $data[1],
-				'bookshelfData' => $data[2],
 				'model'         => $model,	
 				'session'       => $session,
+				'readerCertificate' => $this -> readerCertificateArr,
+				'readerTypeData' => $readerTypeData,
+
+
 			]);	
 		}
 	}
@@ -68,18 +83,28 @@ class ReaderAddController extends Controller
 	 * 保存 $post 数据进 lib_bookInfo 数据表
 	 * @return $primaryKey 新插入条目所返回的主键
 	 */
-	public function bookInfoSave( $post )
+	public function readerSave( $post )
 	{
-		$BookInfoModel = new BookInfo;	
-		$BookInfoModel -> bookInfoBookName       = $post['BookAdd']['bookInfoBookName'];
-		$BookInfoModel -> bookInfoBookISBN       = $post['BookAdd']['bookInfoBookISBN'];
-		$BookInfoModel -> bookInfoBookAuthor     = $post['BookAdd']['bookInfoBookAuthor'];
-		$BookInfoModel -> bookInfoBookTranslator = $post['BookAdd']['bookInfoBookTranslator'] ? $post['BookAdd']['bookInfoBookTranslator'] : null;
-		$BookInfoModel -> bookInfoBookPrice      = $post['BookAdd']['bookInfoBookPrice'];
-		$BookInfoModel -> bookInfoBookPage       = $post['BookAdd']['bookInfoBookPage'];
-	
-		$BookInfoModel -> save();
-		return $BookInfoModel -> getPrimaryKey();
+
+		$readerModel = new Reader;	
+		$readerModel -> FK_readerTypeID         = $post['readerType'];
+		$readerModel -> FK_managerID			= Yii::$app->user->id;
+	 	$readerModel -> readerNumber            = $post['Reader']['readerNumber'];
+		$readerModel -> readerName              = $post['Reader']['readerName'];
+		$readerModel -> readerBirthday          = $post['readerBirthday'];
+		$readerModel -> readerCertificate       = $post['readerCertificate'];
+		$readerModel -> readerCertificateNumber = $post['Reader']['readerCertificateNumber'];
+		$readerModel -> readerPhone             = $post['Reader']['readerPhone'];
+		#$readerModel -> readerEmail             = $post['Reader']['readerEmail'];
+		
+		$readerModel -> readerCreateDate        = date('Y-m-d');
+		
+	   //	 换一种插入语句	
+		$readerModel -> save();
+		#return $readerModel -> getPrimaryKey();
+		$a = $readerModel -> getPrimaryKey();
+
+		dump( $a );exit;
 	}
 
 

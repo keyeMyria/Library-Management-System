@@ -51,6 +51,7 @@ $config = [
     ],
     'params' => $params,
 	'defaultRoute' => 'frameset',
+	'language' => 'zh-CN',
 ];
 
 if (YII_ENV_DEV) {
