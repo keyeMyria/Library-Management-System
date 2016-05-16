@@ -31,7 +31,7 @@ class Reader extends ActiveRecord
 					'readerBirthday',
 					'readerCertificateNumber',
 					'readerPhone',
-					'readerEamil',
+					'readerEmail',
 				]
 				, 'required' , 'message' => '必填',
 			],

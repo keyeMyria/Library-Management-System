@@ -16,6 +16,17 @@ DropDownGlobalAsset::register( $this );
 ReaderAddAsset::register( $this );
 
 
+/** -------------------------------------------------------
+ * 判断是否出现 " 操作成功 " 的 tip 层
+ * @var $session['isShowTip'] boolean  为 true 则出现 tip 层，false反之
+ */
+if ( $session['isShowTip'] ){
+
+    echo " <script>function tip(){ layer.msg('{$session['tipContent']}', { icon: 1, offset:'100px'}) }  </script>";
+    $session['isShowTip'] = false;
+}
+
+
 ?>
 
 <div class='all'>
@@ -74,6 +85,7 @@ ReaderAddAsset::register( $this );
 	window.onload = function()
 	{
 		dropDown();	
+		tip();
 	}
 
 	function dropDown()
