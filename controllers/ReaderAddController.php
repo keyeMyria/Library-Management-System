@@ -39,43 +39,34 @@ class ReaderAddController extends Controller
 
 		if ( $post = Yii::$app->request->post() ){
 
-
-			#dump( $post );exit;
-		
 			// 存入把数据存入 lib_reader 表，返回 id
 	
-			$readerID = $this -> readerSave( $post );exit;
-			$result     = $this -> bookRelationship( $post, $bookInfoID );
-			
-			if( $result ){
+			$readerID = $this -> readerSave( $post );
+
+			if( $readerID ){
 
 				$session['tipContent'] = $this -> addTipContent;		
 				$session['isShowTip']  = true;
-				return $this->redirect('book-add');
+				return $this->redirect('index');
 			}
  
 		} else {
 
 			$model = new Reader;
-
-			$session['isShowTip'] = false;
-
 			$readerType = ReaderType::find()->asArray()->all();
 
 			foreach ( $readerType as $key => $value ){
 				$readerTypeData[ $readerType[ $key ]['PK_readerTypeID'] ] = $readerType[ $key ]['readerTypeName']; 	
 			}
-
 			return $this->render('index', [
 
-				'model'         => $model,	
-				'session'       => $session,
+				'model'             => $model,	
+				'session'           => $session,
 				'readerCertificate' => $this -> readerCertificateArr,
-				'readerTypeData' => $readerTypeData,
-
-
+				'readerTypeData'    => $readerTypeData,
 			]);	
 		}
+
 	}
 
 
@@ -85,7 +76,6 @@ class ReaderAddController extends Controller
 	 */
 	public function readerSave( $post )
 	{
-
 		$readerModel = new Reader;	
 		$readerModel -> FK_readerTypeID         = $post['readerType'];
 		$readerModel -> FK_managerID			= Yii::$app->user->id;
@@ -95,35 +85,12 @@ class ReaderAddController extends Controller
 		$readerModel -> readerCertificate       = $post['readerCertificate'];
 		$readerModel -> readerCertificateNumber = $post['Reader']['readerCertificateNumber'];
 		$readerModel -> readerPhone             = $post['Reader']['readerPhone'];
-		#$readerModel -> readerEmail             = $post['Reader']['readerEmail'];
-		
+		$readerModel -> readerEmail             = $post['Reader']['readerEmail'];
 		$readerModel -> readerCreateDate        = date('Y-m-d');
-		
-	   //	 换一种插入语句	
 		$readerModel -> save();
-		#return $readerModel -> getPrimaryKey();
-		$a = $readerModel -> getPrimaryKey();
 
-		dump( $a );exit;
+		return $readerModel -> getPrimaryKey();
 	}
-
-
-	public function bookRelationship( $post, $bookInfoID )
-	{
-		$BookRelationshipModel = new BookRelationship;	
-		$BookRelationshipModel -> FK_bookInfoID  = $bookInfoID;
-		$BookRelationshipModel -> FK_publisherID = $post['publisher'];
-		$BookRelationshipModel -> FK_bookTypeID  = $post['bookType'];
-		$BookRelationshipModel -> FK_bookshelfID = $post['bookshelf'];
-		$BookRelationshipModel -> FK_managerID   = Yii::$app->user->id;
-		$BookRelationshipModel -> bookRelationshipStorageTime = date('Y-m-d'); 
-
-		return $BookRelationshipModel -> save();
-	}
-
-
-
-
 
 }
 
