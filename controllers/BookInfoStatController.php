@@ -12,7 +12,9 @@ use app\models\BookRelationship;
 class BookInfoStatController extends Controller
 {
 
-	public function actionIndex()
+	public $defaultAction = 'bookshelf';
+
+	public function actionBookshelf()
 	{
 		$bookshelfData = Bookshelf::find()->asArray()->all();
 		$bookRelsCount = BookRelationship::find()->count();
