@@ -17,11 +17,12 @@ class BookInfoStatAsset extends AssetBundle
 	public $css = [
 		'css/indexGlobal.css',
 		'css/background.css',
+		'css/bookInfoStat/index.css',
     ];
 
     public $js = [
-		'https://code.highcharts.com/highcharts.js',
-		'https://code.highcharts.com/modules/exporting.js',
+		'js/highcharts/js/highcharts.js',
+		'js/highcharts/js/modules/exporting.js',
     ];
 
 
