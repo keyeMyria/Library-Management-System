@@ -28,7 +28,6 @@ class ReaderAddController extends Controller
 	];
 
 
-
 	/**
 	 * 读者添加模块的 显示输入框 和 处理数据 的方法
 	*/
@@ -71,8 +70,9 @@ class ReaderAddController extends Controller
 
 
 	/**
-	 * 保存 $post 数据进 lib_bookInfo 数据表
-	 * @return $primaryKey 新插入条目所返回的主键
+	 * 保存 $post 数据进 lib_reader 数据表
+	 * @param  arr 用户提交的 $post 数据
+	 * @return int 新插入条目所返回的主键
 	 */
 	public function readerSave( $post )
 	{
@@ -91,6 +91,5 @@ class ReaderAddController extends Controller
 
 		return $readerModel -> getPrimaryKey();
 	}
-
 }
 
