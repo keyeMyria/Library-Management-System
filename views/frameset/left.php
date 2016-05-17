@@ -32,7 +32,7 @@ FramesetLeftAsset::register( $this );
 					<ul>
                         <li><a href="<?=  Url::to(['book-add/book-add'])?>" target='right'>图书添加</a></li>
                         <li><a href="<?=  Url::to(['book-sreach/sreach'])?>" target='right'>图书搜索</a></li>
-                        <li><a href="<?=  Url::to(['book-info-stat/index'])?>" target='right'>图书信息统计</a></li>
+                        <li><a href="<?=  Url::to(['book-info-stat/bookshelf'])?>" target='right'>图书信息统计</a></li>
                     </ul>
                 </li>
 
@@ -40,7 +40,7 @@ FramesetLeftAsset::register( $this );
                     <ul>
 					<li><a href="<?= Url::to(['reader-add/index'])  ?>" target='right'>添加读者</a></li>
 						<li><a href="<?= Url::to(['reader-sreach/sreach']) ?>" target='right'>读者搜索</a></li>
-                        <li><a href="<?= Url::to(['reader-sreach/sreach'])  ?>">读者信息统计</a></li>
+                        <li><a href="<?= Url::to(['reader-sreach/sreach'])  ?>" target='right'>读者信息统计</a></li>
                     </ul>
                 </li>
 
