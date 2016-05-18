@@ -16,12 +16,10 @@ BookInfoStatAsset::register( $this );
 
 	<?= Html::hiddenInput('jsonData', $data , [ 'class' => 'jsonData' ] ) ?>	
 	
-	<button type='button' class='btn btn-primary' > 书架统计 </button>
-	<button type='button' class='btn btn-primary' > 书架统计 </button>
 
 
 	<div class='help-block'></div>
-	<div id="container" class='chart' style="min-width: 310px; height: 520px; max-width: 700px; margin: 0 0 0 300px; "></div>	
+	<div id="container" class='main-chart' style="min-width: 310px; height: 520px; max-width: 700px; margin: 0 0 0 180px; "></div>	
 
 
 </div>
@@ -31,6 +29,7 @@ window.onload = function(){
 	str  = $('.jsonData').val();
 	json = eval("("+ str +")");
 	my();
+	changePieBackground();	
 	//charts( json );
 }
 
@@ -82,8 +81,10 @@ $(function () {
         chart: {
             type: 'pie'
         },
+		className: 'main-chart',
+
         title: {
-            text: 'Browser market share, April, 2011'
+            text: '各书架分类与其子分类在图书馆书籍总数中的占比'
         },
         yAxis: {
             title: {
@@ -93,28 +94,28 @@ $(function () {
         plotOptions: {
             pie: {
                 shadow: false,
-                center: ['50%', '50%']
+                center: ['50%', '55%']
             }
         },
         tooltip: {
             valueSuffix: '%'
         },
         series: [{
-            name: 'Browsers',
+            name: '占比',
             data: browserData,
-            size: '60%',
+            size: '90%',
             dataLabels: {
                 formatter: function () {
                     return this.y > 5 ? this.point.name : null;
                 },
                 color: 'white',
-                distance: -30
+                distance: -110
             }
         }, {
             name: 'Versions',
             data: versionsData,
-            size: '80%',
-            innerSize: '60%',
+            size: '90%',
+            innerSize: '70%',
             dataLabels: {
                 formatter: function () {
                     // display only if larger than 1
@@ -130,6 +131,12 @@ $(function () {
 
 
 
+function changePieBackground()
+{
+
+	$('.highcharts-background').attr('fill', '#FFFFF0');
+
+}
 
 
 </script>
