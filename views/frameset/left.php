@@ -40,7 +40,7 @@ FramesetLeftAsset::register( $this );
                     <ul>
 					<li><a href="<?= Url::to(['reader-add/index'])  ?>" target='right'>添加读者</a></li>
 						<li><a href="<?= Url::to(['reader-sreach/sreach']) ?>" target='right'>读者搜索</a></li>
-                        <li><a href="<?= Url::to(['reader-sreach/sreach'])  ?>" target='right'>读者信息统计</a></li>
+                        <li><a href="<?= Url::to(['reader-info-stat/index'])  ?>" target='right'>读者信息统计</a></li>
                     </ul>
                 </li>
 

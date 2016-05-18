@@ -28,13 +28,13 @@ BookInfoStatAsset::register( $this );
 window.onload = function(){
 	str  = $('.jsonData').val();
 	json = eval("("+ str +")");
-	my();
+	pie();
 	changePieBackground();	
 	//charts( json );
 }
 
 
-function my(){
+function pie(){
 
 $(function () {
 
@@ -127,7 +127,7 @@ $(function () {
 });
 
 
-}   // function my()
+}   // function pie()
 
 
 

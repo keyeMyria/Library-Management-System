@@ -17,7 +17,6 @@ class BookInfoStatAsset extends AssetBundle
 	public $css = [
 		'css/indexGlobal.css',
 		'css/background.css',
-		'css/bookInfoStat/index.css',
     ];
 
     public $js = [
