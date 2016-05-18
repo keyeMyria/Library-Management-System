@@ -81,7 +81,7 @@ class BookInfoStatController extends Controller
 
 			foreach( $classifyCount  as $key => $value ){
 				// 循环出每个图书分类 在 图书总数 中的占比
-				$classifyPercent[ $key ]['percent'] = $classifyCount[ $key ]['count'] / $bookRelsCount * 100;
+				$classifyPercent[ $key ]['percent'] = round( $classifyCount[ $key ]['count'] / $bookRelsCount * 100 , 2 );
 				$classifyPercent[ $key ]['bookTypeName'] = $classifyCount[ $key ]['bookTypeName'];
 			}
 
