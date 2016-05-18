@@ -13,9 +13,9 @@ BookInfoStatAsset::register( $this );
 		<span>图书档案</span> >
 		<span>图书信息统计</span>
 	</div>
+
 	<?= Html::hiddenInput('jsonData', $data , [ 'class' => 'jsonData' ] ) ?>	
-
-
+	
 	<button type='button' class='btn btn-primary' > 书架统计 </button>
 	<button type='button' class='btn btn-primary' > 书架统计 </button>
 
@@ -30,61 +30,103 @@ BookInfoStatAsset::register( $this );
 window.onload = function(){
 	str  = $('.jsonData').val();
 	json = eval("("+ str +")");
-	charts( json );
-
+	my();
+	//charts( json );
 }
 
-function charts( data ){
 
-	options = {
+function my(){
+
+$(function () {
+
+    var colors = Highcharts.getOptions().colors,
+        categories = ['MSIE', 'Firefox', 'Chrome', 'Safari', 'Opera'];
+
+	var data = [{}],
+        browserData = [],
+        versionsData = [],
+        i,
+        j,
+        dataLen = data.length,
+        drillDataLen,
+        brightness;
+
+
+
+
+
+    // Build the data arrays
+    for (i = 0; i < json.length; i += 1) {
+
+        browserData.push({
+            name: json[i].bookshelfName,
+            y: json[i].bookshelfPercent,
+            color: colors[i]
+        });
+
+
+        drillDataLen = json[i].subClass.length; 
+
+        for (j = 0; j < drillDataLen; j += 1) {
+            brightness = 0.2 - (j / drillDataLen) / 5;
+            versionsData.push({
+                name: json[i].subClass[j].bookTypeName,
+                y: json[i].subClass[j].percent,
+                color: Highcharts.Color(browserData[i].color).brighten(brightness).get()
+            });
+        }
+    }
+
+    // Create the chart
+    $('#container').highcharts({
         chart: {
-            plotBackgroundColor: null,
-            plotBorderWidth: null,
-			plotShadow: false,
-			backgroundColor: '#FFFFF0',
-			padding: '0px',
+            type: 'pie'
         },
         title: {
-            text: '图书馆内各书架内的书籍数量在图书馆内的占比'
+            text: 'Browser market share, April, 2011'
         },
-        tooltip: {
-            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        yAxis: {
+            title: {
+                text: 'Total percent market share'
+            }
         },
         plotOptions: {
             pie: {
-                allowPointSelect: true,
-                cursor: 'pointer',
-                dataLabels: {
-                    enabled: true,
-                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-                    style: {
-                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-                    }
-                }
+                shadow: false,
+                center: ['50%', '50%']
             }
         },
+        tooltip: {
+            valueSuffix: '%'
+        },
         series: [{
-            type: 'pie',
-            name: 'Browser share',
-            data: []
+            name: 'Browsers',
+            data: browserData,
+            size: '60%',
+            dataLabels: {
+                formatter: function () {
+                    return this.y > 5 ? this.point.name : null;
+                },
+                color: 'white',
+                distance: -30
+            }
+        }, {
+            name: 'Versions',
+            data: versionsData,
+            size: '80%',
+            innerSize: '60%',
+            dataLabels: {
+                formatter: function () {
+                    // display only if larger than 1
+                    return this.y > 1 ? '<b>' + this.point.name + ':</b> ' + this.y + '%'  : null;
+                }
+            }
         }]
-    }
+    });
+});
 
 
-	// 将php传过来的 json 数据，循环放进 options 对象的 data 里
-	for( var i=0; i < data.length; i++ ){
-		options.series[0].data[i] = [ data[i].name , data[i].count ];	
-	}
-
-
-	$(function () {
-		// 传入上面定义的对象数据 options
-		$('#container').highcharts( options	);
-	});
-
-
-
-}
+}   // function my()
 
 
 
