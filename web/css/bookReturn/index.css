@@ -1,0 +1,49 @@
+/*
+ * 进入 “图书归还” 之前的 验证 读者编号页面
+ */
+.content{
+	position:absolute;
+	top:25%;left:35%;
+}
+
+.form-group{
+	width:210px;
+}
+
+.form-control{
+	float:left;
+	width:200px;
+}
+
+.number-btn{
+	float:right;
+}
+
+
+
+/*
+ * 图书归还页面 
+ */
+
+.top-btn-bar{
+	width:100%;height:50px;
+	min-width:500px;
+	position:absolute;
+	top:9%;
+	border:1px solid #000;
+}
+
+.add-borrow-btn{
+	position:absolute;
+	left:10%;
+}
+
+.switch-reader-btn{
+	position:absolute;
+	right:15%;
+
+}
+
+
+
+
