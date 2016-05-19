@@ -1,0 +1,52 @@
+.input-box{
+	position:absolute;
+	top:14%;left:35%;
+	width:350px;height:40px;
+}
+
+.sreachInput{
+
+	width:160%;height:39px;
+	padding-left:15px;
+}
+
+.sreach-btn{
+	float:right;
+	height:37px;width:80px;
+	margin-top:0px;
+	margin-right:25px;
+}
+
+.table-book-info{
+	position:absolute;
+	top:30%;left:19%;
+	width:60%;
+	min-width:400px;
+
+}
+
+.table-book-info tbody tr td{
+	line-height:45px;
+	text-indent:120px;
+}
+
+.table-book-info tbody tr td span{
+	font-weight:bold;
+}
+
+
+.confirm-borrow-btn{
+	width:140px;height:40px;
+	position:absolute;
+	top:80%;left:42%;
+	line-height:27px;
+}
+
+
+.goback-btn{
+	position:absolute;
+	left:19%;top:3%;
+	height:38px;width:80px;
+	line-height:25px;
+
+}
