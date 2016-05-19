@@ -30,7 +30,7 @@ window.onload = function(){
 	str  = $('.jsonData').val();
 	json = eval("("+ str +")");
 	pie( json );	
-	//charts( json );
+	changePieBackground();
 }
 
 
@@ -59,7 +59,7 @@ function pie( json ){
 					plotShadow: false
 				},
 				title: {
-					text: 'Browser market shares at a specific website, 2014'
+					text: '读者职业分布'
 				},
 				tooltip: {
 					pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
@@ -80,26 +80,14 @@ function pie( json ){
 				},
 				series: [{
 					type: 'pie',
-					name: 'Browser share',
-					data: [
-						['Firefox',   45.0],
-						['IE',       26.8],
-						{
-							name: 'Chrome',
-							y: 12.8,
-							sliced: true,
-							selected: true
-						},
-						['Safari',    8.5],
-						['Opera',     6.2],
-						['Others',   0.7]
-					]
+					name: '占比',
+					data: []
 				}]
 		};
 
 		//console.log( options.series[0] );
 		for ( var i=0; i<json.length; i++ ){
-			options.series[0].data[i] = [ json[i].readerTypeName, json[i].percent ];		
+			options.series[0].data[i] = [ json[i].readerTypeName , json[i].percent ];		
 		}
 		
 
@@ -110,26 +98,9 @@ function pie( json ){
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 function changePieBackground()
 {
-
 	$('.highcharts-background').attr('fill', '#FFFFF0');
-
 }
 
 
