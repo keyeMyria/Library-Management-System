@@ -33,7 +33,7 @@ if ( $session['isShowTip'] ){
 	</div>
 
 	<div class='content'>
-		<?php $form = ActiveForm::begin() ?>				
+		<?php $form = ActiveForm::begin(['method' => 'get']) ?>				
 			<?= $form -> field( $readerModel, 'readerNumber') -> textinput(['placeholder' => '请输入读者编码' ]) -> label( false ) ?>
 			<?= Html::submitButton('验证', ['class' => 'btn btn-primary'] ) ?>	
 		<?php ActiveForm::end(); ?>
