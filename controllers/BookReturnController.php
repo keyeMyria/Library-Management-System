@@ -31,17 +31,30 @@ class BookReturnController extends Controller
 		$session = new Session;
 		$bookReturnModel = new BookReturn;
 
-		if ( $post = Yii::$app->request->post() ){
-
-			$readerData = $bookReturnModel -> getReaderInfo( $post['Reader']['readerNumber'] );	
-			if( $readerData ){
+		if ( isset( $session['readerNumber'] ) ){
+			// session 中的读者编号还在	
+			$readerData = $bookReturnModel -> getReaderInfo( $session['readerNumber'] );	
+			return $this -> render( 'index' , [
+				'session' => $session, 	
+				'readerData' => $readerData,
+			]);
 				
+		}
+
+		if ( $get = Yii::$app->request->get() ){
+
+			$readerData = $bookReturnModel -> getReaderInfo( $get['Reader']['readerNumber'] );	
+
+			if( $readerData ){
+				// 读者编号 验证成功
+				$session['readerNumber'] = $readerData -> readerNumber;								
+
 			} else {
 
+				// 读者编号 验证失败
 				$session['isShowTip'] = true;
 				$session['tipContent'] = '没有查询到此读者信息，请确认输入是否正确';
 				return $this->redirect('index'); // 等于跳回验证页面
-
 			}
 
 			return $this -> render( 'index' , [
@@ -50,6 +63,7 @@ class BookReturnController extends Controller
 			]);
 
 		} else {
+
 
 			$readerModel = new Reader;
 			return $this -> render('verify', [
@@ -60,6 +74,34 @@ class BookReturnController extends Controller
 	
 	}
 
+
+
+
+	/*
+	 * 在图书归还页， 点击左上角的 “切换读者” 所处理的方法
+	 * 把当前的 $session['readerNumber'] 销毁，然后跳转回 actionIndex
+	 */ 
+	public function actionLogout()
+	{
+		$session = new Session;
+
+		if( isset( $session['readerNumber'] ) ){
+			unset( $session['readerNumber'] );	
+		}	
+
+		return $this->redirect('index');
+	}
+
+	
+
+
+	/*
+	 * 图书归还 中的 “借阅图书” 按钮
+	 */
+	public function actionBorrow()
+	{
+		return $this -> redirect(['book-borrow/index']);	
+	}
 
 }
 
