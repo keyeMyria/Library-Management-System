@@ -40,18 +40,22 @@ if ( $session['isShowTip'] ){
 	</div>
 
 	<div class='reader-data-box'>
+
 		<ul class='one'>
-			<li>姓名: <span>诸葛不亮</span></li>
-			<li>读者类型:  <span>学生</span></li>
+			<li>姓名: <span><?php echo $readerData['readerName'];   ?></span></li>
+			<li>读者类型:  <span><?php echo $readerData['readerTypeName'];  ?></span></li>
 		</ul>
+
 		<ul class='two'>
-			<li>证件类型: <span>身份证</span></li>
-			<li>证件号码:  <span>440111199701093017</span></li>
+			<li>证件类型: <span><?php echo $readerData['readerCertificate'];   ?></span></li>
+			<li>证件号码:  <span><?php echo $readerData['readerCertificateNumber'];   ?></span></li>
 		</ul>
+
 		<ul class='three'>
-			<li>可借 <span>10</span> 本 </li>
-			<li>已借 <span>6</span> 本 </li>
+			<li>可借 <span><?php echo $readerData['readerTypeBorrowNumber'];  ?></span> 本 </li>
+			<li>已借 <span><?php echo $borrowedCount;  ?></span> 本 </li>
 		</ul>
+
 	</div>
 
 	<div class='reader-borrow-box'>
@@ -68,15 +72,17 @@ if ( $session['isShowTip'] ){
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<td>《时间简史》</td>
-					<td>科技区</td>
-					<td>2016-02-09</td>
-					<td>2016-05-09</td>
-					<td>需归还</td>
-					<td>续借</td>
-					<td>归还</td>
-				</tr>
+				<?php foreach( $borrowData as $key => $value ){  ?> 
+					<tr>
+					<td>《<?php echo $borrowData[ $key ]['bookInfoBookName'];  ?>》</td>
+					<td><?php echo $borrowData[ $key ]['bookshelfName'];  ?></td>
+					<td><?php echo date( 'Y-m-d' , $borrowData[ $key ]['borrowBeginTimestamp'] )   ?></td>
+					<td><?php echo date( 'Y-m-d' , $borrowData[ $key ]['borrowReturnTimestamp'] )   ?></td>
+					<td><?php echo $borrowData[ $key ]['borrowIsReturn'] ? '已归还' : '未归还'; ?></td>
+					<td><?php echo $borrowData[ $key ]['PK_borrowID'] ?>续借</td>
+					<td><?php echo $borrowData[ $key ]['PK_borrowID'] ?>归还</td>
+					</tr>
+				<?php }   ?>
 			</tbody>
 
 		</table>
