@@ -20,6 +20,10 @@ use app\models\BookBorrow;
 class BookBorrowController extends Controller
 {
 	
+	// 借阅周期， 1 代表 1个月， 2 代表 2个月
+	public $borrowCycle = 3; 
+
+
 	public function actionIndex()
 	{
 		$session         = new Session;
@@ -30,8 +34,24 @@ class BookBorrowController extends Controller
 		$request = Yii::$app->request;
 
 		if( $post = $request -> post() ){
+
 			// 在 图书借阅 页面 点击 “ 确认借阅 ” 按钮	
-			dump( $post );exit;
+
+			$timeData = $bookBorrowModel -> borrowTimestamp( $this->borrowCycle  );
+			
+			$bookBorrowModel -> FK_bookInfoID         = $post['bookInfoID'];
+			$bookBorrowModel -> FK_readerID           = $session['readerID'];
+			$bookBorrowModel -> borrowBeginTimestamp  = $timeData['beginTime'];
+			$bookBorrowModel -> borrowReturnTimestamp = $timeData['endTime'];
+			$bookBorrowModel -> borrowIsReturn        = 0;
+
+			if( $bookBorrowModel -> save() ){
+				$session['isShowTip'] = true;	
+				$session['tipContent'] = '借阅成功';
+				$session['tipLevel']   = 1;
+				return $this -> redirect('index');	
+			}
+			
 		}
 
 		if( $get = $request->get() ){
@@ -62,11 +82,11 @@ class BookBorrowController extends Controller
 		} else {
 
 			// 第一次进入 图书借阅页面， 通过在点击 图书归还 页面的 "添加借阅" 按钮
-			
+
 			return $this -> render('index', [
-				'session' => $session,	
+				'session'       => $session,	
 				'bookInfoModel' => $bookInfoModel,
-				'bookInfoData' => null,
+				'bookInfoData'  => null,
 			]);		
 		}
 
