@@ -14,7 +14,7 @@ use Yii;
 
 
 use app\models\BookInfo;
-
+use app\models\BookBorrow;
 
 
 class BookBorrowController extends Controller
@@ -22,60 +22,57 @@ class BookBorrowController extends Controller
 	
 	public function actionIndex()
 	{
-		$session = new Session;
-		$bookInfoModel = new BookInfo;
+		$session         = new Session;
+		$bookInfoModel   = new BookInfo;
+		$bookBorrowModel = new BookBorrow;
+
 		$connect = Yii::$app->db;
+		$request = Yii::$app->request;
 
-		if( $get = Yii::$app->request->get() ){
-					
-			$sreachISBN = $get['BookInfo']['bookInfoBookISBN'];
+		if( $post = $request -> post() ){
+			// 在 图书借阅 页面 点击 “ 确认借阅 ” 按钮	
+			dump( $post );exit;
+		}
 
-			$sql = "SELECT `PK_bookInfoID`,       `bookInfoBookName`,
-							`bookInfoBookISBN` ,  `bookInfoBookAuthor` , 
-							`bookInfoBookPrice` , `bookInfoBookPage` ,
-							`bookTypeName`,       `bookshelfName`,
-							`publisherName`,       COUNT( distinct bookInfoBookISBN ) AS count
-						FROM lib_bookInfo
-							JOIN lib_bookRelationship 
-							JOIN lib_bookType 
-							JOIN lib_bookshelf 
-							JOIN lib_publisher 
-						ON FK_bookInfoID = PK_bookInfoID 
-							AND FK_bookTypeID = PK_bookTypeID 
-							AND FK_bookshelfID = PK_bookshelfID 
-							AND FK_publisherID = PK_publisherID  
-						WHERE bookInfoBookISBN = $sreachISBN 
-						GROUP BY bookInfoBookISBN";
-			$bookInfoData = $connect -> createCommand( $sql ) -> queryOne();	
+		if( $get = $request->get() ){
+			
+			// 在 图书借阅 页面 提交了 ISBN 号查询			
+		
+			$sreachISBN   = $get['BookInfo']['bookInfoBookISBN'];
+			$bookInfoData = $bookBorrowModel -> queryBookInfoByISBN( $connect, $sreachISBN );
+
+
 			if( $bookInfoData ){
-											
+
 			} else {
 
 				$session['isShowTip']  = true;
 				$session['tipContent'] = '无法查询出此ISBN,请检查后重试';
 				$session['tipLevel']   = 2;
 
-				$bookInfoData = false;	
+				$bookInfoData = null;	
 			}
 
-
-			
 			return $this -> render('index', [
  				'session'      => $session,
 				'bookInfoData' => $bookInfoData,	
 				'bookInfoModel' => $bookInfoModel,
 			]);
 
-
 		} else {
 
+			// 第一次进入 图书借阅页面， 通过在点击 图书归还 页面的 "添加借阅" 按钮
+			
 			return $this -> render('index', [
 				'session' => $session,	
 				'bookInfoModel' => $bookInfoModel,
+				'bookInfoData' => null,
 			]);		
 		}
+
+
+
 		
-	
 	}	
 
 
