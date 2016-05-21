@@ -8,6 +8,7 @@
 namespace app\models;
 
 use yii\base\Model;
+use yii\db\Query;
 
 use app\models\Reader;
 use app\models\ReaderType;
@@ -50,21 +51,20 @@ class  BookReturn extends Model
 	 */
 	public function getBorrowInfo( $connect, $readerID )
 	{
-		$sql = "SELECT   `PK_borrowID` ,`bookInfoBookName`, 
-		                 `bookshelfName`, `borrowBeginTimestamp`,
-	                     `borrowReturnTimestamp`, `borrowIsReturn`   
-				FROM  lib_borrow AS bw 
-						 JOIN lib_bookInfo AS bi 
-						 JOIN lib_bookRelationship AS brp 
-						 JOIN lib_bookshelf AS bf  
-				ON      bw.FK_bookInfoID = bi.PK_bookInfoID
-					AND bw.FK_bookInfoID = brp.FK_bookInfoID 
-					AND brp.FK_bookshelfID = bf.PK_bookshelfID				
-				WHERE FK_readerID = 2561;
-		";	
+		$borrowTableName    = BookBorrow::tableName();
+		$bookInfoTableName  = BookInfo::tableName();
+		$bookRelsTableName  = BookRelationship::tableName();
+		$bookshelfTableName = Bookshelf::tableName();
 
-		$result = $connect -> createCommand( $sql ) -> queryAll();
-		return $result;
+		$query = new Query;
+		$query  -> select('bw.PK_borrowID, bi.bookInfoBookName, bf.bookshelfName, bw.borrowBeginTimestamp, bw.borrowReturnTimestamp, bw.borrowIsReturn ')
+				-> from( $borrowTableName . ' AS bw')	
+				-> where(['FK_readerID' => $readerID ])
+				-> join('INNER JOIN', $bookInfoTableName . ' AS bi', 'bw.FK_bookInfoID = bi.PK_bookInfoID' )
+				-> join('INNER JOIN', $bookRelsTableName . ' AS brp', 'bw.FK_bookInfoID = brp.FK_bookInfoID' )
+				-> join('INNER JOIN', $bookshelfTableName . ' AS bf', 'brp.FK_bookshelfID = bf.PK_bookshelfID' );
+
+		return $query;
 	}
 
 
