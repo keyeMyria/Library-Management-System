@@ -66,7 +66,8 @@ class BookReturnController extends Controller
 			// 根据此读者 ID, 查出借阅图书
 			$borrowQuery = $bookReturnModel -> getBorrowInfo( $connect, $readerData['PK_readerID'] );
 
-			$cloneQuery = clone $borrowQuery; $borrowedCount = $cloneQuery->count();
+			$cloneQuery = clone $borrowQuery;
+			$borrowedCount = BookBorrow::find()->where(['borrowIsReturn' => 0 ])->count();
 
 			$pages = new Pagination(['totalCount' => $borrowedCount ]);
 			$pages -> defaultPageSize = $this -> defaultPageSize;
@@ -148,11 +149,17 @@ class BookReturnController extends Controller
 		$bookReturnModel = new BookReturn;
 		$borrowID = Yii::$app->request->get();	
 		$result = $bookReturnModel -> renew( $borrowID );
-		if( $result ){
-			$session['isShowTip'] = true;
+
+		$session['isShowTip'] = true;
+
+		if( $result == 1){
 			$session['tipContent'] = '续借成功';
-			return $this->redirect(['index']);	
+		} elseif ( $result == 2 ){
+			$session['tipContent'] = '此书早已归还，无需续借';	
 		}
+
+		return $this->redirect(['index']);	
+
 	}
 
 
@@ -166,13 +173,20 @@ class BookReturnController extends Controller
 		$borrowID = Yii::$app->request->get();	
 		$bookReturnModel = new BookReturn;
 		$result = $bookReturnModel -> returnBook( $borrowID );
-		if( $result ){
-			$session['isShowTip'] = true;
+				
+		$session['isShowTip'] = true;
+
+		if( $result == 1 ){
+
 			$session['tipContent'] = '归还成功';
-			return $this->redirect(['index']);	
+
+		} elseif ( $result == 2){
+
+			$session['tipContent'] = '此书已归还，无需重复归还';
+
 		}
 			
-	
+		return $this->redirect(['index']);	
 	}
 
 

@@ -66,7 +66,8 @@ class  BookReturn extends Model
 				-> where(['FK_readerID' => $readerID ])
 				-> join('INNER JOIN', $bookInfoTableName . ' AS bi', 'bw.FK_bookInfoID = bi.PK_bookInfoID' )
 				-> join('INNER JOIN', $bookRelsTableName . ' AS brp', 'bw.FK_bookInfoID = brp.FK_bookInfoID' )
-				-> join('INNER JOIN', $bookshelfTableName . ' AS bf', 'brp.FK_bookshelfID = bf.PK_bookshelfID' );
+				-> join('INNER JOIN', $bookshelfTableName . ' AS bf', 'brp.FK_bookshelfID = bf.PK_bookshelfID' )
+				-> orderBy('borrowIsReturn DESC');
 
 		return $query;
 	}
@@ -80,17 +81,33 @@ class  BookReturn extends Model
 	public function renew( $borrowID )
 	{
 		$borrow = BookBorrow::findOne( $borrowID );
+
+		if( $borrow -> borrowIsReturn == 1 ){
+			// 本书早已归还，无需续借。
+			return 2;	
+		}
+
 		$endTime = $borrow->borrowReturnTimestamp;
 		$borrow -> borrowReturnTimestamp = $endTime + $this->renewSecond;
-		return $borrow -> save();
+		if ( $borrow -> save() ){
+			return 1;	
+		}
 	}
 	
 
 	public function returnBook( $borrowID )
 	{
 		$borrow	= BookBorrow::findOne( $borrowID );
+		if( $borrow -> borrowIsReturn == 1){
+			// 本书早已归还，无需重复归还
+			return 2;	
+		}
+
 		$borrow -> borrowIsReturn = 1;
-		return $borrow -> save();
+		if( $borrow -> save() ){
+			// 归还成功
+			return 1;	
+		}
 		
 	}
 
