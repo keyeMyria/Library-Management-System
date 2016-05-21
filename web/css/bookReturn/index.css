@@ -34,22 +34,22 @@
 
 .add-borrow-btn{
 	position:absolute;
-	left:10%;
+	left:5%;
 }
 
 .switch-reader-btn{
 	position:absolute;
-	right:10%;
+	right:5%;
 
 }
 
 .reader-data-box{
 	display:block;
 	position:absolute;
-	top:16%;left:10%;
-	width:80%;height:7%;
+	top:16%;left:5%;
+	width:90%;height:7%;
 	min-width:600px;min-height:80px;
-	border:1px solid #ddd;
+	border:2px solid #ddd;
 	border-radius:5px;
 }
 
@@ -84,10 +84,10 @@
  */
 
 .reader-borrow-box{
-	width:80%; height:60%;
+	width:90%; height:60%;
 	min-width:600px; min-height:350px;
 	position:absolute;
-	top:32%;left:10%;
+	top:32%;left:5%;
 }
 
 .reader-borrow-box table tbody tr td{

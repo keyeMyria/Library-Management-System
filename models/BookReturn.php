@@ -12,10 +12,14 @@ use yii\db\Query;
 
 use app\models\Reader;
 use app\models\ReaderType;
+use app\models\BookBorrow;
 
 
 class  BookReturn extends Model
 {
+
+	public $renewSecond = 5184000;
+
 
 	/*
 	 * 接收 $readerNumber ，放进 reader 数据表中查找。
@@ -66,6 +70,24 @@ class  BookReturn extends Model
 
 		return $query;
 	}
+
+
+	/**
+	 * 图书续借功能
+	 * @param int $borrowID 借阅的数据ID
+	 * @return boolean 续借成功与否
+	 */
+	public function renew( $borrowID )
+	{
+		$borrow = BookBorrow::findOne( $borrowID );
+		$endTime = $borrow->borrowReturnTimestamp;
+		$borrow -> borrowReturnTimestamp = $endTime + $this->renewSecond;
+		return $borrow -> save();
+	}
+	
+
+
+
 
 
 }

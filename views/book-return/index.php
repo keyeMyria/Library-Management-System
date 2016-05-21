@@ -81,7 +81,7 @@ if ( $session['isShowTip'] ){
 					<td><?php echo date( 'Y-m-d' , $models[ $key ]['borrowBeginTimestamp'] )   ?></td>
 					<td><?php echo date( 'Y-m-d' , $models[ $key ]['borrowReturnTimestamp'] )   ?></td>
 					<td><?php echo $models[ $key ]['borrowIsReturn'] ? '已归还' : '未归还'; ?></td>
-					<td><?php echo $models[ $key ]['PK_borrowID'] ?>续借</td>
+					<td><a href='<?= Url::to(['book-return/renew', 'PK_borrowID' => $models[ $key ]['PK_borrowID']])    ?>' >续借 </a> </td>
 					<td><?php echo $models[ $key ]['PK_borrowID'] ?>归还</td>
 					</tr>
 				<?php }   ?>
@@ -107,5 +107,11 @@ echo LinkPager::widget([
 </div>
 
 
+<script>
+	window.onload = function()
+	{
+		tip();
+	}	
 
+</script>
 

@@ -20,6 +20,7 @@ use Yii;
 
 use app\models\Reader;
 use app\models\BookReturn;
+use app\models\BookBorrow;
 
 
 class BookReturnController extends Controller
@@ -109,7 +110,6 @@ class BookReturnController extends Controller
 
 
 
-
 	/*
 	 * 在图书归还页， 点击左上角的 “切换读者” 所处理的方法
 	 * 把当前的 $session['readerNumber'] 销毁，然后跳转回 actionIndex
@@ -135,6 +135,30 @@ class BookReturnController extends Controller
 	{
 		return $this -> redirect(['book-borrow/index']);	
 	}
+
+
+
+
+	 /*
+	  * 图书续借
+	  */
+	public function actionRenew()
+	{
+		$session = new Session;
+		$bookReturnModel = new BookReturn;
+		$borrowID = Yii::$app->request->get();	
+		$result = $bookReturnModel -> renew( $borrowID );
+		if( $result ){
+			$session['isShowTip'] = true;
+			$session['tipContent'] = '续借成功';
+			return $this->redirect(['index']);	
+		}
+	}
+
+
+
+
+
 
 }
 
