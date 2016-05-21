@@ -67,7 +67,7 @@ class  BookReturn extends Model
 				-> join('INNER JOIN', $bookInfoTableName . ' AS bi', 'bw.FK_bookInfoID = bi.PK_bookInfoID' )
 				-> join('INNER JOIN', $bookRelsTableName . ' AS brp', 'bw.FK_bookInfoID = brp.FK_bookInfoID' )
 				-> join('INNER JOIN', $bookshelfTableName . ' AS bf', 'brp.FK_bookshelfID = bf.PK_bookshelfID' )
-				-> orderBy('borrowIsReturn DESC');
+				-> orderBy('borrowIsReturn ASC, borrowBeginTimestamp DESC');
 
 		return $query;
 	}
