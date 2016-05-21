@@ -69,7 +69,7 @@ class BookReturnController extends Controller
 			$cloneQuery = clone $borrowQuery;
 			$borrowedCount = BookBorrow::find()->where(['borrowIsReturn' => 0 ])->count();
 
-			$pages = new Pagination(['totalCount' => $borrowedCount ]);
+			$pages = new Pagination(['totalCount' => $cloneQuery->count() ]);
 			$pages -> defaultPageSize = $this -> defaultPageSize;
 
 			$models = $borrowQuery -> offset( $pages->offset ) 

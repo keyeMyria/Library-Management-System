@@ -80,7 +80,7 @@ if ( $session['isShowTip'] ){
 					<td><?php echo $models[ $key ]['bookshelfName'];  ?></td>
 					<td><?php echo date( 'Y-m-d' , $models[ $key ]['borrowBeginTimestamp'] )   ?></td>
 					<td><?php echo date( 'Y-m-d' , $models[ $key ]['borrowReturnTimestamp'] )   ?></td>
-					<td><?php echo $models[ $key ]['borrowIsReturn'] ? '已归还' : '未归还'; ?></td>
+					<td><b><?php echo $models[ $key ]['borrowIsReturn'] ? '已归还' : '未归还'; ?></b></td>
 					<td><a href='<?= Url::to(['book-return/renew', 'PK_borrowID' => $models[ $key ]['PK_borrowID']])    ?>' >续借 </a> </td>
 					<td><a href='<?= Url::to(['book-return/return', 'PK_borrowID' => $models[ $key ]['PK_borrowID']])    ?>' > 归还 </a> </td>
 					</tr>
