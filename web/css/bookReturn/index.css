@@ -88,9 +88,15 @@
 	min-width:600px; min-height:350px;
 	position:absolute;
 	top:32%;left:10%;
-	
+}
 
+.reader-borrow-box table tbody tr td{
+	line-height:40px;
 }
 
 
+.pagination{
+	position:absolute;
+	left:40%;bottom:0%;
 
+}

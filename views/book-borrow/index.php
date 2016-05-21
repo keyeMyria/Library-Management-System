@@ -19,7 +19,7 @@ BookBorrowAsset::register( $this );
  * @var $session['isShowTip'] boolean  为 true 则出现 tip 层，false反之
  */
 if ( $session['isShowTip'] ){
-    echo " <script>function tip(){ layer.msg('{$session['tipContent']}', { icon: {$session['tipLevel']}  , offset:'100px'}) }  </script>";
+    echo " <script>function tip(){ layer.msg('{$session['tipContent']}', { icon: {$session['tipLevel']},  offset:'100px'}) }  </script>";
     $session['isShowTip'] = false;
 }
 

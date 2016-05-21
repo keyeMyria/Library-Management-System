@@ -6,8 +6,10 @@ use app\assets\BookReturnAsset;
 
 
 use yii\widgets\ActiveForm;
+use yii\widgets\LinkPager;
 use yii\helpers\Html;
 use yii\helpers\Url;
+
 
 ParamSetGlobalAsset::register( $this );
 LayerGlobalAsset::register( $this );
@@ -72,15 +74,15 @@ if ( $session['isShowTip'] ){
 				</tr>
 			</thead>
 			<tbody>
-				<?php foreach( $borrowData as $key => $value ){  ?> 
+				<?php foreach( $models as $key => $value ){  ?> 
 					<tr>
-					<td>《<?php echo $borrowData[ $key ]['bookInfoBookName'];  ?>》</td>
-					<td><?php echo $borrowData[ $key ]['bookshelfName'];  ?></td>
-					<td><?php echo date( 'Y-m-d' , $borrowData[ $key ]['borrowBeginTimestamp'] )   ?></td>
-					<td><?php echo date( 'Y-m-d' , $borrowData[ $key ]['borrowReturnTimestamp'] )   ?></td>
-					<td><?php echo $borrowData[ $key ]['borrowIsReturn'] ? '已归还' : '未归还'; ?></td>
-					<td><?php echo $borrowData[ $key ]['PK_borrowID'] ?>续借</td>
-					<td><?php echo $borrowData[ $key ]['PK_borrowID'] ?>归还</td>
+					<td>《<?php echo $models[ $key ]['bookInfoBookName'];  ?>》</td>
+					<td><?php echo $models[ $key ]['bookshelfName'];  ?></td>
+					<td><?php echo date( 'Y-m-d' , $models[ $key ]['borrowBeginTimestamp'] )   ?></td>
+					<td><?php echo date( 'Y-m-d' , $models[ $key ]['borrowReturnTimestamp'] )   ?></td>
+					<td><?php echo $models[ $key ]['borrowIsReturn'] ? '已归还' : '未归还'; ?></td>
+					<td><?php echo $models[ $key ]['PK_borrowID'] ?>续借</td>
+					<td><?php echo $models[ $key ]['PK_borrowID'] ?>归还</td>
 					</tr>
 				<?php }   ?>
 			</tbody>
@@ -89,6 +91,17 @@ if ( $session['isShowTip'] ){
 
 	
 	</div>
+
+
+<?php
+
+echo LinkPager::widget([
+	'pagination' => $pages,
+]);
+
+
+?>
+
 
 	
 </div>
