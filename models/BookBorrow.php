@@ -12,6 +12,8 @@ use yii\base\Model;
 use yii\db\ActiveRecord;
 use yii\db\Query;
 
+use app\models\Reader;
+use app\models\ReaderType;
 
 class BookBorrow extends ActiveRecord 
 {
@@ -115,6 +117,29 @@ class BookBorrow extends ActiveRecord
 
 		return $data;
 	}
+
+
+
+
+	/**
+	 * 根据 $readerID 查询此读者可借的书籍数量 
+	 * @param resource $connect 数据库资源
+	 * @param int $readerID 读者ID
+	 * @return int 可借阅的图书数量
+	 */
+	public function getAllowBorrowNumber( $connect , $readerID )
+	{
+        $sql = "SELECT `readerTypeBorrowNumber` 
+				FROM lib_reader JOIN lib_readerType 
+				ON FK_readerTypeID = PK_readerTypeID 
+				WHERE PK_readerID = $readerID";
+        $allowBorrowNumber =  $connect -> createCommand( $sql ) -> queryOne();
+        $allowBorrowNumber = $allowBorrowNumber['readerTypeBorrowNumber'];
+	
+		return $allowBorrowNumber;
+	}
+
+
 
 }
 
