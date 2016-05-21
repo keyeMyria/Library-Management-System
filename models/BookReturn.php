@@ -86,7 +86,13 @@ class  BookReturn extends Model
 	}
 	
 
-
+	public function returnBook( $borrowID )
+	{
+		$borrow	= BookBorrow::findOne( $borrowID );
+		$borrow -> borrowIsReturn = 1;
+		return $borrow -> save();
+		
+	}
 
 
 

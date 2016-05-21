@@ -157,7 +157,23 @@ class BookReturnController extends Controller
 
 
 
-
+	/**
+	 * 图书归还
+	 */
+	public function actionReturn()
+	{
+		$session = new Session;
+		$borrowID = Yii::$app->request->get();	
+		$bookReturnModel = new BookReturn;
+		$result = $bookReturnModel -> returnBook( $borrowID );
+		if( $result ){
+			$session['isShowTip'] = true;
+			$session['tipContent'] = '归还成功';
+			return $this->redirect(['index']);	
+		}
+			
+	
+	}
 
 
 }
