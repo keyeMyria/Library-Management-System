@@ -1,5 +1,4 @@
-<?php
-
+<?php 
 use app\assets\FramesetLeftAsset;
 use yii\helpers\Url;
 
@@ -45,7 +44,7 @@ FramesetLeftAsset::register( $this );
                 </li>
 
 				<li class="nosubmenu"><a href="<?= Url::to(['book-return/index'])  ?>" target='right'><img src="../images/frameset/left/list.png" alt="" /> 图书借还</a></li>
-                <li class="nosubmenu"><a href="#"><img src="../images/frameset/left/search.png" alt="" /> 图书借阅查询</a></li>
+				<li class="nosubmenu"><a href="<?= Url::to(['borrow-query/index'])  ?>" target='right' ><img src="../images/frameset/left/search.png" alt="" /> 图书借阅查询</a></li>
             </ul>
 
 
