@@ -32,8 +32,7 @@ class BookBorrowController extends Controller
 
 		$connect = Yii::$app->db;
 		$request = Yii::$app->request;
-
-		if( $post = $request -> post() ){
+if( $post = $request -> post() ){
 
 			// 在 图书借阅 页面 点击 “ 确认借阅 ” 按钮	
 
@@ -114,9 +113,11 @@ class BookBorrowController extends Controller
 		$readerID = $session['readerID'];
 		$allowBorrowNumber = $bookBorrowModel -> getAllowBorrowNumber( $connect , $readerID );
 
-		$borrowedCount     = BookBorrow::find() -> where(['borrowIsReturn' => '0']) -> count();
+		$borrowedCount     = BookBorrow::find() -> where(['borrowIsReturn' => '0', 'FK_bookInfoID' => $readerID ]) -> count();
+
 
 		$isAllowBorrow = $allowBorrowNumber - $borrowedCount;
+
 
 		if( $isAllowBorrow ){
 
