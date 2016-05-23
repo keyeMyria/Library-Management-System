@@ -49,6 +49,7 @@ class BookReturnController extends Controller
 
 			$readerData  = $bookReturnModel -> getReaderInfo( $connect, $readerNumber );	
 
+
 			if( $readerData ){
 
 				// 读者编号 验证成功
@@ -67,7 +68,7 @@ class BookReturnController extends Controller
 			$borrowQuery = $bookReturnModel -> getBorrowInfo( $connect, $readerData['PK_readerID'] );
 
 			$cloneQuery = clone $borrowQuery;
-			$borrowedCount = BookBorrow::find()->where(['borrowIsReturn' => 0 ])->count();
+			$borrowedCount = BookBorrow::find()->where(['and', 'borrowIsReturn = 0', 'FK_readerID = ' . $readerData['PK_readerID']  ])->count();
 
 			$pages = new Pagination(['totalCount' => $cloneQuery->count() ]);
 			$pages -> defaultPageSize = $this -> defaultPageSize;

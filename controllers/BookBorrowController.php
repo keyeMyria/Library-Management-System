@@ -113,11 +113,9 @@ if( $post = $request -> post() ){
 		$readerID = $session['readerID'];
 		$allowBorrowNumber = $bookBorrowModel -> getAllowBorrowNumber( $connect , $readerID );
 
-		$borrowedCount     = BookBorrow::find() -> where(['borrowIsReturn' => '0', 'FK_bookInfoID' => $readerID ]) -> count();
-
+		$borrowedCount     = BookBorrow::find() -> where([ 'and', 'borrowIsReturn = 0', 'FK_readerID = '.$readerID ]) -> count();
 
 		$isAllowBorrow = $allowBorrowNumber - $borrowedCount;
-
 
 		if( $isAllowBorrow ){
 
