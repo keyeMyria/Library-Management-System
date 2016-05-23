@@ -22,6 +22,11 @@ use app\models\ParseUserAgent;
 
 class IndexController extends Controller
 {
+	
+
+	// 指定获取多少条热门书籍
+	public $getNumber = 4;
+
 
 	
 	/*
@@ -29,10 +34,17 @@ class IndexController extends Controller
 	 */
 	public function actionIndex()
 	{
+		$connect = Yii::$app->db;
+
 
 		$userAgentParse = new ParseUserAgent;
 		$userAgentData  = $userAgentParse -> parse_user_agent();
 
+		$indexModel    = new Index;
+		$hotBookData   = $indexModel -> hotBook(   $connect, $this -> getNumber );
+		$hotReaderData = $indexModel -> hotReader( $connect, $this -> getNumber );	
+		
+		
 		$user    = Yii::$app->user; 
 		$session = Yii::$app->session;
 		$session -> open();
@@ -41,7 +53,9 @@ class IndexController extends Controller
 			
 			return $this->render('index', [
 				
-				'model'	    => $identity,
+				'hotBookData' => $hotBookData,
+				'hotReaderData' => $hotReaderData,
+	 			'model'	    => $identity,
 				'session'   => $session,
 				'userAgent' => $userAgentData,
 			]);					
