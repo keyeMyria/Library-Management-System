@@ -4,7 +4,7 @@ use yii\helpers\Url;
 
 ?>
 
-<frameset rows="6%,94%" border="0">
+<frameset rows="40,100%" border="0" > 
 
 	<!-- 
 		这里的 <frame> 的 src 属性为什么引用的是路由 frameset/top , 
@@ -13,7 +13,7 @@ use yii\helpers\Url;
 	-->
 	<frame src="<?= Url::to(['frameset/top']) ?>">
 
-	<frameset cols="16%,83%" >
+	<frameset cols="220,83%" >
 	<frame src="<?= Url::to(['frameset/left']) ?>" scrolling="no"> 
 
 
@@ -21,5 +21,4 @@ use yii\helpers\Url;
 	</frameset>
 
 </frameset>
-
 
