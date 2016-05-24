@@ -40,6 +40,7 @@ if ( $session['isShowTip'] ){
 
 
 <?php
+
 /**----------------------------------------------------
  * 图书档案编辑 
  */
@@ -48,7 +49,7 @@ if ( $session['isShowTip'] ){
 		<?php $form = ActiveForm::begin();  ?> 
 			<?= Html::hiddenInput('PK_readerID', $readerData['PK_readerID'] )  ?>
 			<?= $form->field( $model, 'readerName') ->textinput(['placeholder' => '读者姓名', 'value' => $readerData['PK_readerID'] ]) -> label( false ) ?>
-			<?= $form->field( $model, $readerData['readerName']) ->textinput(['placeholder' => '图书名称', 'value' => $readerData['readerName']  ]) -> label( false ) ?>
+			<?= $form->field( $model, 'readerName') ->textinput(['placeholder' => '图书名称', 'value' => $readerData['readerName']  ]) -> label( false ) ?>
 
 			
 			<?= $form->field( $model, 'readerNumber' ) ->textinput(['placeholder' => '读者编号', 'value' => $readerData['readerNumber'] ]) -> label( false ) ?>

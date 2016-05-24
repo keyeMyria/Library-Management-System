@@ -25,7 +25,7 @@ class IndexController extends Controller
 	
 
 	// 指定获取多少条热门书籍
-	public $getNumber = 4;
+	public $getNumber = 8;
 
 
 	

@@ -142,8 +142,8 @@ class ReaderSreachController extends Controller
 
 			$reader = Reader::findOne( $post['PK_readerID'] );	
 
-			$reader -> readerName    = $post['Reader']['readerName'];
-			$reader -> readerNumber	    = $post['Reader']['readerNumber'];
+			$reader -> readerName   = $post['Reader']['readerName'];
+			$reader -> readerNumber = $post['Reader']['readerNumber'];
 			$reader -> save();
 
 			 $session['checkIsShowTipNum'] = 1;

@@ -19,7 +19,7 @@ BookInfoStatAsset::register( $this );
 
 
 	<div class='help-block'></div>
-	<div id="container" class='main-chart' style="min-width: 310px; height: 520px; max-width: 700px; margin: 0 0 0 180px; "></div>	
+	<div id="container" class='main-chart' style="min-width: 310px; height: 580px; max-width: 700px; margin: 0 0 0 180px; "></div>	
 
 
 </div>
@@ -94,7 +94,7 @@ $(function () {
         plotOptions: {
             pie: {
                 shadow: false,
-                center: ['50%', '55%']
+                center: ['50%', '47%']
             }
         },
         tooltip: {
