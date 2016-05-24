@@ -10,6 +10,12 @@ namespace app\models;
 
 use yii\base\Model;
 
+use app\models\BookBorrow;
+use app\models\BookInfo;
+use app\models\Reader;
+
+
+
 
 class Index extends Model
 {
@@ -21,11 +27,14 @@ class Index extends Model
 	 */
 	public function hotBook( $connect, $getNumber )
 	{
+		$borrowTableName   = BookBorrow::tableName();
+		$bookInfoTableName = BookInfo::tableName();
+
 		$sql = "SELECT count( FK_bookInfoID )  AS count , FK_bookInfoID, bookInfoBookName  
-				FROM lib_borrow JOIN lib_bookInfo 
+				FROM $borrowTableName JOIN $bookInfoTableName 
 				ON FK_bookInfoID = PK_bookInfoID 
 				GROUP BY FK_bookInfoID 
-				ORDER BY count DESC 
+				ORDER BY count DESC, PK_borrowID DESC 
 				LIMIT 0, $getNumber";
 		$data =  $connect -> createCommand( $sql ) -> queryAll();
 		return $data;
@@ -34,11 +43,14 @@ class Index extends Model
 
 	public function hotReader( $connect, $getNumber )
 	{
+		$borrowTableName   = BookBorrow::tableName();
+		$readerTableName   = Reader::tableName();
+
 		$sql = "SELECT count( FK_readerID )  AS count , FK_readerID, readerName  
-				FROM lib_borrow JOIN lib_reader 
+				FROM $borrowTableName JOIN $readerTableName
 				ON FK_readerID = PK_readerID 
 				GROUP BY FK_readerID 
-				ORDER BY count DESC 
+				ORDER BY count DESC, FK_readerID DESC 
 				LIMIT 0, $getNumber";
 		$data =  $connect -> createCommand( $sql ) -> queryAll();
 		return $data;
