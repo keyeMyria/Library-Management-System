@@ -56,5 +56,6 @@
  */
 .pagination{
 	position:absolute;
-	bottom:10%;left:32%;
+	top:0px;left:32%;
+	margin-top:530px;
 }

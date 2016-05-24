@@ -116,6 +116,7 @@ if ( $session['isShowTip'] ){
 		selectOptionBySession(); //  -> js/bookSreach/dropDownSreachType.js
 		recordSreachTypeByClickSreachBtn(); //  -> js/bookSreach/dropDownSreachType.js
 		changePageVal();
+		paginationMarginTop();
 
 		tip();
 	}
@@ -128,6 +129,13 @@ if ( $session['isShowTip'] ){
 		});
 	}
  
+
+	// 图书搜索时 分页的栏的 margin-top
+	function paginationMarginTop()
+	{
+		$('.pagination').css('margin-top', '530px');
+	}
+
 
 </script>
 
