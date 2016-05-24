@@ -133,9 +133,7 @@ $(function () {
 
 function changePieBackground()
 {
-
 	$('.highcharts-background').attr('fill', '#FFFFF0');
-
 }
 
 

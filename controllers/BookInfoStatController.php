@@ -8,6 +8,7 @@ use yii\db\Query;
 
 
 use app\models\Bookshelf;
+use app\models\BookType;
 use app\models\BookRelationship;
 
 class BookInfoStatController extends Controller
@@ -27,10 +28,16 @@ class BookInfoStatController extends Controller
 
 		$connect = Yii::$app->db;
 
+		$bookRelsTableName  = BookRelationship::tableName();
+		$bookTypeTalbeName  = BookType::tableName();
+		$bookshelfTableName = Bookshelf::tableName();
+
+
+
 		// 图书总数
 		$bookRelsCount = BookRelationship::find()->count();
 
-		$bookshelfIDSql = "SELECT FK_bookshelfID FROM lib_bookRelationship GROUP BY FK_bookshelfID";
+		$bookshelfIDSql = "SELECT FK_bookshelfID FROM $bookRelsTableName GROUP BY FK_bookshelfID";
 		$bookshelfIDArr = $connect -> createCommand( $bookshelfIDSql ) -> queryAll(); 
 
 		foreach ( $bookshelfIDArr as $key => $value ) {
@@ -44,7 +51,7 @@ class BookInfoStatController extends Controller
 			$bookshelfID =  $bookshelfIDArr[$key]['FK_bookshelfID'];
 
 			$sql = " SELECT count(*) AS count, bookTypeName, bookshelfName  
-						FROM lib_bookRelationship JOIN lib_bookType JOIN lib_bookshelf 
+						FROM $bookRelsTableName JOIN $bookTypeTalbeName JOIN $bookshelfTableName 
 						ON FK_bookTypeID = PK_bookTypeID AND FK_bookshelfID = PK_bookshelfID   
 						WHERE FK_bookshelfID = $bookshelfID 
 						GROUP BY FK_bookTypeID;";
