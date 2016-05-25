@@ -66,7 +66,7 @@ if ( $session['isShowTip'] ){
 				foreach( $models as $key => $value ){  ?>
 				<tr>
 					<td class='text-center'><?php echo $models[ $key ]['readerName'];  ?></td>
-					<td><?php echo $models[ $key ]['bookInfoBookName'];  ?></td>
+					<td title='<?php echo isset($models[ $key ]['viewBookName']) ? $models[ $key ]['bookInfoBookName'] : ''; ?>'>《<?php echo isset($models[ $key ]['viewBookName']) ? $models[$key ]['viewBookName'] : $models[ $key ]['bookInfoBookName'] ;  ?>》</td>
 					<td><?php echo date('Y-m-d', $models[ $key ]['borrowBeginTimestamp']);  ?></td>
 					<td><?php echo date('Y-m-d', $models[ $key ]['borrowReturnTimestamp']);  ?></td>
 					<td><?php echo $models[ $key ]['bookshelfName'];  ?></td>

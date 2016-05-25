@@ -62,20 +62,21 @@ if ( $session['isShowTip'] ){
 		<?php if( isset( $bookInfoData ) ){  ?>
 
 				<tr>
-				<td>ISBN:  &nbsp;<span class='isbn' book-info-id='<?php echo $bookInfoData['PK_bookInfoID']; ?>'> <?php echo $bookInfoData['bookInfoBookISBN'];  ?>  </span></td>
-					<td>书名: <span>  《  <?php echo $bookInfoData['bookInfoBookName'];  ?>  》  </span></td>
+				<td>ISBN:  &nbsp;<span class='isbn' book-info-id='<?php echo $bookInfoData[0]['PK_bookInfoID']; ?>'> <?php echo $bookInfoData[0]['bookInfoBookISBN'];  ?>  </span></td>
+					<td>书名: <span title='<?php echo isset($bookInfoData[ 0 ]['viewBookName']) ? $bookInfoData[ 0 ]['bookInfoBookName'] : ''; ?>'>《<?php echo isset($bookInfoData[ 0 ]['viewBookName']) ? $bookInfoData[ 0 ]['viewBookName'] : $bookInfoData[ 0 ]['bookInfoBookName'] ;  ?>》</span></td>
+
 				</tr>
 				<tr>
-				<td>作者: &nbsp;<span>    <?php echo $bookInfoData['bookInfoBookAuthor'];  ?></span></td>
-					<td>类型:  &nbsp;<span> <?php echo $bookInfoData['bookTypeName'];  ?> </span></td>
+				<td>作者: &nbsp;<span>    <?php echo $bookInfoData[0]['bookInfoBookAuthor'];  ?></span></td>
+					<td>类型:  &nbsp;<span> <?php echo $bookInfoData[0]['bookTypeName'];  ?> </span></td>
 				</tr>
 				<tr>
-					<td>出版社:  <span>  <?php echo $bookInfoData['publisherName'];  ?>  </span></td>
-					<td>书架:  &nbsp;<span> <?php echo $bookInfoData['bookshelfName'];  ?> </span></td>
+					<td>出版社:  <span>  <?php echo $bookInfoData[0]['publisherName'];  ?>  </span></td>
+					<td>书架:  &nbsp;<span> <?php echo $bookInfoData[0]['bookshelfName'];  ?> </span></td>
 				</tr>
 				<tr>
-					<td>定价:  &nbsp;<span>  ￥<?php echo $bookInfoData['bookInfoBookPrice'];  ?> </span></td>
-					<td>页码:  &nbsp;<span>  <?php echo $bookInfoData['bookInfoBookPage'];  ?></span></td>
+					<td>定价:  &nbsp;<span>  ￥<?php echo $bookInfoData[0]['bookInfoBookPrice'];  ?> </span></td>
+					<td>页码:  &nbsp;<span>  <?php echo $bookInfoData[0]['bookInfoBookPage'];  ?></span></td>
 				</tr> 
 
 

@@ -32,7 +32,7 @@ class BookBorrowController extends Controller
 
 		$connect = Yii::$app->db;
 		$request = Yii::$app->request;
-if( $post = $request -> post() ){
+		if( $post = $request -> post() ){
 
 			// 在 图书借阅 页面 点击 “ 确认借阅 ” 按钮	
 
@@ -61,6 +61,7 @@ if( $post = $request -> post() ){
 			$sreachISBN   = $get['BookInfo']['bookInfoBookISBN'];
 			$bookInfoData = $bookBorrowModel -> queryBookInfoByISBN( $connect, $sreachISBN );
 
+			$bookInfoData = $bookInfoModel -> cutBookName( $bookInfoData , 20 );
 
 			if( $bookInfoData ){
 

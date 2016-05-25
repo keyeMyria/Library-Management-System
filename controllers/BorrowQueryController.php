@@ -13,6 +13,7 @@ use yii\data\Pagination;
 use Yii;
 
 use app\models\BorrowQuery;
+use app\models\BookInfo;
 
 
 
@@ -25,7 +26,8 @@ class BorrowQueryController extends Controller
 	public function actionIndex()
 	{
 
-		$session = new Session;
+		$session          = new Session;
+		$bookInfoModel    = new BookInfo;
 		$borrowQueryModel = new BorrowQuery;
 		$connect = Yii::$app->db;
 		$pages = null;
@@ -47,6 +49,9 @@ class BorrowQueryController extends Controller
 			$pages -> defaultPageSize = $this -> defaultPageSize;
 
 			$models = $borrowQuery -> offset( $pages->offset ) -> limit( $pages->limit ) -> all();
+			
+			$models = $bookInfoModel -> cutBookName( $models , 30 );
+
 		}
 
 

@@ -17,6 +17,7 @@ use yii\helpers\Url;
 use app\models\Manager;
 use app\models\Index;
 use app\models\ParseUserAgent;
+use app\models\BookInfo;
 
 
 
@@ -44,6 +45,10 @@ class IndexController extends Controller
 		$hotBookData   = $indexModel -> hotBook(   $connect, $this -> getNumber );
 		$hotReaderData = $indexModel -> hotReader( $connect, $this -> getNumber );	
 		
+		$bookInfoModel = new BookInfo;
+		$hotBookData   = $bookInfoModel -> cutBookName( $hotBookData , 27 );
+		#dump( $hotBookData );exit;
+
 		
 		$user    = Yii::$app->user; 
 		$session = Yii::$app->session;

@@ -37,11 +37,6 @@ class BookBorrow extends ActiveRecord
 	{
 
 
-		# 明天要做的事，使用 query 查询出的数据才能做分页
-		
-
-
-
 
 		$sql = "SELECT `PK_bookInfoID`,       `bookInfoBookName`,
                               `bookInfoBookISBN` ,  `bookInfoBookAuthor` , 
@@ -59,7 +54,7 @@ class BookBorrow extends ActiveRecord
                               AND FK_publisherID = PK_publisherID  
                           WHERE bookInfoBookISBN = $ISBN 
                           GROUP BY bookInfoBookISBN";
-        $bookInfoData = $connect -> createCommand( $sql ) -> queryOne();	
+        $bookInfoData = $connect -> createCommand( $sql ) -> queryAll();	
 
 		return $bookInfoData;
 	}

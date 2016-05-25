@@ -58,7 +58,8 @@ $session['isFirstLogin'] = false;
 					</tr>
 				<?php foreach( $hotBookData as $key => $value ){ ?>
 					<tr>
-						<td>《<?php echo $hotBookData[ $key ]['bookInfoBookName']; ?>》</td>
+						<td title='<?php echo isset($hotBookData[ $key ]['viewBookName']) ? $hotBookData[ $key ]['bookInfoBookName'] : ''; ?>'>《<?php echo isset($hotBookData[ $key ]['viewBookName']) ? $hotBookData[ $key ]['viewBookName'] : $hotBookData[ $key ]['bookInfoBookName'] ;  ?>》</td>
+ 
 						<td>  <?php echo $hotBookData[ $key ]['count']; ?> </td>
 					</tr>
 				<?php } ?>

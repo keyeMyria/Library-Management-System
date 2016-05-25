@@ -21,6 +21,7 @@ use Yii;
 use app\models\Reader;
 use app\models\BookReturn;
 use app\models\BookBorrow;
+use app\models\BookInfo;
 
 
 class BookReturnController extends Controller
@@ -32,12 +33,12 @@ class BookReturnController extends Controller
 		
 	/*
 	 * 没有 Get 和 没有 Session 数据时，展示 “读者编号验证页面”
-	 * 有 Get 提交 或 Session 数据时，展示 “归还页面” （里面有 该读者信息，和他借阅了什么书）
-	 */
+	 * 有 Get 提交 或 Session 数据时，展示 “归还页面” （里面有 该读者信息，和他借阅了什么书） */
 	public function actionIndex()
 	{
 
-		$session = new Session;
+		$session         = new Session;
+		$bookInfoModel   = new BookInfo;
 		$bookReturnModel = new BookReturn;
 
 		$connect = Yii::$app->db;
@@ -76,6 +77,9 @@ class BookReturnController extends Controller
 			$models = $borrowQuery -> offset( $pages->offset ) 
 					               -> limit(  $pages->limit ) 
 					               -> all();
+
+			$models = $bookInfoModel -> cutBookName( $models , 30 );
+
 
 			return $this -> render( 'index' , [
 

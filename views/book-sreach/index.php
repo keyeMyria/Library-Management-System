@@ -88,7 +88,8 @@ if ( $session['isShowTip'] ){
 			foreach( $models as $key => $value ){ ?>
 				<tr>
 					<td> <?php echo $models[$key]['bookInfoBookISBN'];    ?> </td>
-					<td> <?php echo $models[$key]['bookInfoBookName'];    ?> </td>
+					<td title='<?php echo isset($models[ $key ]['viewBookName']) ? $models[ $key     ]['bookInfoBookName'] : ''; ?>'>《<?php echo isset($models[ $key ]['viewBookName']) ? $models[ $key ]    ['viewBookName'] : $models[ $key ]['bookInfoBookName'] ;  ?>》</td>
+
 					<td> <?php echo $models[$key]['bookInfoBookAuthor'];  ?> </td>
 					<td><a id='del-book-btn' href="<?= Url::to(['book-sreach/edit', 'id' => $models[$key]['PK_bookInfoID'] ]) ?>">编辑</a></td>
 					<td><a id='del-book-btn' href="<?= Url::to(['book-sreach/del', 'id' => $models[$key]['PK_bookInfoID'] ]) ?>">删除</a></td>

@@ -49,6 +49,7 @@ class BookSreachController extends Controller
 
 			$sreachText = $get['sreachText'];
 			$bookSreachModel = new BookSreach;
+			$bookInfoModel   = new BookInfo;
 
 			if( empty( $get['sreachText']) ){
 
@@ -75,7 +76,7 @@ class BookSreachController extends Controller
 				$pages -> defaultPageSize = $this -> defaultPageSize;
 
 				$models = $sreachResult -> offset( $pages->offset ) -> limit( $pages->limit ) -> all();
-				$models = $this -> cutBookName( $models ); # 此方法检查要输出到 view 的书名是否过长, 如果过长则 cut 短点.
+				$models = $bookInfoModel -> cutBookName( $models , 25 );
 
 			}
 			
