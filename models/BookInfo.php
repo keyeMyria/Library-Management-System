@@ -19,6 +19,15 @@ class BookInfo extends ActiveRecord
 	}
 
 
+	public function rules()
+	{
+		return [
+			['bookInfoBookISBN', 'required', 'message' => '请输入要查询的ISBN号'],
+			['bookInfoBookISBN', 'number', 'message' => '请输入数字类型的ISBN号'],	
+		];	
+	}
+
+
 
 	 /*
       * 共用方法。

@@ -1,5 +1,4 @@
-<?php
-
+<?php 
 namespace app\controllers;
 
 use Yii;
@@ -31,7 +30,6 @@ class BookInfoStatController extends Controller
 		$bookRelsTableName  = BookRelationship::tableName();
 		$bookTypeTalbeName  = BookType::tableName();
 		$bookshelfTableName = Bookshelf::tableName();
-
 
 
 		// 图书总数
@@ -83,7 +81,7 @@ class BookInfoStatController extends Controller
 			$data[] = $bookshelfPercent;
 		}
 
-		#dump( $data );exit;
+
 		$json = json_encode( $data );
 		return $this->render('index', [
 			'data' => $json,	

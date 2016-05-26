@@ -15,6 +15,9 @@ BookInfoStatAsset::register( $this );
 	</div>
 
 	<?= Html::hiddenInput('jsonData', $data , [ 'class' => 'jsonData' ] ) ?>	
+
+
+
 	
 
 

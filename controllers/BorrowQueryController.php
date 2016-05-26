@@ -35,11 +35,6 @@ class BorrowQueryController extends Controller
 
 
 		if ( $get = Yii::$app->request->get() ){
-			/*
-			 * 查找最近 30 天 借出去但未归还的书籍
-			 * 使用 between 字段 borrowBeginTimestamp
-			 */
-
 
 			$borrowQuery = $borrowQueryModel -> borrowQuery( $connect, $get );
 

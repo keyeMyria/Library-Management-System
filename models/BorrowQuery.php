@@ -31,17 +31,19 @@ class BorrowQuery extends Model
 
 	/**
 	 * 借阅查询
-	 * @param array $post 存放着用户提交的查询数据
+	 * @param array $get 存放着用户提交的查询数据
 	 */
-	public function borrowQuery( $connect,  $post )
+	public function borrowQuery( $connect,  $get )
 	{
-		$dayTimestamp = $post['sreachText'] * 86400;
+		$dayTimestamp = $get['sreachText'] * 86400;
+
 		$nowTimestamp = time();
 		$endTimestamp = $nowTimestamp - $dayTimestamp;
+		
 
-		if( $post['condition'] == 'notReturn' ){
+		if( $get['condition'] == 'notReturn' ){
 			$borrowIsReturn = 0;	
-		} elseif( $post['condition'] == 'returned' ){
+		} elseif( $get['condition'] == 'returned' ){
 			$borrowIsReturn = 1;	
 		}
 
@@ -59,8 +61,8 @@ class BorrowQuery extends Model
 			-> join('INNER JOIN', BookRelationship::tableName() . ' AS brp' , 'brp.FK_bookInfoID = bw.FK_bookInfoID')
 			-> join('INNER JOIN', Bookshelf::tableName() . ' AS bs', 'bs.PK_bookshelfID = brp.FK_bookshelfID')
 			-> join('INNER JOIN', Reader::tableName() . ' AS rd', 'rd.PK_readerID = bw.FK_readerID')
-			-> where(['between', 'borrowBeginTimestamp', $endTimestamp, $nowTimestamp])
-			-> where([ 'borrowIsReturn' => $borrowIsReturn] );
+			-> where([ 'and', [ 'borrowIsReturn' => $borrowIsReturn] ,   ['between', 'borrowBeginTimestamp', $endTimestamp, $nowTimestamp] ])
+			-> orderBy('borrowBeginTimestamp DESC');
 
 		return $query;
 	}
