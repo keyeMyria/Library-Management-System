@@ -22,6 +22,7 @@ class BookshelfController extends Controller
 	 * 定义一页能显示多少条数据
 	 */
 	public $defaultPageSize = 10;
+	public $defaultPageSize_large = 17;
 
 
 	# 新增条目成功时, 提示的内容
@@ -63,13 +64,22 @@ class BookshelfController extends Controller
 			$data = $query -> offset( $pages->offset ) 
 						   -> limit( $pages->limit ) 
 					       -> all();
+			
+			// large 代表大屏显示器，需要一页显示更多的数据
+			$pages_large = new Pagination(['totalCount' => $cloneQuery->count() ]);
+			$pages_large -> defaultPageSize =  $this -> defaultPageSize_large;
+			$data_large = $query -> offset( $pages_large->offset ) 
+						   -> limit( $pages_large->limit ) 
+					       -> all();
 
 			return $this->render('index', [
-				'model'		=> $model,
-				'data'		=> $data,
-				'pages'		=> $pages,
-				'session'   => $session,
 
+				'model'			=> $model,
+				'data'			=> $data,
+				'data_large'	=> $data_large,
+				'pages'			=> $pages,
+				'pages_large' 	=> $pages_large,
+				'session'       => $session,
 			]);		
 		}
 	}	

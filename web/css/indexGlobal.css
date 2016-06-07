@@ -2,15 +2,28 @@
  * 此 indexGlobal.css 属于全局的 index 样式
  */
 
-.all {
-    width: 92%;
-    height: 580px;
-    background: #FFFFF0;
-    margin: auto;
-    position: relative;
+body{ background: #ededed; }
+
+/* 适配1200px 以上的屏幕   */
+.lg-all{
+	width:94%;
+	margin-left:-13%;
+}
+
+/* 适配992px 以上的屏幕   */
+.md-all{
+	width:90%;
+	margin-left:-4%;
+}
+
+/* 两种屏幕( 中屏、大屏) 都适用的样式 */
+.all{
+    height: 92%;
     border-radius: 10px;
     margin-top: 2%;
-    box-shadow: 5px 5px 7px #848484;
+	position:fixed;	
+    background:#FFFFF0;
+    box-shadow: 0px 0px 33px -12px #2B2B2B;
 }
 
 
@@ -20,3 +33,5 @@
 	position:absolute;
 	top:4%;left:5%;
 }
+
+

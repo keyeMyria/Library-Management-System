@@ -1,0 +1,52 @@
+/* "新增" 按钮的样式   */
+.add-btn{
+	margin-left:89%;
+	margin-top:2%;
+	position:absolute;
+}
+
+
+/* 新增书架的input框 */
+.form-group{
+	position:absolute;
+	width:14%;
+	margin-left:75%;
+	margin-top:2%;
+}
+
+
+/* 书架列表 表格 */
+
+.lg-all .table-box{
+	margin-top:6%;
+}
+
+.md-all .table-box{
+	margin-top:8%;
+}
+
+.table-box{
+	position:absolute;
+	width:89%;
+	margin-left:5%;
+}
+
+
+/*  页码 */
+
+.lg-all .pages-box{
+	position:absolute;
+	margin-top:43%;
+	margin-left:38%;
+}
+
+.md-all .pages-box{
+	position:absolute;
+	margin-top:48%;
+	margin-left:35%;
+}
+
+
+
+
+
