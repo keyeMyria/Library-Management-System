@@ -2,8 +2,10 @@
 
 
 use app\assets\IndexAsset;
+use app\assets\IndexGlobalAsset;
 
 IndexAsset::register( $this );
+IndexGlobalAsset::register( $this );
 
 
 if ( $session['isFirstLogin'] ) {
