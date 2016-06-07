@@ -1,0 +1,27 @@
+.update .all{
+	width:94%;
+	margin-left:3%;
+	position:fixed;
+
+}
+
+.update .update-goback-btn{
+	position:absolute;
+	margin-left:28%;
+	margin-top:2%;
+}
+
+
+.update .form-group{
+	width:70%;
+	margin-left:0px;
+	margin-top:0px;
+	position:static;
+}
+
+
+.update .update-btn{
+	margin-top:-44%;
+	margin-left:72%;
+
+}
