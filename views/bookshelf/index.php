@@ -2,7 +2,8 @@
 
 
 use app\assets\LayerGlobalAsset;
-use app\assets\BookshelfManageAsset;
+use app\assets\IndexGlobalAsset;
+use app\assets\ParamSetGlobalAsset;
 
 use yii\widgets\ActiveForm;
 use yii\widgets\LinkPager;
@@ -11,7 +12,8 @@ use yii\Helpers\Url;
 use yii\Helpers\Html;
 
 LayerGlobalAsset::register( $this );
-BookshelfManageAsset::register( $this );
+IndexGlobalAsset::register( $this );
+ParamSetGlobalAsset::register( $this );
 
 
 /** -------------------------------------------------------
@@ -27,9 +29,7 @@ if ( $session['isShowTip'] ){
 
 
 
-<!-- action -->
-
-
+	<!-- 使用Bootstrap的栅格系统 -->
 	<div class='container'>
 		<div class='row'>
 
@@ -188,11 +188,8 @@ if ( $session['isShowTip'] ){
 
 
 			</div>
-		</div>
+		</div> <!-- class = row end -->
+	</div> <!-- class = container end -->
 
-	</div>
-
-
-<!-- end -->
 
 
