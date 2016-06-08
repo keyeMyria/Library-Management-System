@@ -15,9 +15,7 @@ class BookAddAsset extends AssetBundle
     public $baseUrl = '@web';
 
 	public $css = [
-		'css/indexGlobal.css',
 		'css/bookAdd/index.css',
-		'css/background.css',
     ];
 
     public $js = [

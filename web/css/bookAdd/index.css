@@ -13,20 +13,18 @@
 .input-box .form-group{
 	margin: 0 auto;
 	width:250px;
-
 }
 
 .book-type-box,
 .publisher-box,
 .bookshelf-box{
 	margin-left:40%;
-
 }
 
 
 .book-add-btn{
+	width:30%;height:8%;
 	position:absolute;
-	top:0%;left:130%;
-
+	top:3%;left:130%;
 }
 
