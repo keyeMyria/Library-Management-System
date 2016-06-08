@@ -21,13 +21,12 @@ class BookSreachController extends Controller
 {
 	// 搜索结果 一页内显示的数据条数
 	public $defaultPageSize = 6;
+	public $defaultPageSize_large = 10;
 
 	// 定义搜索结果的 图书名 的长度
 	public $viewBookNameLength = 36;
-	
 
 	public $defaultAction = 'sreach';
-
 
 	/**
 	 * 图书搜索
@@ -66,7 +65,7 @@ class BookSreachController extends Controller
 
 				$session['isShowTip'] = false;
 
-				$sreachResult       = $bookSreachModel -> bookSreach( $get );
+				$sreachResult      = $bookSreachModel -> bookSreach( $get );
 				$sreachResultInfo  = $bookSreachModel -> getSreachResultInfo();
 
 				$cloneQuery = clone $sreachResult;
@@ -75,8 +74,15 @@ class BookSreachController extends Controller
 				$pages = new Pagination(['totalCount' => $cloneQuery->count() ] );
 				$pages -> defaultPageSize = $this -> defaultPageSize;
 
-				$models = $sreachResult -> offset( $pages->offset ) -> limit( $pages->limit ) -> all();
+				$models = $sreachResult  -> offset( $pages->offset ) -> limit( $pages->limit ) -> all();
 				$models = $bookInfoModel -> cutBookName( $models , 25 );
+
+				// 大屏专用数据
+				$pages_large = new Pagination(['totalCount' => $cloneQuery->count() ] );
+				$pages_large -> defaultPageSize = $this -> defaultPageSize_large;
+
+				$models_large = $sreachResult  -> offset( $pages_large->offset ) -> limit( $pages_large->limit ) -> all();
+				$models_large = $bookInfoModel -> cutBookName( $models_large , 25 );
 
 			}
 			
@@ -90,6 +96,8 @@ class BookSreachController extends Controller
 			return $this -> render('index', [
 				'pages'			   => $pages,
 				'models'		   => $models,
+				'pages_large'	   => $pages_large,
+				'models_large'	   => $models_large,
 				'session'          => $session,
 				'sreachType'       => $sreachTypeArr,	
 				'sreachText'       => $sreachText,

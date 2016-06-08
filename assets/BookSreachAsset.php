@@ -15,10 +15,8 @@ class BookSreachAsset extends AssetBundle
     public $baseUrl = '@web';
 
 	public $css = [
-		'css/indexGlobal.css',
 		'css/bookSreach/index.css',
 		'css/bookSreach/dropDown.css',
-		'css/background.css',
 		'css/bookSreach/viewMore.css', // 只应用于 图书搜索结果 的 “查看更多”
     ];
 
@@ -27,7 +25,6 @@ class BookSreachAsset extends AssetBundle
 		'js/bookSreach/index.js',
 		'js/bookSreach/dropDownSreachType.js',
     ];
-
 
     public $depends = [
         'yii\web\YiiAsset',

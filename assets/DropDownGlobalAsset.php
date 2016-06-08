@@ -30,7 +30,6 @@ class dropDownGlobalAsset extends AssetBundle
     public $baseUrl = '@web';
 
     public $css = [
-
 		'css/dropDownGlobal/normalize.css',
 		'css/dropDownGlobal/fancySelect.css',
 		'css/dropDownGlobal/index.css',

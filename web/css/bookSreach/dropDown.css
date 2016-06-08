@@ -2,8 +2,12 @@
  * 此 css 样式文件，为重写 全局下拉框的样式，目的为了定义只应用于 bookSreach 特定的下拉框样式等等
  */
 
+.fancy-select{
+	width:22%;		
+}
+
 div.fancy-select div.trigger{
-	width:100px;
+	width:100%;
 	padding:9px 0px 9px 13px;
 	background:#337ab7;
 	color:#fff;
@@ -17,6 +21,6 @@ div.fancy-select div.trigger.open{
 
 
 div.fancy-select ul.options{
-	min-width:100px;
+	min-width:100%;
 
 }
