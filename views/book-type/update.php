@@ -8,6 +8,8 @@ ParamSetGlobalAsset::register( $this );
 
 ?>
 
+<div class='update'>
+
 <div class="all">
 
 	<button class="btn btn-primary update-goback-btn" onclick='history.go(-1);'>返回</button>
@@ -29,4 +31,4 @@ ParamSetGlobalAsset::register( $this );
 
 </div>
 
-
+</div>
