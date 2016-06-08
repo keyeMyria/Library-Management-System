@@ -17,6 +17,7 @@ class ReaderTypeController extends Controller
 
 	#定义一页面内显示多少条数据条目
 	public $defaultPageSize = 10;
+	public $defaultPageSize_large = 18;
 
 	
 	# 新增条目失败时，提示的内容
@@ -59,11 +60,21 @@ class ReaderTypeController extends Controller
 						   -> limit( $pages->limit ) 
 					       -> all();
 
+
+			$pages_large = new Pagination(['totalCount' => $cloneQuery->count() ]);
+			$pages_large -> defaultPageSize =  $this -> defaultPageSize_large;
+			$data_large = $query -> offset( $pages_large->offset ) 
+						   -> limit( $pages_large->limit ) 
+					       -> all();
+
+
 			return $this->render('index', [
-				'model'		=> $model,
-				'data'		=> $data,
-				'pages'		=> $pages,
-				'session'   => $session,
+				'model'			=> $model,
+				'data'			=> $data,
+				'pages'			=> $pages,
+				'data_large'	=> $data_large,
+				'pages_large'	=> $pages_large,
+				'session'		=> $session,
 
 			]);		
 		}

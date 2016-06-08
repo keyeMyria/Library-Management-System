@@ -5,7 +5,7 @@ namespace app\assets;
 use yii\web\AssetBundle;
 
 /**
- * 此 asset 只服务于书架管理模块
+ * 此 asset 只服务于读者管理模块
  * @author Zhiqiao Xu  <xuzhiqiao97@gmail.com> 
  */
 
@@ -15,7 +15,8 @@ class ReaderTypeManageAsset extends AssetBundle
     public $baseUrl = '@web';
 
     public $css = [
-		'css/indexGlobal/index.css',
+		'css/readerTypeManage/update.css',
+		'css/readerTypeManage/index.css',
     ];
 
     public $js = [
