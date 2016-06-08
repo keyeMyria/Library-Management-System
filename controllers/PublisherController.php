@@ -22,7 +22,7 @@ class PublisherController extends Controller
 	 * 定义一页能显示多少条数据
 	 */
 	public $defaultPageSize = 10;
-	public $defaultPageSize_large = 16;
+	public $defaultPageSize_large = 18;
 
 
 	# 新增条目成功时, 提示的内容

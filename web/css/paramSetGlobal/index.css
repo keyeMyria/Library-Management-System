@@ -46,8 +46,8 @@
 
 .lg-all .pages-box{
 	position:absolute;
-	margin-top:43%;
-	margin-left:38%;
+	bottom:-1%;
+	left:35%;
 }
 
 .md-all .pages-box{
@@ -67,106 +67,3 @@
 
 
 
-/*
-.all{
-	width:92%;height:580px;
-	background:#FFFFF0; 
-	margin:auto;
-	position:relative;
-	border-radius:10px;
-	margin-top:2%;
-	box-shadow:5px 5px 7px #848484;
-	
-	
-}
-
-.all .bread-nav{
-	color:#000;
-	font-size:14px;
-	position:absolute;
-	top:4%;left:5%;
-}
-
-
-.btn-box{
-
-	width:100%;height:100%;
-	position:absolute;
-	top:8%;left:5%;
-}
-
-
-.table-box{
-	width:90%;
-	margin:auto;
-	position:absolute;
-	top:16%;left:5%;
-	border-radius:10px;
-	border:1px solid #fff;
-
-}
-
-.pages-box{
-	position:absolute;
-	bottom:-1%;left:43%;
-
-}
-
-
-.input-box{
-	width:207px;height:33px;
-	position:absolute;
-	top:5%;left:74.5%;
-
-}
-
-.form-group{
-
-	width:150px;height:30px;
-	float:left;
-}
-
-.add-btn{
-	float:right;
-}
-
-
-.update-goback-btn{
-	position:absolute;
-	top:3%;left:30%;
-}
-
-*/
-
-/*
- * 参数设置　> 读者类型管理　首页的 新增功能块的css * 
- *                           更新页面的
- *
- */
-/*
-.reader-type-input-box,
-.reader-type-update-input-box{
-	width:280px;height:35px;
-	position:absolute;
-	top:5%;left:68.5%;
-}
-
-.reader-type-input-box .form-group,
-.reader-type-update-input-box .form-group{
-	width:100px;
-
-}
-
-.reader-type-input-box .reader-type-name,
-.reader-type-update-input-box .reader-type-name{
-	float:left;	
-	width:130px;
-}
-
-.reader-type-input-box .borrow-number,
-.reader-type-update-input-box .borrow-number{
-	float:left;
-	width:80px; margin-left:40px;
-}
-
-*/
