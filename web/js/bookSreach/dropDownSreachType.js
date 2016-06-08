@@ -16,11 +16,24 @@
  */
 function recordSreachType()
 {
-	options = $('.options li');
-	//sessionStorage.sreachType = null; // 默认
-	options.click(function(){
-		sessionStorage.sreachType = $(this).text();	
-	}); 
+	screenWidth = $(document).width();
+
+	if( screenWidth > 1500 ){
+
+		options = $('.lg-all .options li');
+		//sessionStorage.sreachType = null; // 默认
+		options.click(function(){
+			sessionStorage.sreachType = $(this).text();	
+		}); 
+	} else {
+
+		options = $('.md-all .options li');
+		//sessionStorage.sreachType = null; // 默认
+		options.click(function(){
+			sessionStorage.sreachType = $(this).text();	
+		}); 
+		
+	}
 
 }
 
@@ -30,20 +43,35 @@ function recordSreachType()
  */
 function recordSreachTypeByClickSreachBtn()
 {
-	options   = $('.options li');
-	sreachBtn = $('.sreach-btn');	
+	
+	screenWidth = $(document).width();
 
-	sreachBtn.click(function(){
-		options.each(function(){
+	if( screenWidth > 1500 ){
 
-			if ( $(this).attr('class') == 'selected' ){
-				sessionStorage.sreachType = $(this).text();	
-				//alert( sessionStorage.sreachType );
-				//return false;
-			}
+		options   = $('.lg-all .options li');
+		sreachBtn = $('.lg-all .sreach-btn');	
+
+		sreachBtn.click(function(){
+			options.each(function(){
+				if ( $(this).attr('class') == 'selected' ){
+					sessionStorage.sreachType = $(this).text();	
+				}
+			});
 		});
-	});
 
+	} else {
+	
+		options   = $('.md-all .options li');
+		sreachBtn = $('.md-all .sreach-btn');	
+
+		sreachBtn.click(function(){
+			options.each(function(){
+				if ( $(this).attr('class') == 'selected' ){
+					sessionStorage.sreachType = $(this).text();	
+				}
+			});
+		});
+	}
 
 }
 
@@ -58,8 +86,8 @@ function recordSreachTypeByClickSreachBtn()
 function selectOptionBySession()
 {
 
-
 	var sreachType = sessionStorage.sreachType;
+	console.log( sreachType );
 
 	// 模拟层的 options
 	options = $('.options li');
