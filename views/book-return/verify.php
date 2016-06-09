@@ -1,6 +1,7 @@
 <?php
 
-use app\assets\ParamSetGlobalAsset;
+use app\assets\IndexGlobalAsset;
+use app\assets\UpdateGlobalAsset;
 use app\assets\LayerGlobalAsset;
 use app\assets\BookReturnAsset;
 
@@ -8,7 +9,8 @@ use app\assets\BookReturnAsset;
 use yii\widgets\ActiveForm;
 use yii\helpers\Html;
 
-ParamSetGlobalAsset::register( $this );
+IndexGlobalAsset::register( $this );
+UpdateGlobalAsset::register( $this );
 LayerGlobalAsset::register( $this );
 BookReturnAsset::register( $this );
 
@@ -25,24 +27,25 @@ if ( $session['isShowTip'] ){
 
 ?>
 
+<div class='update'>
 
 <div class='all'>
 
 	<div class='bread-nav'>
 		<span>图书归还</span>	
 	</div>
-
-	<div class='content'>
-		<?php $form = ActiveForm::begin(['method' => 'get']) ?>				
-			<?= $form -> field( $readerModel, 'readerNumber') -> textinput(['placeholder' => '请输入读者编码' ]) -> label( false ) ?>
-			<?= Html::submitButton('验证', ['class' => 'btn btn-primary'] ) ?>	
-		<?php ActiveForm::end(); ?>
+	<div class='verify'>	
+		<div class='content'>
+			<?php $form = ActiveForm::begin(['method' => 'get']) ?>				
+				<?= $form -> field( $readerModel, 'readerNumber') -> textinput(['placeholder' => '请输入读者编码' ]) -> label( false ) ?>
+				<?= Html::submitButton('验证', ['class' => 'btn btn-primary verify-btn'] ) ?>	
+			<?php ActiveForm::end(); ?>
+		</div>
 	</div>
-
 </div>
 
 
-
+</div>
 
 <script>
 

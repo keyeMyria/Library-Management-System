@@ -1,6 +1,7 @@
 <?php
 
-use app\assets\ParamSetGlobalAsset;
+use app\assets\IndexGlobalAsset;
+use app\assets\UpdateGlobalAsset;
 use app\assets\LayerGlobalAsset;
 use app\assets\BookReturnAsset;
 
@@ -11,7 +12,8 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 
 
-ParamSetGlobalAsset::register( $this );
+IndexGlobalAsset::register( $this );
+UpdateGlobalAsset::register( $this );
 LayerGlobalAsset::register( $this );
 BookReturnAsset::register( $this );
 
@@ -28,7 +30,7 @@ if ( $session['isShowTip'] ){
 
 ?>
 
-
+<div class='update'>
 <div class='all'>
 
 	<div class='bread-nav'>
@@ -102,9 +104,13 @@ echo LinkPager::widget([
 
 ?>
 
-
 	
 </div>
+
+</div>
+
+
+
 
 
 <script>

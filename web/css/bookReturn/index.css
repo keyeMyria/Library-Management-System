@@ -1,24 +1,28 @@
 /*
  * 进入 “图书归还” 之前的 验证 读者编号页面
  */
-.content{
+.verify .content{
 	position:absolute;
 	top:25%;left:35%;
 }
 
-.form-group{
-	width:210px;
+.verify .form-group{
+	float:left;
+	width:78%;
 }
 
-.form-control{
+.verify .form-control{
 	float:left;
 	width:200px;
 }
 
-.number-btn{
+.verify .number-btn{
 	float:right;
 }
 
+.verify .verify-btn{
+	float:left;
+}
 
 
 /*

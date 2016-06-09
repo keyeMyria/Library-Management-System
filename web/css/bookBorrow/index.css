@@ -1,13 +1,33 @@
+.lg-all .input-box{
+	width:25%;
+}
+
+.md-all .input-box{
+	width:37%;
+}
+
+
 .input-box{
 	position:absolute;
 	top:14%;left:35%;
-	width:350px;height:40px;
+	height:8%;
 }
+
+
+.form-group{
+	float:left;
+	width:63%;
+}
+
 
 .sreachInput{
 
-	width:160%;height:39px;
+	width:104%;height:39px;
 	padding-left:15px;
+}
+
+.lg-all .sreachInput{
+	width:110%;
 }
 
 .sreach-btn{
