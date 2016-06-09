@@ -87,11 +87,21 @@
  * “已借图书” 表单
  */
 
+
+
+.lg-all .reader-borrow-box{
+	top:29%;
+}
+
+.md-all .reader-borrow-box{
+	top:32%;
+}
+
 .reader-borrow-box{
-	width:90%; height:60%;
+	width:90%;height:60%;
 	min-width:600px; min-height:350px;
 	position:absolute;
-	top:32%;left:5%;
+	left:5%;
 }
 
 .reader-borrow-box table tbody tr td{

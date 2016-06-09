@@ -29,6 +29,7 @@ class BookReturnController extends Controller
 
 	# 借阅数据的分页条数 (每页)
 	public $defaultPageSize = 5;
+	public $defaultPageSize_large = 8;
 
 		
 	/*
@@ -80,11 +81,22 @@ class BookReturnController extends Controller
 
 			$models = $bookInfoModel -> cutBookName( $models , 30 );
 
+			$pages_large = new Pagination(['totalCount' => $cloneQuery->count() ]);
+			$pages_large -> defaultPageSize = $this -> defaultPageSize_large;
+
+			$models_large = $borrowQuery -> offset( $pages_large->offset ) 
+					               -> limit(  $pages_large->limit ) 
+					               -> all();
+
+			$models_large = $bookInfoModel -> cutBookName( $models_large , 40 );
+
 
 			return $this -> render( 'index' , [
 
 				'pages'         => $pages,	
 				'models'        => $models,
+				'pages_large'   => $pages_large,	
+				'models_large'  => $models_large,
 				'session'       => $session, 	
 				'readerData'    => $readerData,
 				'borrowedCount' => $borrowedCount,
