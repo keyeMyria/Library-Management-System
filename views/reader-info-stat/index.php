@@ -1,29 +1,82 @@
 <?php
 
+
+use app\assets\IndexGlobalAsset;
+use app\assets\UpdateGlobalAsset;
 use app\assets\BookInfoStatAsset;
 
 use yii\helpers\Html;
 
 
+IndexGlobalAsset::register( $this );
+UpdateGlobalAsset::register( $this );
 // 共用
 BookInfoStatAsset::register( $this );
 
 ?>
-<div class="all">
-	<div class="bread-nav">
-		<span>读者管理</span> >
-		<span>读者信息统计</span>
-	</div>
-
-	<?= Html::hiddenInput('jsonData', $json , [ 'class' => 'jsonData' ] ) ?>	
-	
 
 
-	<div class='help-block'></div>
-	<div id="container" class='main-chart' style="min-width: 310px; height: 520px; max-width: 700px; margin: 0 0 0 180px; "></div>	
 
 
-</div>
+
+
+<!-- 使用Bootstrap的栅格系统 -->
+<div class='container'>
+    <div class='row'>
+
+        <!-- 大屏适配 -->
+        <div class='col-lg-12 visible-lg-block'>                                                       
+
+			<div class="lg-all all">
+				<div class="bread-nav">
+					<span>读者管理</span> >
+					<span>读者信息统计</span>
+				</div>
+
+				<?= Html::hiddenInput('jsonData', $json , [ 'class' => 'jsonData' ] ) ?>	
+				
+
+
+				<div class='help-block'></div>
+				<div id="container_lg" class='main-chart' style="min-width: 310px; height: 100%; max-width: 78%; margin: 0 0 0 240px; "></div>	
+
+
+
+			</div>
+                
+        </div>      
+                    
+        <!--中屏适配 -->
+        <div class='col-md-12 visible-md-block'>
+                
+			<div class="md-all all">
+				<div class="bread-nav">
+					<span>读者管理</span> >
+					<span>读者信息统计</span>
+				</div>
+
+				<?= Html::hiddenInput('jsonData', $json , [ 'class' => 'jsonData' ] ) ?>	
+				
+
+
+				<div class='help-block'></div>
+				<div id="container_md" class='main-chart' style="min-width: 310px; height: 520px; max-width: 700px; margin: 0 0 0 220px; "></div>	
+
+
+			</div>
+
+                
+        </div>  
+    </div> <!-- class = row end -->
+</div> <!-- class = container end -->
+
+
+
+
+
+
+
+
 
 <script>
 window.onload = function(){
@@ -91,8 +144,18 @@ function pie( json ){
 		}
 		
 
+
+		if( $(document).width() > 1500 ){
+			
+			container = '#container_lg';	
+		} else {
+			container = '#container_md';	
+		}
+
+
+
 		// Build the chart
-		$('#container').highcharts( options );
+		$( container ).highcharts( options );
 	});
 
 }
