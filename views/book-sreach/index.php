@@ -40,7 +40,6 @@ if ( $session['isShowTip'] ){
         <!-- 大屏适配 -->
         <div class='col-lg-12 visible-lg-block'>
         
-
 			<div class='lg-all all'>
 
 				<div class="bread-nav">

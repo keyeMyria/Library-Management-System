@@ -1,6 +1,8 @@
 <?php
 
+use app\assets\IndexGlobalAsset;
 use app\assets\LayerGlobalAsset;
+use app\assets\UpdateGlobalAsset;
 use app\assets\BookAddAsset;
 use app\assets\DropDownGlobalAsset;
 use app\assets\BookSreachEditAsset;
@@ -11,6 +13,8 @@ use yii\widgets\LinkPager;
 use yii\helpers\Url;
 use yii\helpers\Html;
 
+IndexGlobalAsset::register( $this );
+UpdateGlobalAsset::register( $this );
 LayerGlobalAsset::register( $this );
 BookAddAsset::register( $this );
 DropDownGlobalAsset::register( $this );
@@ -30,7 +34,8 @@ if ( $session['isShowTip'] ){
 
 ?>
 
-
+<div class='update'>
+		
 <div class="all">
 	<div class="bread-nav">
 		<span>读者管理</span>  >
@@ -66,6 +71,8 @@ if ( $session['isShowTip'] ){
 		<?php ActiveForm::end()  ?>
 	</div>
 
+</div>
+</div>
 
 	<script>
 		window.onload = function()
@@ -86,10 +93,8 @@ if ( $session['isShowTip'] ){
 			});
 		}
 
-		
 	</script>
 
 
 
 
-</div>
