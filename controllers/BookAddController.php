@@ -38,7 +38,9 @@ class BookAddController extends Controller
 			// 存入把数据存入 lib_bookInfo 表，返回 id
 	
 			$bookInfoID = $this -> bookInfoSave( $post );
+
 			$result     = $this -> bookRelationship( $post, $bookInfoID);
+			dump( $result );exit;
 			
 			if( $result ){
 
