@@ -161,9 +161,12 @@ class BookSreachController extends Controller
 
 		if( $post = Yii::$app->request->post() ){
 			// 从编辑页面提交
+#dump( $post );exit;
 
 			$bookInfo = BookInfo::findOne( $post['bookInfoID'] );	
 			$bookRels = BookRelationship::findOne( $post['bookInfoID'] );
+#dump( $post );
+#dump( $bookRels );exit;
 
 			$bookInfo -> bookInfoBookISBN	    = $post['BookInfo']['bookInfoBookISBN'];
 			$bookInfo -> bookInfoBookName	    = $post['BookInfo']['bookInfoBookName'];
@@ -178,7 +181,7 @@ class BookSreachController extends Controller
 			$bookRels -> FK_publisherID = $post['publisher'];
 			$bookRels -> save();
 
-			 $session['checkIsShowTipNum'] = 1;
+			$session['checkIsShowTipNum'] = 1;
 			$url = $session['recordSreachUrl']; 
 			echo "<script> location.href = '{$url}' </script>";
 		}
@@ -275,6 +278,7 @@ class BookSreachController extends Controller
 		$data['bookshelfData'] = $bookshelfData;
 		$data['publisherData'] = $publisherData;
   
+
 		return $data;
 	}
 

@@ -1,6 +1,17 @@
 
 /* 搜索栏 ( 下拉框 和 输入框 和 按钮 )  */
-.input-box{ width:32%;height:40px;
+
+.lg-all .input-box{
+	width:33%;
+}
+
+.md-all .input-box{
+	width:50%;
+}
+
+
+.input-box{
+	height:20%;
 	position:absolute;
 	top:10%;left:10%;
 }

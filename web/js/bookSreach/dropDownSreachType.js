@@ -87,7 +87,6 @@ function selectOptionBySession()
 {
 
 	var sreachType = sessionStorage.sreachType;
-	console.log( sreachType );
 
 	// 模拟层的 options
 	options = $('.options li');
