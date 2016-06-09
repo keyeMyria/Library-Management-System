@@ -1,0 +1,32 @@
+.update .all{
+	width:94%;
+	height: 92%;
+	margin-left:3%;
+    margin-top: 2%;
+	position:fixed;
+    border-radius: 10px;
+    background: #FFFFF0;
+    box-shadow: 0px 0px 33px -12px #2B2B2B;
+
+}
+
+
+.update .update-goback-btn{
+	position:absolute;
+	margin-left:28%;
+	margin-top:2%;
+}
+
+
+.update .form-group{
+	width:70%;
+	margin-left:0px;
+	margin-top:0px;
+	position:static;
+}
+
+
+.update .update-btn{
+	margin-top:-44%;
+	margin-left:72%;
+}
