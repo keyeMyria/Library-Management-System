@@ -62,7 +62,8 @@ class BookBorrowController extends Controller
 			$bookInfoData = $bookBorrowModel -> queryBookInfoByISBN( $connect, $sreachISBN );
 
 			$bookInfoData = $bookInfoModel -> cutBookName( $bookInfoData , 20 );
-
+#dump( $bookInfoModel );
+#dump( $bookInfoData );exit;
 			if( $bookInfoData ){
 
 			} else {
@@ -75,8 +76,8 @@ class BookBorrowController extends Controller
 			}
 
 			return $this -> render('index', [
- 				'session'      => $session,
-				'bookInfoData' => $bookInfoData,	
+ 				'session'       => $session,
+				'bookInfoData'  => $bookInfoData,	
 				'bookInfoModel' => $bookInfoModel,
 			]);
 
@@ -107,6 +108,7 @@ class BookBorrowController extends Controller
 	 */
 	public function confirmBorrow( $post )
 	{
+
 		$bookBorrowModel = new BookBorrow;
 		$session         = new Session;
 		$connect = Yii::$app->db;

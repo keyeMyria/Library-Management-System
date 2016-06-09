@@ -217,14 +217,6 @@ if ( $session['isShowTip'] ){
 
 
 
-
-
-
-
-
-
-
-
 <script>
 
 window.onload = function()
@@ -236,13 +228,31 @@ window.onload = function()
 // 当按照 ISBN 查询出图书信息，然后把 图书ID, 放入 “确认借阅” 的隐藏域中
 function setBookInfoID(){
 
-		bookInfoID = $('.isbn').attr('book-info-id');
-		$('#bookInfoID').val( bookInfoID );
+	if( $(document).width() > 1500 ){
+
+		// 大屏
+		bookInfoID = $('.lg-all .isbn').attr('book-info-id');
+		$('.lg-all #bookInfoID').val( bookInfoID );
 
 		if ( !isNaN( bookInfoID )  ){
 			// 不是　NaN, 说明有 ISBN ，把按钮 禁用的属性去掉
-			$('.confirm-borrow-btn').removeAttr('disabled');	
+			$('.lg-all .confirm-borrow-btn').removeAttr('disabled');	
 		}
+	
+	
+	} else {
+
+		// 中屏
+		bookInfoID = $('.md-all .isbn').attr('book-info-id');
+		$('.md-all #bookInfoID').val( bookInfoID );
+
+		if ( !isNaN( bookInfoID )  ){
+			// 不是　NaN, 说明有 ISBN ，把按钮 禁用的属性去掉
+			$('.md-all .confirm-borrow-btn').removeAttr('disabled');	
+		}
+	
+	
+	}
 }
 
 

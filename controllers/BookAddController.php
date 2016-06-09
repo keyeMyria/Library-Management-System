@@ -40,7 +40,6 @@ class BookAddController extends Controller
 			$bookInfoID = $this -> bookInfoSave( $post );
 
 			$result     = $this -> bookRelationship( $post, $bookInfoID);
-			dump( $result );exit;
 			
 			if( $result ){
 

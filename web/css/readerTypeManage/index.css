@@ -7,15 +7,15 @@
 
 /* 书架管理中 新增 读者类型 的input-box 中的可借数量 input */
 .field-readertype-readertypeborrownumber{
-	width:5%;
-	left:84%;
+	width:8%;
+	left:80.5%;
 	top:3.7%;
 }
 
 
 /* 书架管理中 新增 读者类型 的input-box 中的读者类型名称input */
 .field-readertype-readertypename{
-	width:8%;
-	left:76%;
+	width:11%;
+	left:69.5%;
 	top:3.7%;
 }

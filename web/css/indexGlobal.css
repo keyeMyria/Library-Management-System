@@ -13,8 +13,8 @@ body{ background: #ededed; }
 
 /* 适配992px 以上的屏幕   */
 .md-all{
-	width:90%;
-	margin-left:-4%;
+	width:94%;
+	margin-left:-5%;
 }
 
 /* 两种屏幕( 中屏、大屏) 都适用的样式 */
