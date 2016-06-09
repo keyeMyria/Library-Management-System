@@ -21,6 +21,7 @@ class BorrowQueryController extends Controller
 {
 
 	public $defaultPageSize = 5;
+	public $defaultPageSize_large = 8;
 
 
 	public function actionIndex()
@@ -29,9 +30,14 @@ class BorrowQueryController extends Controller
 		$session          = new Session;
 		$bookInfoModel    = new BookInfo;
 		$borrowQueryModel = new BorrowQuery;
+
 		$connect = Yii::$app->db;
-		$pages = null;
-		$models = null;
+
+		$pages        = null;
+		$models       = null;
+		$pages_large  = null;
+		$models_large = null;
+
 
 
 		if ( $get = Yii::$app->request->get() ){
@@ -47,13 +53,22 @@ class BorrowQueryController extends Controller
 			
 			$models = $bookInfoModel -> cutBookName( $models , 30 );
 
+			// 大屏显示 的数据
+			$pages_large = new Pagination([ 'totalCount' => $cloneQuery->count() ]);
+			$pages_large -> defaultPageSize = $this -> defaultPageSize_large;
+
+			$models_large = $borrowQuery -> offset( $pages_large->offset ) -> limit( $pages_large->limit ) -> all();
+			
+			$models_large = $bookInfoModel -> cutBookName( $models_large , 30 );
 		}
 
 
 		return $this -> render('index', [
-			'pages' => $pages,	
-			'session' => $session,
-			'models'  => $models,
+			'pages'         => $pages,	
+			'session'       => $session,
+			'models'        => $models,
+			'pages_large'   => $pages_large,	
+			'models_large'  => $models_large,
 		]);	
 
 	

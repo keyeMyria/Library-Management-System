@@ -24,10 +24,18 @@
 }
 
 
+.lg-all .table-result{
+	top:20%;
+}
+
+.md-all .table-result{
+	top:23%;
+}
+
 .table-result{
 
 	position:absolute;
-	top:23%;left:5%;
+	left:5%;
 	width:90%;height:65%;
 	min-width:500px;	
 
